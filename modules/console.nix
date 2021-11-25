@@ -5,6 +5,7 @@
     curl
     git
     pciutils
+    htop
     lsof
     killall
     xorg.xwininfo
