@@ -1,7 +1,9 @@
 { pkgs, ... }: {
   virtualisation.libvirtd.enable = true;
-  programs.fish.enable = true;
-  programs.steam.enable = true;
+  programs = {
+    fish.enable = true;
+    steam.enable = true;
+  };
   users.users.anselmschueler = {
     isNormalUser = true;
     description = "Anselm Schüler";
