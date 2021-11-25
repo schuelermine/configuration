@@ -14,7 +14,6 @@
     ffmpeg
     file
     nix-info
-    nixos-option
     nix-top
   ];
   console = {
