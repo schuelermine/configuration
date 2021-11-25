@@ -18,6 +18,18 @@
     };
     printing.enable = true;
   };
+  fonts.fonts = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji
+    jetbrains-mono
+    cascadia-code
+    fira-code
+    hack-font
+    fira
+    libertine
+    ibm-plex
+  ];
   environment = {
     systemPackages = with pkgs; [
       gnome.gnome-tweaks
