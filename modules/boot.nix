@@ -1,4 +1,4 @@
-{ pkgs, nixos-stable, ... }: {
+{ pkgs, ... }: {
   boot = {
     loader = {
       timeout = 0;
@@ -8,7 +8,7 @@
       };
       efi.canTouchEfiVariables = true;
     };
-    kernelPackages = nixos-stable.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_latest;
     plymouth = {
       enable = true;
       theme = "fade-in";
