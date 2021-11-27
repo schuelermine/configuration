@@ -42,6 +42,8 @@
       gimp
       libreoffice-fresh
       (symlink {
+        system = "x86_64-linux";
+        busybox = pkgs.busybox;
         link = "/bin/gnome-terminal";
         target = "${kitty}";
         target-name = "kitty";
