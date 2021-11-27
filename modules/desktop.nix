@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, symlink, ... }: {
   i18n.defaultLocale = "en_GB.UTF-8";
   hardware.pulseaudio.enable = true;
   sound.enable = true;
@@ -41,6 +41,11 @@
       gnome.gnome-sound-recorder
       gimp
       libreoffice-fresh
+      (symlink {
+        link = "/bin/gnome-terminal";
+        target = "${kitty}";
+        target-name = "kitty";
+      }) # This spoofs gnome-terminal, because currently, some unconfigurable actions in GNOME try to call a terminal but can’t find kitty.
     ];
     gnome.excludePackages = with pkgs.gnome; [
       gnome-calculator
