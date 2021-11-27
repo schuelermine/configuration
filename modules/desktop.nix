@@ -45,7 +45,7 @@
         system = "x86_64-linux";
         busybox = pkgs.busybox;
         link = "/bin/gnome-terminal";
-        target = "${kitty}/bin/gnome-terminal";
+        target = "${kitty}/bin/kitty";
         target-name = "kitty";
       }) # This spoofs gnome-terminal, because currently, some unconfigurable actions in GNOME try to call a terminal but can’t find kitty.
     ];
