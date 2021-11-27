@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "nix-symlink": {
+      "locked": {
+        "lastModified": 1638042710,
+        "narHash": "sha256-dTkTkJWpkUtdsg3689Z+vuO4GFV/5kF2dSQCEMhXT18=",
+        "owner": "schuelermine",
+        "repo": "nix-symlink",
+        "rev": "1d4c24b446fcbbbd12c3fd13ecc4e516e4b7d48c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "schuelermine",
+        "ref": "b0",
+        "repo": "nix-symlink",
+        "type": "github"
+      }
+    },
     "nixos": {
       "locked": {
         "lastModified": 1637841632,
@@ -18,6 +34,7 @@
     },
     "root": {
       "inputs": {
+        "nix-symlink": "nix-symlink",
         "nixos": "nixos"
       }
     }
