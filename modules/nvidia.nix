@@ -1,11 +1,12 @@
 { pkgs, ... }: {
-  services.xserver.videoDrivers = [ "nvidia" "modesetting" ];
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware = {
     opengl = {
       driSupport32Bit = true;
       driSupport = true;
     };
     nvidia = {
+      modesetting.enable = true;
       nvidiaPersistenced = true;
       prime = {
         offload.enable = true;
