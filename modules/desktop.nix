@@ -12,10 +12,7 @@
       xkbVariant = "nodeadkeys";
       libinput.enable = true;
     };
-    gnome = {
-      core-developer-tools.enable = true;
-      games.enable = true;
-    };
+    gnome.games.enable = true;
     printing.enable = true;
   };
   fonts.fonts = with pkgs; [
