@@ -25,7 +25,7 @@
       device = "/dev/disk/by-uuid/B0BA-86D6";
       fsType = "vfat";
     };
-    "/media/root/external-data" = {
+    "/media/external-data" = {
       device = "/dev/disk/by-label/external-data";
       fsType = "ext4";
       options = [ "nofail" ];
