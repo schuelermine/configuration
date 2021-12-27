@@ -40,7 +40,7 @@
       libreoffice-fresh
       (symlink {
         system = "x86_64-linux";
-        busybox = pkgs.busybox;
+        utils = pkgs.busybox;
         link = "/bin/gnome-terminal";
         target = "${kitty}/bin/kitty";
         target-name = "kitty";
