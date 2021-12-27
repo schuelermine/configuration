@@ -43,7 +43,7 @@
         utils = pkgs.busybox;
         link = "/bin/gnome-terminal";
         target = "${kitty}/bin/kitty";
-        target-name = "kitty";
+        target-label = "kitty";
       }) # This spoofs gnome-terminal, because currently, some unconfigurable actions in GNOME try to call a terminal but can’t find kitty.
     ];
     gnome.excludePackages = with pkgs.gnome; [
