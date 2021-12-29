@@ -3,7 +3,7 @@
     nano
     wget
     curl
-    (git.override { sendEmailSupport = true; })
+    git
     pciutils
     htop
     lsof
