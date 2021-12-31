@@ -1,10 +1,10 @@
 {
   inputs = {
-    nixos.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nix-symlink.url = "github:schuelermine/nix-symlink/b0";
   };
-  outputs = { self, nixos, nix-symlink }: {
-    nixosConfigurations.buggeryyacht-nixos = nixos.lib.nixosSystem {
+  outputs = { self, nixpkgs, nix-symlink }: {
+    nixosConfigurations.buggeryyacht-nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs.symlink = nix-symlink.symlink;
       modules = [
