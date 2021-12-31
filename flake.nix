@@ -15,9 +15,7 @@
         ./modules/nvidia.nix
         ./modules/system.nix
         ./modules/users.nix
-        { nixpkgs.overlays = [ self.overlay ]; }
       ];
     };
-    overlay = import ./overlay.nix;
   };
 }
