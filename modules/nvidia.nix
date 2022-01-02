@@ -1,5 +1,8 @@
 { pkgs, ... }: {
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver = {
+    videoDrivers = [ "nvidia" ];
+    displayManager.gdm.nvidiaWayland = false;
+  };
   hardware = {
     opengl = {
       driSupport32Bit = true;
