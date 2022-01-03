@@ -1,9 +1,12 @@
 { pkgs, ... }: {
+  programs.git = {
+    enable = true;
+    package = pkgs.gitFull;
+  };
   environment.systemPackages = with pkgs; [
     nano
     wget
     curl
-    gitAndTools.gitFull
     pciutils
     htop
     lsof
