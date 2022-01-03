@@ -3,7 +3,7 @@
     nano
     wget
     curl
-    git
+    gitAndTools.gitFull
     pciutils
     htop
     lsof
