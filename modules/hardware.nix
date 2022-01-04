@@ -32,6 +32,8 @@
     };
   };
 
+  services.udev.packages = [ pkgs.libmtp ];
+
   swapDevices =
     [{ device = "/dev/disk/by-uuid/3bcf42cc-8acd-41d5-ae32-d21d1082575a"; }];
 
