@@ -38,9 +38,4 @@
     [{ device = "/dev/disk/by-uuid/3bcf42cc-8acd-41d5-ae32-d21d1082575a"; }];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-
-  users = {
-    groups.external-data-users = { };
-    users.anselmschueler.extraGroups = [ "external-data-users" ];
-  };
 }
