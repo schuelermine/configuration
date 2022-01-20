@@ -9,7 +9,7 @@
       system = "x86_64-linux";
       specialArgs.symlink = nix-symlink.symlink;
       modules = nix-lib.attrs.mapToValuesX
-        (name: type: if type != "regular" then [ ] else [ (./. + "/${name}") ])
+        (name: type: if type != "regular" then [ ] else [ (./modules + "/${name}") ])
         (builtins.readDir ./modules);
     };
   };
