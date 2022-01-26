@@ -48,7 +48,7 @@
         "type": "github"
       }
     },
-    "nixpkgs-future": {
+    "nixpkgs-fix-noto-cjk-src": {
       "locked": {
         "lastModified": 1643133765,
         "narHash": "sha256-AoaXumvN5tVxi07TNcVkrbJpMpqqebsAmzB1Eqqb8EY=",
@@ -69,7 +69,7 @@
         "nix-lib": "nix-lib",
         "nix-symlink": "nix-symlink",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-future": "nixpkgs-future"
+        "nixpkgs-fix-noto-cjk-src": "nixpkgs-fix-noto-cjk-src"
       }
     }
   },
