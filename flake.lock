@@ -48,11 +48,28 @@
         "type": "github"
       }
     },
+    "nixpkgs-future": {
+      "locked": {
+        "lastModified": 1643133765,
+        "narHash": "sha256-AoaXumvN5tVxi07TNcVkrbJpMpqqebsAmzB1Eqqb8EY=",
+        "owner": "midchildan",
+        "repo": "nixpkgs",
+        "rev": "f8832996d883756c4ae0a1487173e46438d53a04",
+        "type": "github"
+      },
+      "original": {
+        "owner": "midchildan",
+        "ref": "fix/noto-cjk-src",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "nix-lib": "nix-lib",
         "nix-symlink": "nix-symlink",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-future": "nixpkgs-future"
       }
     }
   },
