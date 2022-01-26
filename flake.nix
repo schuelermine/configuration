@@ -1,7 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-future.url = "github:midchildan/nixpkgs/fix/noto-cjk-src";
+    nixpkgs-fix-noto-cjk-src.url = "github:midchildan/nixpkgs/fix/noto-cjk-src";
     nix-lib.url = "github:schuelermine/nix-lib/b0";
     nix-symlink.url = "github:schuelermine/nix-symlink/b0";
   };
@@ -10,7 +10,7 @@
       nixosConfigurations.buggeryyacht-nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {
-          nixpkgs-future = import nixpkgs-future { };
+          nixpkgs-fix-noto-cjk-src = import nixpkgs-fix-noto-cjk-src { };
           symlink = nix-symlink.symlink;
         };
         modules = attrs.mapToValues (n: _: ./modules + "/${n}")
