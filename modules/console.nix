@@ -19,6 +19,7 @@
     file
     nix-info
     nix-top
+    man-pages
   ];
   console = {
     packages = [ pkgs.terminus_font ];
