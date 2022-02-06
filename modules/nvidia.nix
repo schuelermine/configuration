@@ -1,7 +1,6 @@
 { pkgs, ... }: {
   services.xserver = {
     videoDrivers = [ "nvidia" ];
-    displayManager.gdm.nvidiaWayland = false;
   };
   hardware = {
     opengl = {
