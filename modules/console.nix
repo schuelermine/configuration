@@ -20,6 +20,7 @@
     nix-info
     nix-top
     man-pages
+    moreutils
   ];
   console = {
     packages = [ pkgs.terminus_font ];
