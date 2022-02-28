@@ -29,6 +29,7 @@
   ];
   environment = {
     systemPackages = with pkgs; [
+      stockfish  # Provides chess engine for gnome-chess
       gnome.gnome-tweaks
       qalculate-gtk
       kitty
