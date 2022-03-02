@@ -29,6 +29,7 @@
   ];
   environment = {
     systemPackages = with pkgs; [
+      yaru-theme
       stockfish  # Provides chess engine for gnome-chess
       gnome.gnome-tweaks
       qalculate-gtk
