@@ -21,6 +21,7 @@
     nix-top
     man-pages
     moreutils
+    libguestfs
   ];
   console = {
     packages = [ pkgs.terminus_font ];
