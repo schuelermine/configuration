@@ -10,7 +10,7 @@
         system = "x86_64-linux";
         specialArgs = { inherit (nix-symlink) symlink; };
         modules = attrs.mapToValues (n: _: ./modules + "/${n}")
-          (attrs.filter (n: t: t == "regular") (builtins.readDir ./modules));
+          (attrs.filter (n: t: t == "regular") (builtins.readDir ./config));
       };
     };
 }
