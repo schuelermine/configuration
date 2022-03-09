@@ -9,7 +9,7 @@
       nixosConfigurations.buggeryyacht-nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit (nix-symlink) symlink; };
-        modules = attrs.mapToValues (n: _: ./modules + "/${n}")
+        modules = attrs.mapToValues (n: _: ./config + "/${n}")
           (attrs.filter (n: t: t == "regular") (builtins.readDir ./config));
       };
     };
