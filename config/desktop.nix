@@ -1,6 +1,5 @@
 { pkgs, symlink, ... }: {
   i18n.defaultLocale = "en_GB.UTF-8";
-  hardware.pulseaudio.enable = true;
   sound.enable = true;
   services = {
     xserver = {
