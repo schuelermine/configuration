@@ -3,7 +3,6 @@
   hardware.pulseaudio.enable = true;
   sound.enable = true;
   services = {
-    pipewire.enable = true;
     xserver = {
       enable = true;
       desktopManager.gnome.enable = true;
