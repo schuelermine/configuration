@@ -1,6 +1,14 @@
 { pkgs, symlink, ... }: {
   i18n.defaultLocale = "en_GB.UTF-8";
-  sound.enable = true;
+  hardware.pulseaudio.enable = false;
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+    alsa = {
+      enable = true;
+      support32bit = true;
+    };
+  };
   services = {
     xserver = {
       enable = true;
