@@ -19,7 +19,6 @@
       xkbVariant = "nodeadkeys";
       libinput.enable = true;
     };
-    gnome.games.enable = true;
     printing.enable = true;
   };
   fonts.fonts = with pkgs; [
