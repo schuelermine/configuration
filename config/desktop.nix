@@ -30,7 +30,7 @@
     fira
     fira
     fira-code
-    fira-monoo
+    fira-mono
     fixedsys-excelsior
     gentium
     go-font
