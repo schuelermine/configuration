@@ -54,6 +54,7 @@
     open-fonts
     open-sans
     open-sans
+    redhat-official-fonts
     roboto
     roboto-mono
     roboto-slab
