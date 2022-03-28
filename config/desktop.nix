@@ -77,7 +77,7 @@
     source-serif
     source-serif-pro
     sudo-font
-    ubm_font_family
+    ubuntu_font_family
     unifont
     victor-mono
     vollkorn
