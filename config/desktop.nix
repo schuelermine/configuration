@@ -38,7 +38,6 @@
     ibm-plex
     jetbrains-mono
     julia-mono
-    last-resort
     lato
     league-of-moveable-type
     liberation_ttf
