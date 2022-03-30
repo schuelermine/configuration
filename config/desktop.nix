@@ -95,18 +95,6 @@
       gnome.gnome-sound-recorder
       gimp
       libreoffice-fresh
-      (symlink {
-        system = "x86_64-linux";
-        utils = pkgs.busybox;
-        link = "/bin/gnome-terminal";
-        target = "${kitty}/bin/kitty";
-        target-label = "kitty";
-      }) # This spoofs gnome-terminal, because currently, some unconfigurable actions in GNOME try to call a terminal but can’t find kitty.
-    ];
-    gnome.excludePackages = with pkgs.gnome; [
-      gnome-calculator
-      gnome-terminal
-      epiphany
     ];
   };
 }
