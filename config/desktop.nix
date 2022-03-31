@@ -83,6 +83,11 @@
     vollkorn
   ];
   environment = {
+    gnome.excludePackages = with pkgs; [
+      gnome.gnome-calculator
+      gnome.epiphany
+      gnome-console
+    ];
     systemPackages = with pkgs; [
       yaru-theme
       stockfish  # Provides chess engine for gnome-chess
