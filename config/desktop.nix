@@ -88,9 +88,9 @@
       gnome.epiphany
       gnome-console
     ];
-    systemPackages = with pkgs; [
-      inherit (aspellDicts) de en en-computers en-science;
-      inherit (hunspellDicts) de-de en-gb-ise en-gb-ize en-gb-large en-us en-us-large;
+    systemPackages = with pkgs;
+      (with aspellDictes; [ de en en-computers en-science ]) ++
+      (with hunspellDicts; [ de-de en-gb-ise en-gb-ize en-gb-large en-us en-us-large ]) ++ [
       yaru-theme
       stockfish  # Provides chess engine for gnome-chess
       gnome.gnome-tweaks
