@@ -89,7 +89,7 @@
       gnome-console
     ];
     systemPackages = with pkgs;
-      (with aspellDictes; [ de en en-computers en-science ])
+      (with aspellDicts; [ de en en-computers en-science ])
       ++ (with hunspellDicts; [
         de-de
         en-gb-ise
