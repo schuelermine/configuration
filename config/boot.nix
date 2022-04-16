@@ -10,5 +10,5 @@
     };
     kernelPackages = pkgs.linuxPackages_latest;
   };
-  systemd.targets.network-online.wantedBy = lib.mkForce (builtins.removeAttrs config.systemd.targets.network-online.wantedBy [ "multi-user.target" ]);
+  systemd.targets.network-online.wantedBy = lib.mkForce [ ];
 }
