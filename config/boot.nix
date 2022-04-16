@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, pkgs, lib, ... }: {
   boot = {
     loader = {
       timeout = 0;
@@ -10,4 +10,5 @@
     };
     kernelPackages = pkgs.linuxPackages_latest;
   };
+  systemd.targets.network-online.wantedBy = lib.mkForce (builtins.removeAttrs "multi-user.target" config.systemd.targets.network-online.wanted-by);
 }
