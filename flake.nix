@@ -6,7 +6,7 @@
   };
   outputs = { self, nixpkgs, nix-symlink, nix-lib }:
     with nix-lib; {
-      nixosConfigurations.buggeryyacht-nixos = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.buggeryyacht = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit (nix-symlink) symlink; };
         modules = attrs.mapToValues (n: _: ./config + "/${n}")

@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   system.stateVersion = "21.05";
   nixpkgs.config.allowUnfree = true;
-  networking.hostName = "buggeryyacht-nixos";
+  networking.hostName = "buggeryyacht";
   time.timeZone = "Europe/Berlin";
   nix = {
     package = pkgs.nixUnstable;
