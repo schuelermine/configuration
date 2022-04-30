@@ -3,9 +3,15 @@
   nixpkgs.config.allowUnfree = true;
   networking = {
     hostName = "buggeryyacht";
-    firewall = {
+    firewall = let
+      kdeconnect = {
+        from = 1714;
+        to = 1764;
+      };
+    in {
       enable = true;
-      allowedTCPPorts = [ 1716 ];  # Required for KDEConnect
+      allowedTCPPorts = [ kdeconnect ];
+      allowedUDPPorts = [ kdeconnect ];
     };
   };
   time.timeZone = "Europe/Berlin";
