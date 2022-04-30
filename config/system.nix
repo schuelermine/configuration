@@ -1,7 +1,13 @@
 { pkgs, ... }: {
   system.stateVersion = "21.05";
   nixpkgs.config.allowUnfree = true;
-  networking.hostName = "buggeryyacht";
+  networking = {
+    hostName = "buggeryyacht";
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [ 1716 ];  # Required for KDEConnect
+    };
+  };
   time.timeZone = "Europe/Berlin";
   nix = {
     package = pkgs.nixUnstable;
