@@ -10,8 +10,8 @@
       };
     in {
       enable = true;
-      allowedTCPPorts = [ kdeconnect ];
-      allowedUDPPorts = [ kdeconnect ];
+      allowedTCPPortRanges = [ kdeconnect ];
+      allowedUDPPortRanges = [ kdeconnect ];
     };
   };
   time.timeZone = "Europe/Berlin";
