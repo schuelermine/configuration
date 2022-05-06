@@ -1,11 +1,17 @@
 { pkgs, ... }: {
-  services.xserver = { videoDrivers = [ "nvidia" ]; };
+  services.xserver = { videoDrivers = [ "nvidia" ];
+  screenSection = ''
+  Option         "metamodes" "nvidia-auto-select +0+0 {ForceFullCompositionPipeline=On}"
+  Option         "AllowIndirectGLXProtocol" "off"
+  Option         "TripleBuffer" "on"
+''; };
   hardware = {
     opengl = {
       driSupport32Bit = true;
       driSupport = true;
     };
     nvidia = {
+      powerManagement.enable = true;
       modesetting.enable = true;
       nvidiaPersistenced = true;
       prime = {
