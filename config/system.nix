@@ -14,6 +14,7 @@
       allowedUDPPortRanges = [ kdeconnect ];
     };
   };
+  boot.supportedFilesystems = [ "ntfs" ];
   time.timeZone = "Europe/Berlin";
   nix = {
     package = pkgs.nixUnstable;
