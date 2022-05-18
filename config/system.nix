@@ -14,6 +14,7 @@
       allowedUDPPortRanges = [ kdeconnect ];
     };
   };
+  services.flatpak.enable = true;
   boot.supportedFilesystems = [ "ntfs" ];
   time.timeZone = "Europe/Berlin";
   nix = {
