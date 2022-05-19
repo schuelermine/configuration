@@ -11,7 +11,6 @@
     '';
     settings = {
       auto-optimise-store = true;
-      auto-collect-garbage = true;
     };
   };
 }
