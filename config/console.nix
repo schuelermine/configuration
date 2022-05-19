@@ -29,5 +29,4 @@
     useXkbConfig = true;
     earlySetup = true;
   };
-
 }
