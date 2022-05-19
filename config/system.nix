@@ -1,19 +1,7 @@
 { pkgs, ... }: {
   system.stateVersion = "21.05";
   nixpkgs.config.allowUnfree = true;
-  networking = {
-    hostName = "buggeryyacht";
-    firewall = let
-      kdeconnect = {
-        from = 1714;
-        to = 1764;
-      };
-    in {
-      enable = true;
-      allowedTCPPortRanges = [ kdeconnect ];
-      allowedUDPPortRanges = [ kdeconnect ];
-    };
-  };
+  networking.hostName = "buggeryyacht";
   boot.supportedFilesystems = [ "ntfs" ];
   time.timeZone = "Europe/Berlin";
   nix = {
@@ -21,6 +9,9 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-    settings.auto-optimise-store = true;
+    settings = {
+      auto-optimise-store = true;
+      auto-collect-garbage = true;
+    };
   };
 }

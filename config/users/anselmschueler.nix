@@ -1,5 +1,15 @@
 { pkgs, ... }: {
   virtualisation.libvirtd.enable = true;
+  networking.firewall = let
+    kdeconnect = {
+      from = 1714;
+      to = 1764;
+    };
+  in {
+    enable = true;
+    allowedTCPPortRanges = [ kdeconnect ];
+    allowedUDPPortRanges = [ kdeconnect ];
+  };
   programs = {
     fish.enable = true;
     steam.enable = true;

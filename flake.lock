@@ -16,22 +16,6 @@
         "type": "github"
       }
     },
-    "nix-symlink": {
-      "locked": {
-        "lastModified": 1640521420,
-        "narHash": "sha256-R6qYEpMt5RU8si9iGa4N7uEfZ3gyGRFHJL2d9z7D4Ho=",
-        "owner": "schuelermine",
-        "repo": "nix-symlink",
-        "rev": "731907586979ae1be85675c4e37eb3a65d9d3bfb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "schuelermine",
-        "ref": "b0",
-        "repo": "nix-symlink",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1652572281,
@@ -51,7 +35,6 @@
     "root": {
       "inputs": {
         "nix-lib": "nix-lib",
-        "nix-symlink": "nix-symlink",
         "nixpkgs": "nixpkgs"
       }
     }
