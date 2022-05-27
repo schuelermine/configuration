@@ -5,7 +5,12 @@
   boot.supportedFilesystems = [ "ntfs" ];
   time.timeZone = "Europe/Berlin";
   nix = {
-    registry.nixpkgs.flake = nixpkgs;
+    registry.nixpkgs.to = {
+      owner = "NixOS";
+      repo = "nixpkgs";
+      rev = nixpkgs.sourceInfo.rev;
+      type = "github";
+    };
     nixPath = [ "nixpkgs=${nixpkgs}" ];
     package = pkgs.nixUnstable;
     extraOptions = ''
