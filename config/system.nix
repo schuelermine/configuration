@@ -5,6 +5,8 @@
   boot.supportedFilesystems = [ "ntfs" ];
   time.timeZone = "Europe/Berlin";
   nix = {
+    registry.nixpkgs.flake = pkgs;
+    nixPath = [ "nixpkgs=${pkgs}" ];
     package = pkgs.nixUnstable;
     extraOptions = ''
       experimental-features = nix-command flakes
