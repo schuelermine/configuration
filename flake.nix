@@ -7,6 +7,7 @@
     with nix-lib; {
       nixosConfigurations.buggeryyacht = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        extraSpecialArgs = { inherit nixpkgs; };
         modules = attrs.mapToValues (n: _: ./config + "/${n}")
           (attrs.filter (n: t: t == "regular") (builtins.readDir ./config));
       };
