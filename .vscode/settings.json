@@ -1,0 +1,7 @@
+{
+    "[nix]": {
+        "editor.formatOnSave": true,
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2
+    }
+}
