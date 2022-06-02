@@ -2,7 +2,7 @@
   system.stateVersion = "21.05";
   nixpkgs.config.allowUnfree = true;
   networking.hostName = "buggeryyacht";
-  boot.supportedFilesystems = [ "ntfs" ];
+  boot.supportedFilesystems = [ "ntfs" "exfat" ];
   time.timeZone = "Europe/Berlin";
   nix = {
     registry.nixpkgs.to = {
