@@ -14,11 +14,12 @@
     fish.enable = true;
     steam.enable = true;
   };
+  environment.shells = [ pkgs.nushell ];
   users.users.anselmschueler = {
     isNormalUser = true;
     description = "Anselm Schüler";
     extraGroups = [ "wheel" "libvirtd" ];
     passwordFile = "/etc/passwd.d/anselmschueler";
-    shell = pkgs.fish;
+    shell = pkgs.nushell;
   };
 }
