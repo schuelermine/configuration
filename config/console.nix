@@ -11,17 +11,10 @@
     htop
     lsof
     killall
-    xorg.xwininfo
-    xorg.xkill
-    xsel
     imagemagick
     ffmpeg
     file
-    nix-info
-    nix-top
     man-pages
-    moreutils
-    libguestfs
   ];
   console = {
     packages = [ pkgs.terminus_font ];

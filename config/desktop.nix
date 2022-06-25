@@ -1,15 +1,15 @@
 { pkgs, ... }: {
   i18n.defaultLocale = "en_GB.UTF-8";
   hardware.pulseaudio.enable = false;
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
-    alsa = {
-      enable = true;
-      support32Bit = true;
-    };
-  };
   services = {
+    pipewire = {
+      enable = true;
+      pulse.enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+    };
     xserver = {
       enable = true;
       desktopManager.gnome.enable = true;
@@ -99,7 +99,6 @@
         en-us-large
       ]) ++ [
         yaru-theme
-        stockfish # Provides chess engine for gnome-chess
         gnome.gnome-tweaks
         qalculate-gtk
         kitty
@@ -109,6 +108,9 @@
         gnome.gnome-sound-recorder
         gimp
         libreoffice-fresh
+        xorg.xwininfo
+        xorg.xkill
+        xsel
       ];
   };
 }
