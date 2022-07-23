@@ -4,6 +4,7 @@
   networking.hostName = "buggeryyacht";
   boot.supportedFilesystems = [ "ntfs" "exfat" ];
   time.timeZone = "Europe/Berlin";
+  services.flatpak.enable = true;
   nix = {
     registry.nixpkgs.to = {
       owner = "NixOS";
