@@ -15,6 +15,8 @@
     ffmpeg
     file
     man-pages
+    trash-cli
+    rmtrash
   ];
   console = {
     packages = [ pkgs.terminus_font ];
