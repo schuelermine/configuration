@@ -20,6 +20,6 @@
     description = "Anselm Schüler";
     extraGroups = [ "wheel" "libvirtd" ];
     passwordFile = "/etc/passwd.d/anselmschueler";
-    shell = pkgs.nushell;
+    shell = pkgs.bash;
   };
 }
