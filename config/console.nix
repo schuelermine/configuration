@@ -16,6 +16,7 @@
     file
     man-pages
     trash-cli
+    tldr
     rmtrash
   ];
   console = {
