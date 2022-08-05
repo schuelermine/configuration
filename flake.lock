@@ -1,5 +1,20 @@
 {
   "nodes": {
+    "base-modules": {
+      "locked": {
+        "lastModified": 1659726414,
+        "narHash": "sha256-vC3+B0d1djaytFhkA69lUuWAQaAk0tLe1W6rp4WvzHE=",
+        "owner": "schuelermine",
+        "repo": "nixos-base-modules",
+        "rev": "fbb09d364cb441b727f61f2eb8320b7aac76bd60",
+        "type": "github"
+      },
+      "original": {
+        "owner": "schuelermine",
+        "repo": "nixos-base-modules",
+        "type": "github"
+      }
+    },
     "nix-lib": {
       "locked": {
         "lastModified": 1658176965,
@@ -34,6 +49,7 @@
     },
     "root": {
       "inputs": {
+        "base-modules": "base-modules",
         "nix-lib": "nix-lib",
         "nixpkgs": "nixpkgs"
       }
