@@ -1,19 +1,19 @@
 { pkgs, ... }: {
   virtualisation.libvirtd.enable = true;
-  networking.firewall = let
-    kdeconnect = {
-      from = 1714;
-      to = 1764;
+  networking.firewall =
+    let
+      kdeconnect = {
+        from = 1714;
+        to = 1764;
+      };
+    in
+    {
+      enable = true;
+      allowedTCPPortRanges = [ kdeconnect ];
+      allowedUDPPortRanges = [ kdeconnect ];
     };
-  in {
-    enable = true;
-    allowedTCPPortRanges = [ kdeconnect ];
-    allowedUDPPortRanges = [ kdeconnect ];
-  };
-  programs = {
-    fish.enable = true;
-    steam.enable = true;
-  };
+  programs.fish.enable = true;
+  services.udev.packages = with pkgs; [ android-udev-rules ];
   environment.shells = [ pkgs.nushell ];
   users.users.anselmschueler = {
     isNormalUser = true;
