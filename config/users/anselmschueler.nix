@@ -15,7 +15,7 @@
   programs.fish.enable = true;
   hardware.steam-hardware.enable = true;
   services.udev.packages = with pkgs; [ android-udev-rules ];
-  environment.shells = [ pkgs.nushell ];
+  environment.shells = [ pkgs.nushell pkgs.powershell ];
   users.users.anselmschueler = {
     isNormalUser = true;
     description = "Anselm Schüler";
