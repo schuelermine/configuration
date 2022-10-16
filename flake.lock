@@ -1,15 +1,12 @@
 {
   "nodes": {
     "base-modules": {
-      "inputs": {
-        "themed-gnome-shell-nix": "themed-gnome-shell-nix"
-      },
       "locked": {
-        "lastModified": 1665921417,
-        "narHash": "sha256-pMyOb1aECTrURl4+7yatqWuhjcK1ED51Wj7iYMK2WKs=",
+        "lastModified": 1665921738,
+        "narHash": "sha256-VQXzfwk1sb1ribkqsWxgTFEIqdcfQOYeXzA1kHr8sGQ=",
         "owner": "schuelermine",
         "repo": "nixos-base-modules",
-        "rev": "8ccd9d45dbb99f4ec720fde84e48bba66dedac91",
+        "rev": "a7e2a86d09b367669d3afa6e3dde60e7b1c3139d",
         "type": "github"
       },
       "original": {
@@ -55,21 +52,6 @@
         "base-modules": "base-modules",
         "nix-lib": "nix-lib",
         "nixpkgs": "nixpkgs"
-      }
-    },
-    "themed-gnome-shell-nix": {
-      "locked": {
-        "lastModified": 1665921406,
-        "narHash": "sha256-8yhNWl0MHQ70O5ordTJHpnHwi7eWTIPuf8NdMvD82Ts=",
-        "owner": "schuelermine",
-        "repo": "themed-gnome-shell-nix",
-        "rev": "9320f3e102e90470599f51b0835208a72de93b4f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "schuelermine",
-        "repo": "themed-gnome-shell-nix",
-        "type": "github"
       }
     }
   },
