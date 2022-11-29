@@ -1,6 +1,7 @@
 { pkgs, ... }: {
-  services.xserver = {
-    videoDrivers = [ "nvidia" ];
+  services = {
+    switcherooControl.enable = true;
+    xserver.videoDrivers = [ "nvidia" ];
   };
   hardware = {
     opengl = {
