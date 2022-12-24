@@ -2,11 +2,11 @@
   "nodes": {
     "base-modules": {
       "locked": {
-        "lastModified": 1669061035,
-        "narHash": "sha256-ubu2dMqW0ukAa8PA5Bn/5cjNU9y9JqOjLWbJEjKfFhE=",
+        "lastModified": 1671898879,
+        "narHash": "sha256-bN5htoydIOFZyoAKo+N56yie3imXXNFFEt/K/eGmv5M=",
         "owner": "schuelermine",
         "repo": "nixos-base-modules",
-        "rev": "19432a9e06e969a190e3bc3c8fbc53786ca5f834",
+        "rev": "c658de478b48ea99068ea1757e521bfa287cd067",
         "type": "github"
       },
       "original": {
