@@ -133,6 +133,7 @@
       jq
       moreutils
       procs
+      git
       unicode-paracode
       libqalculate
       du-dust
