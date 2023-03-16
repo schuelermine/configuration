@@ -41,7 +41,6 @@
   console = {
     packages = with pkgs; [ terminus_font ];
     font = "ter-v28b";
-    keyMap = "de";
     useXkbConfig = true;
   };
   services = {
