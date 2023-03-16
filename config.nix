@@ -74,6 +74,7 @@
   virtualisation.libvirtd.enable = true;
   programs.fish.enable = true;
   hardware = {
+    pulseaudio.enable = false;
     steam-hardware.enable = true;
     opengl = {
       driSupport32Bit = true;
@@ -145,8 +146,8 @@
     gnome.excludePackages = (with pkgs; [
       gnome-tour
     ]) ++ (with pkgs.gnome; [
-      gnome.gnome-calculator
-      gnome.epiphany
+      gnome-calculator
+      epiphany
     ]);
   };
   nix = {
