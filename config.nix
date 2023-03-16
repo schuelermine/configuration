@@ -91,12 +91,15 @@
       };
     };
   };
-  users.users.anselmschueler = {
-    isNormalUser = true;
-    description = "Anselm Schüler";
-    extraGroups = [ "wheel" "libvirtd" ];
-    passwordFile = "/etc/anselmschueler.password";
-    shell = pkgs.fish;
+  users = {
+    mutableUsers = false;
+    users.anselmschueler = {
+      isNormalUser = true;
+      description = "Anselm Schüler";
+      extraGroups = [ "wheel" "libvirtd" ];
+      passwordFile = "/etc/anselmschueler.password";
+      shell = pkgs.fish;
+    };
   };
   powerManagement.cpuFreqGovernor = "performance";
   environment = {
