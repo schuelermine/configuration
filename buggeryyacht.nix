@@ -8,10 +8,7 @@
       kernelModules = [ ];
       luks.devices = {
         nixos-root.device = "/dev/disk/by-uuid/68d3ce37-8778-49f2-8734-c4d70524347c";
-        swap = {
-          device = "/dev/disk/by-uuid/fca91f96-ba9d-47d7-a6c8-3c04c0ccd843";
-          keyFile = "/etc/swap.luks.password";
-        };
+        swap.device = "/dev/disk/by-uuid/fca91f96-ba9d-47d7-a6c8-3c04c0ccd843";
       };
     };
     kernelModules = [ "kvm-intel" ];
