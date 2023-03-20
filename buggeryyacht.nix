@@ -1,5 +1,4 @@
-{ lib, config, modulesPath, ... }:
-
+{ config, modulesPath, ... }:
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
   boot = {
@@ -19,7 +18,21 @@
     fsType = "ext4";
   };
   swapDevices = [ { device = "/dev/disk/by-uuid/baa82ee2-1570-4f5c-821d-f5fc82f7a96f"; } ];
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  nixpkgs.hostPlatform = "x86_64-linux";
+  services.xserver.videoDrivers = [ "nvidia" ];
+  powerManagement.cpuFreqGovernor = "performance";
+  hardware = {
+    nvidia = {
+      powerManagement.enable = true;
+      modesetting.enable = true;
+      nvidiaPersistenced = true;
+      forceFullCompositionPipeline = true;
+      prime = {
+        offload.enable = true;
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:1:0:0";
+      };
+    };
+    cpu.intel.updateMicrocode = config.hardware.enableRedistributableFirmware;
+  };
 }
