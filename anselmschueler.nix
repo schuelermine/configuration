@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  udev.packages = with pkgs; [ android-udev-rules ];
+  services.udev.packages = with pkgs; [ android-udev-rules ];
   virtualisation.libvirtd.enable = true;
   programs.fish.enable = true;
   hardware.steam-hardware.enable = true;
