@@ -25,7 +25,16 @@
     networkmanager.enable = true;
   };
   time.timeZone = "Europe/Berlin";
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n = {
+    supportedLocales = [ "de_DE.UTF-8/UTF-8" ];
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_PAPER = "de_DE.UTF-8";
+      LC_TELEPHONE = "de_DE.UTF-8";
+      LC_MEASUREMENT = "de_DE.UTF-8";
+      LC_MONETARY = "de_DE.UTF-8";
+    };
+  };
   console = {
     packages = with pkgs; [ terminus_font ];
     font = "ter-v28b";
