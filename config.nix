@@ -29,6 +29,7 @@
     supportedLocales = [ "de_DE.UTF-8/UTF-8" ];
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
+      LC_TIME = "en_GB.UTF-8";
       LC_PAPER = "de_DE.UTF-8";
       LC_TELEPHONE = "de_DE.UTF-8";
       LC_MEASUREMENT = "de_DE.UTF-8";
