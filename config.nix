@@ -67,9 +67,13 @@
     systemPackages = (with pkgs; [
       qalculate-gtk
       firefox
+      gnome.dconf-editor
       gnome.gnome-sound-recorder
       gimp
       libreoffice-fresh
+      wl-clipboard
+      xsel
+      xorg.xkill
       nano
       vim
       wget
