@@ -71,6 +71,9 @@
       gnome.gnome-sound-recorder
       gimp
       libreoffice-fresh
+      nix-index
+      nix-tree
+      nix-top
       wl-clipboard
       xsel
       xorg.xkill
