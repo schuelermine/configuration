@@ -42,6 +42,7 @@
     useXkbConfig = true;
   };
   services = {
+    fwupd.enable = true;
     pipewire = {
       enable = true;
       audio.enable = true;
