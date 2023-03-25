@@ -1,6 +1,5 @@
-{ pkgs, nixpkgs, ... }:
+{ pkgs, input-nixpkgs, ... }:
 {
-  imports = [ ./anselmschueler.nix ];
   nixpkgs.config.allowUnfree = true;
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -136,10 +135,10 @@
     registry.nixpkgs.to = {
       owner = "NixOS";
       repo = "nixpkgs";
-      rev = nixpkgs.sourceInfo.rev;
+      rev = input-nixpkgs.sourceInfo.rev;
       type = "github";
     };
-    nixPath = [ "nixpkgs=${nixpkgs}" ];
+    nixPath = [ "nixpkgs=${input-nixpkgs}" ];
     package = pkgs.nixUnstable;
     settings = {
       auto-optimise-store = true;
