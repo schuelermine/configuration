@@ -2,7 +2,7 @@
 {
   nixpkgs.config.allowUnfree = true;
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    # kernelPackages = pkgs.linuxPackages_latest;
     supportedFilesystems = [ "ntfs" "exfat" ];
     loader = {
       systemd-boot = {
