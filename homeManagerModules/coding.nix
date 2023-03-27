@@ -20,5 +20,5 @@
       mypy = { enable = true; };
     };
   };
-  home.packages = with pkgs; [ openjdk clang gdb typst ];
+  home.packages = with pkgs; [ openjdk clang gdb ];
 }

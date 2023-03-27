@@ -34,7 +34,6 @@
     fish = {
       enable = true;
       shellAliases = {
-        sl = "sl -e";
         ls = "exa --sort=type";
         ll = "ls --classify --long";
         la = "ls --classify --all";
