@@ -20,7 +20,6 @@
       "2606:4700:4700::1111#cloudflare-dns.com"
       "2606:4700:4700::1001#cloudflare-dns.com"
     ];
-    hostName = "buggeryyacht";
     networkmanager.enable = true;
   };
   time.timeZone = "Europe/Berlin";

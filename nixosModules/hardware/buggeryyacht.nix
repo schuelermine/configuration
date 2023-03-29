@@ -21,6 +21,7 @@
   nixpkgs.hostPlatform = "x86_64-linux";
   services.xserver.videoDrivers = [ "nvidia" ];
   powerManagement.cpuFreqGovernor = "performance";
+  networking.hostName = "buggeryyacht";
   hardware = {
     nvidia = {
       powerManagement.enable = true;
