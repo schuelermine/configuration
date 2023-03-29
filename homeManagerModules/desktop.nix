@@ -1,9 +1,6 @@
 { pkgs, ... }: {
   gnome = {
-    extensions.enabledExtensions = with pkgs.gnomeExtensions; [
-      appindicator
-      gsconnect
-    ];
+    extensions.enabledExtensions = with pkgs.gnomeExtensions; [ appindicator ];
     monospaceFont = {
       package = pkgs.source-code-pro;
       name = "Source Code Pro";
@@ -25,5 +22,6 @@
     apostrophe
     steam
     prismlauncher
+    valent
   ];
 }
