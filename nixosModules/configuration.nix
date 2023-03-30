@@ -65,13 +65,7 @@
     };
   };
   sound.enable = true;
-  hardware = {
-    pulseaudio.enable = false;
-    opengl = {
-      # driSupport32Bit = true;
-      driSupport = true;
-    };
-  };
+  hardware.pulseaudio.enable = false;
   environment = {
     systemPackages = (with pkgs; [
       qalculate-gtk

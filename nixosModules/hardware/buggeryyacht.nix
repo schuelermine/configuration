@@ -23,6 +23,10 @@
   powerManagement.cpuFreqGovernor = "performance";
   networking.hostName = "buggeryyacht";
   hardware = {
+    opengl = {
+      driSupport32Bit = true;
+      driSupport = true;
+    };
     nvidia = {
       powerManagement.enable = true;
       modesetting.enable = true;
