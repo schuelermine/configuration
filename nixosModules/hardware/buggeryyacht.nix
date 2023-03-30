@@ -1,4 +1,4 @@
-{ config, modulesPath, ... }:
+{ config, pkgs, modulesPath, ... }:
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
   boot = {
@@ -24,6 +24,7 @@
   networking.hostName = "buggeryyacht";
   hardware = {
     opengl = {
+      mesaPackage = pkgs.mesa_22;
       driSupport32Bit = true;
       driSupport = true;
     };
