@@ -1,6 +1,6 @@
 # LICENSE
 
-ⓒ Copyright 2023 Anselm Schüler
+ⓒ Copyright 2023 Anselm Schüler (for most of this code)
 
 ====
 
@@ -9,9 +9,16 @@ This document contains multiple sections. They are delimited by the sequence “
 All code in this repository except for the code contained within the “source” directory and the “.git” directory is licensed under the Apache License, which is listed below.
 Additionally, the files “source/colors.fish”, “source/commands.fish”, “source/config.nu”, “source/env.nu” and “source/features.fish” are also available licensed under the Apache License. Some of them are also licensed under the MIT license, as is stated further below the text of the Apache License.
 
-The text of the Apache License:
+The license applying to the files “source/colors.fish”, “source/commands.fish”, “source/config.nu”, “source/env.nu” and “source/features.fish”:
 
 ====
+
+For “source/colors.fish”, “source/commands.fish” and “source/features.fish”:
+ⓒ Copyright 2023 Anselm Schüler
+
+For “source/config.nu” and “source/env.nu”:
+Copyright (c) 2019 - 2022 The Nushell Project Developers
+ⓒ Copyright 2023 Anselm Schüler
 
                                  Apache License
                            Version 2.0, January 2004
@@ -221,6 +228,9 @@ The file “source/fish_prompt.fish” is licensed under the GNU General Public 
 
 ====
 
+`fish` Copyright © 2005-2009 Axel Liljencrantz, 2009-2023 fish-shell contributors.
+`fish` is released under the GNU General Public License, version 2.
+
 Preamble
 
 The licenses for most software are designed to take away your freedom to share and change it. By contrast, the GNU General Public License is intended to guarantee your freedom to share and change free software--to make sure the software is free for all its users. This General Public License applies to most of the Free Software Foundation's software and to any other program whose authors commit to using it. (Some other Free Software Foundation software is covered by the GNU Library General Public License instead.) You can apply it to your programs, too.
@@ -343,7 +353,9 @@ The files “source/colors.fish”, “source/config.default.nu” and “source
 
 ====
 
-Copyright © 2023 Anselm Schüler
+For “source/colors.fish”: ⓒ Copyright 2023 Anselm Schüler
+
+For “source/config.default.nu” and “source/env.default.nu”: Copyright (c) 2019 - 2022 The Nushell Project Developers
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -353,4 +365,4 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 
 ====
 
-The files that make up the history of this repository are stored in the “.git” directory, and are not licensed for redistribution. All rights to them are reserved.
+THE FILES THAT MAKE UP THE HISTORY OF THIS REPOSITORY ARE STORED IN THE “.git” DIRECTORY, AND ARE NOT LICENSED FOR REDISTRIBUTION. ALL RIGHTS TO THEM ARE RESERVED.
