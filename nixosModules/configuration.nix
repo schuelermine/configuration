@@ -74,7 +74,7 @@
   hardware.pulseaudio.enable = false;
   environment = {
     systemPackages = (with pkgs; [
-      vlc
+      clapper
       qalculate-gtk
       firefox
       gnome.dconf-editor
