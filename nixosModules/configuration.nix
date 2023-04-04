@@ -40,11 +40,7 @@
       LC_IDENTIFICATION = "en_GB.UTF-8";
     };
   };
-  console = {
-    packages = with pkgs; [ terminus_font ];
-    font = "ter-v28b";
-    useXkbConfig = true;
-  };
+  console.useXkbConfig = true;
   services = {
     fwupd.enable = true;
     pipewire = {
