@@ -74,6 +74,7 @@
   hardware.pulseaudio.enable = false;
   environment = {
     systemPackages = (with pkgs; [
+      vlc
       qalculate-gtk
       firefox
       gnome.dconf-editor
@@ -125,6 +126,7 @@
     ]) ++ (with pkgs.gnome; [
       gnome-calculator
       epiphany
+      totem
     ]);
   };
   nix = {
