@@ -26,8 +26,8 @@
   gnome = {
     extensions.enabledExtensions = with pkgs.gnomeExtensions; [ appindicator ];
     monospaceFont = {
-      package = pkgs.source-code-pro;
-      name = "Source Code Pro";
+      package = pkgs.hasklig;
+      name = "Hasklig";
       size = 14;
     };
   };
@@ -48,4 +48,5 @@
     prismlauncher
     valent
   ];
+  fonts.fontconfig.enable = true;
 }
