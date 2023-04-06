@@ -1,8 +1,5 @@
-{ pkgs, modulesPath, input-nixos-hardware, ... }: {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-    input-nixos-hardware.nixosModules.lenovo-legion-y530-15ich
-  ];
+{ pkgs, modulesPath, ... }: {
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
   boot = {
     initrd = {
       availableKernelModules =
@@ -26,7 +23,6 @@
   nixpkgs.hostPlatform = "x86_64-linux";
   services.xserver.videoDrivers = [ "nvidia" ];
   powerManagement.cpuFreqGovernor = "performance";
-  networking.hostName = "buggeryyacht";
   hardware = {
     opengl = {
       mesaPackage = pkgs.mesa_22;

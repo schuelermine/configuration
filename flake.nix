@@ -1,7 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
     home-manager = { url = "github:nix-community/home-manager"; };
     nixos-repl-setup = {
       flake = false;
@@ -13,11 +13,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = inputs@{ self, nixpkgs, home-manager, xhmm, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, xhmm, nixos-hardware, ... }:
     let
-      defaultSystem = "x86_64-linux";
       joinAttrs = builtins.foldl' (s1: s2: s1 // s2) { };
-      getSpecialArgs = modules:
+      guard = cond: name: if cond then name else null;
+      getSpecialArgs = { modules, model, powerful }:
         joinAttrs (map (module:
           if builtins.isFunction module then
             joinAttrs (map (arg:
@@ -30,48 +30,58 @@
               (let args = builtins.functionArgs module;
               in builtins.filter (arg: !args.${arg}) (builtins.attrNames args)))
           else
-            { }) modules);
-      mkNixosConfigurations = builtins.mapAttrs (host:
-        { system ? defaultSystem, users ? [ "anselmschueler" ]
-        , modules ? [ "default" ] }:
+            { }) modules) // {
+              machine-powerful = powerful;
+              machine-model = model;
+            };
+      nixosConfigurations = builtins.mapAttrs (hostname:
+        { system, usernames ? [ ], model ? null, moduleNames ? [ "default" ]
+        , useNixosHardware ? false, powerful ? false }:
         let
-          modules' = [ self.nixosModules."hardware-${host}" ]
-            ++ map (module: self.nixosModules.${module}) modules
-            ++ map (user: self.nixosModules."user-${user}") users;
+          modules = [ self.nixosModules."hardware-${hostname}" ]
+            ++ map (moduleName: self.nixosModules.${moduleName}) moduleNames
+            ++ map (username: self.nixosModules."user-${username}") usernames
+            ++ (if useNixosHardware then
+              [ nixos-hardware.nixosModules.${model} ]
+            else
+              [ ]) ++ [{ networking.hostName = hostname; }];
         in nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = modules';
-          specialArgs = getSpecialArgs modules';
-        });
-      mkhomeConfigurations = users:
-        joinAttrs (builtins.attrValues (builtins.mapAttrs (user:
-          { modules, hosts ? builtins.attrNames self.nixosConfigurations
-          , useXhmm ? true }:
-          joinAttrs (map (host:
+          inherit system modules;
+          specialArgs = getSpecialArgs { inherit modules model powerful; };
+        }) machines;
+      homeConfigurations = joinAttrs (builtins.attrValues (builtins.mapAttrs
+        (username:
+          { moduleNames, machineNames ? builtins.attrNames machines
+          , useXhmm ? false }:
+          joinAttrs (map (machineName:
             let
-              modules' = [ self.homeManagerModules."home-${user}" ]
-                ++ map (module: self.homeManagerModules.${module}) modules;
+              userPresent =
+                builtins.elem username machines.${machineName}.usernames;
+              modules = [ self.homeManagerModules."home-${username}" ]
+                ++ map (module: self.homeManagerModules.${module}) moduleNames
+                ++ (if useXhmm then [ xhmm.homeManagerModules.all ] else [ ]);
             in {
-              "${user}@${host}" = home-manager.lib.homeManagerConfiguration {
-                pkgs = import nixpkgs {
-                  system =
-                    nixosConfigurationsArgs.${host}.system or defaultSystem;
+              ${guard userPresent "${username}@${machineName}"} =
+                home-manager.lib.homeManagerConfiguration {
+                  inherit modules;
+                  pkgs =
+                    import nixpkgs { system = machines.${machineName}.system; };
+                  extraSpecialArgs = getSpecialArgs {
+                    inherit modules;
+                    model = machines.${machineName}.model or null;
+                    powerful = machines.${machineName}.powerful or false;
+                  };
                 };
-                modules = modules'
-                  ++ (if useXhmm then [ xhmm.homeManagerModules.all ] else [ ]);
-                extraSpecialArgs = getSpecialArgs modules';
-              };
-            }) hosts)) users));
-      nixosConfigurationsArgs = { buggeryyacht = { }; };
-    in {
-      nixosConfigurations = mkNixosConfigurations nixosConfigurationsArgs;
-      nixosModules = {
-        default = import ./nixosModules/configuration.nix;
-        user-anselmschueler = import ./nixosModules/users/anselmschueler.nix;
-        hardware-buggeryyacht = import ./nixosModules/hardware/buggeryyacht.nix;
+            }) machineNames)) users));
+      machines.buggeryyacht = {
+        model = "lenovo-legion-y530-15ich";
+        system = "x86_64-linux";
+        usernames = [ "anselmschueler" ];
+        useNixosHardware = true;
+        powerful = true;
       };
-      homeConfigurations = mkhomeConfigurations {
-        anselmschueler.modules = [
+      users.anselmschueler = {
+        moduleNames = [
           "coding"
           "desktop"
           "git"
@@ -84,6 +94,15 @@
           "vscode-rust"
           "vscode"
         ];
+        useXhmm = true;
+      };
+    in {
+      inherit nixosConfigurations;
+      inherit homeConfigurations;
+      nixosModules = {
+        default = import ./nixosModules/configuration.nix;
+        user-anselmschueler = import ./nixosModules/users/anselmschueler.nix;
+        hardware-buggeryyacht = import ./nixosModules/hardware/buggeryyacht.nix;
       };
       homeManagerModules = joinAttrs (map (path: {
         ${builtins.head (builtins.match "(.*).nix" path)} =

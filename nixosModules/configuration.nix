@@ -1,5 +1,4 @@
-{ pkgs, input-nixpkgs, ... }:
-{
+{ pkgs, lib, input-nixpkgs, machine-powerful, ... }: {
   nixpkgs.config.allowUnfree = true;
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -24,7 +23,8 @@
   };
   time.timeZone = "Europe/Berlin";
   i18n = {
-    supportedLocales = [ "en_US.UTF-8/UTF-8" "de_DE.UTF-8/UTF-8" "en_GB.UTF-8/UTF-8" ];
+    supportedLocales =
+      [ "en_US.UTF-8/UTF-8" "de_DE.UTF-8/UTF-8" "en_GB.UTF-8/UTF-8" ];
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
       LC_TIME = "en_GB.UTF-8";
@@ -55,7 +55,7 @@
     };
     printing.enable = true;
     switcherooControl.enable = true;
-    resolved.enable = true;      
+    resolved.enable = true;
     xserver = {
       enable = true;
       libinput.enable = true;
@@ -112,18 +112,12 @@
       libqalculate
       du-dust
       exa
-    ]) ++ (with pkgs.aspellDicts; [
-      de en en-computers en-science
-    ]) ++ (with pkgs.hunspellDicts; [
-      de-de en-us en-us-large
-    ]);
-    gnome.excludePackages = (with pkgs; [
-      gnome-tour
-    ]) ++ (with pkgs.gnome; [
-      gnome-calculator
-      epiphany
-      totem
-    ]);
+    ]) ++ (with pkgs.aspellDicts; [ de en en-computers en-science ])
+      ++ (with pkgs.hunspellDicts; [ de-de en-us en-us-large ])
+      ++ lib.optional machine-powerful pkgs.wezterm;
+    gnome.excludePackages = (with pkgs; [ gnome-tour ])
+      ++ (with pkgs.gnome; [ gnome-calculator epiphany totem ])
+      ++ lib.optional machine-powerful pkgs.gnome-console;
   };
   nix = {
     extraOptions = ''
@@ -139,18 +133,12 @@
     package = pkgs.nixUnstable;
     settings = {
       auto-optimise-store = true;
-      substituters = [
-        "https://nix-community.cachix.org"
-      ];
+      substituters = [ "https://nix-community.cachix.org" ];
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
     };
   };
-  fonts.fonts = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk
-  ];
+  fonts.fonts = with pkgs; [ noto-fonts noto-fonts-cjk ];
   system.stateVersion = "22.11";
 }
-
