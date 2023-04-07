@@ -16,7 +16,11 @@
         {
           binding = "<Super>t";
           command = if machine-powerful then
-            "${config.programs.wezterm.package}/bin/wezterm-gui"
+            let wezterm-bin = "${config.programs.wezterm.package}/bin";
+            in "${pkgs.writeShellScript "super-t" ''
+              #!${pkgs.bash}/bin/sh
+              ${wezterm-bin}/wezterm cli spawn || ${wezterm-bin}/wezterm-gui
+            ''}"
           else
             "${pkgs.kgx}/bin/kgx --tab";
           name = "Terminal";
