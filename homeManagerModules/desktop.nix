@@ -32,7 +32,7 @@
     monospaceFont = {
       package = pkgs.hasklig;
       name = "Hasklig";
-      size = 14;
+      size = 15;
     };
   };
   qt = {
