@@ -2,10 +2,9 @@
   programs.wezterm = {
     enable = lib.mkIf machine-powerful true;
     extraConfig = ''
-      local wezterm = require 'wezterm'
       local config = wezterm.config_builder()
       config.font = wezterm.font '${config.gnome.monospaceFont.name}'
-      config.font_size = ${builtins.toString config.gnome.monospaceFont.size}
+      config.font_size = ${builtins.toString (config.gnome.monospaceFont.size + 1)}
       return config
     '';
   };
@@ -32,7 +31,7 @@
     monospaceFont = {
       package = pkgs.hasklig;
       name = "Hasklig";
-      size = 15;
+      size = 14;
     };
   };
   qt = {
