@@ -5,7 +5,6 @@
       options = [ "-Rm" "--use-color" ];
     };
     nano = {
-      enable = true;
       config = ''
         set smarthome
         set boldtext
