@@ -49,6 +49,7 @@
     };
   };
   home = {
+    editor = "${pkgs.textadept}/bin/textadept-curses";
     sessionVariables.MANPAGER = "${pkgs.most}/bin/most";
     file."repl.nix".text = ''
       let repl-setup = import ${input-nixos-repl-setup};
