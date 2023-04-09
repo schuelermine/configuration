@@ -15,11 +15,7 @@
         {
           binding = "<Super>t";
           command = if machine-powerful then
-            let wezterm-bin = "${config.programs.wezterm.package}/bin";
-            in "${pkgs.writeShellScript "super-t" ''
-              #!${pkgs.bash}/bin/sh
-              ${wezterm-bin}/wezterm-gui
-            ''}"
+            "${config.programs.wezterm.package}/bin/wezterm-gui"
           else
             "${pkgs.kgx}/bin/kgx --tab";
           name = "Terminal";
@@ -29,8 +25,8 @@
   gnome = {
     extensions.enabledExtensions = with pkgs.gnomeExtensions; [ appindicator ];
     monospaceFont = {
-      package = pkgs.hasklig;
-      name = "Hasklig";
+      package = pkgs.source-code-pro;
+      name = "Source Code Pro";
       size = 14;
     };
   };
