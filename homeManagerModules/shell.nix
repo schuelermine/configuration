@@ -60,6 +60,7 @@
       asciinema
       textadept
       chafa
+      powershell
     ];
   };
 }
