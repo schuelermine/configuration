@@ -29,7 +29,6 @@
     };
     exa.enable = true;
     direnv.enable = true;
-    nushell.enable = true;
     fish = {
       enable = true;
       shellAliases = {
@@ -61,6 +60,7 @@
       textadept
       chafa
       powershell
+      nushell
     ];
   };
 }
