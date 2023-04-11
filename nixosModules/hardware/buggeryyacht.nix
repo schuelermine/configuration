@@ -25,7 +25,6 @@
   powerManagement.cpuFreqGovernor = "performance";
   hardware = {
     opengl = {
-      mesaPackage = pkgs.mesa_22;
       driSupport32Bit = true;
       driSupport = true;
     };
