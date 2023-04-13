@@ -1,4 +1,4 @@
-{ pkgs, lib, input-nixpkgs, machine-powerful, ... }: {
+{ pkgs, input-nixpkgs, ... }: {
   nixpkgs.config.allowUnfree = true;
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -113,11 +113,9 @@
       du-dust
       exa
     ]) ++ (with pkgs.aspellDicts; [ de en en-computers en-science ])
-      ++ (with pkgs.hunspellDicts; [ de-de en-us en-us-large ])
-      ++ lib.optional machine-powerful pkgs.wezterm;
+      ++ (with pkgs.hunspellDicts; [ de-de en-us en-us-large ]);
     gnome.excludePackages = (with pkgs; [ gnome-tour ])
-      ++ (with pkgs.gnome; [ gnome-calculator epiphany totem ])
-      ++ lib.optional machine-powerful pkgs.gnome-console;
+      ++ (with pkgs.gnome; [ gnome-calculator epiphany totem ]);
   };
   nix = {
     extraOptions = ''
