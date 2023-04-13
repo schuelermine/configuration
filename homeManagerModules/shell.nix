@@ -5,6 +5,7 @@
       options = [ "-Rm" "--use-color" ];
     };
     nano = {
+      enable = true;
       config = ''
         set smarthome
         set boldtext
@@ -48,8 +49,6 @@
     };
   };
   home = {
-    editor = "${pkgs.textadept}/bin/textadept-curses";
-    sessionVariables.MANPAGER = "${pkgs.most}/bin/most";
     file."repl.nix".text = ''
       let repl-setup = import ${input-nixos-repl-setup};
       in repl-setup { source = "git+file:///home/anselmschueler/Documents/git/schuelermine/configuration"; isUrl = true; } // builtins
