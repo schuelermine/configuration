@@ -56,7 +56,6 @@
     packages = with pkgs; [
       haskellPackages.ret
       asciinema
-      textadept
       chafa
       powershell
       nushell
