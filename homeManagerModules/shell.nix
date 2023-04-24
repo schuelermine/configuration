@@ -51,7 +51,7 @@
   home = {
     file."repl.nix".text = ''
       let repl-setup = import ${input-nixos-repl-setup};
-      in repl-setup { source = "git+file:///home/anselmschueler/Documents/git/schuelermine/configuration"; isUrl = true; } // builtins
+      in repl-setup { source = "git+file:///home/anselmschueler/Documents/git/github.com/schuelermine/configuration"; isUrl = true; } // builtins
     '';
     packages = with pkgs; [
       haskellPackages.ret
