@@ -1,6 +1,6 @@
-{ pkgs, input-nix-vscode-extensions, ... }: {
+{ pkgs, ... }: {
   programs.vscode = {
-    extensions = with input-nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
+    extensions = with pkgs.vscode-extensions; [
       redhat.java
       vscjava.vscode-java-debug
       vscjava.vscode-java-dependency

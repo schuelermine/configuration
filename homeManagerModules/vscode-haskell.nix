@@ -1,7 +1,7 @@
-{ config, pkgs, input-nix-vscode-extensions, ... }: {
+{ config, pkgs, ... }: {
   programs = {
     vscode = {
-      extensions = with input-nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
+      extensions = with pkgs.vscode-extensions; [
         haskell.haskell
         justusadam.language-haskell
       ];

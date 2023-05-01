@@ -1,6 +1,6 @@
-{ pkgs, input-nix-vscode-extensions, ... }: {
+{ pkgs, ... }: {
   programs.vscode = {
-    extensions = with input-nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
+    extensions = with pkgs.vscode-extensions; [
       llvm-vs-code-extensions.vscode-clangd
       ms-vscode.cmake-tools
       ms-vscode.makefile-tools

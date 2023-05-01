@@ -1,6 +1,6 @@
-{ config, pkgs, input-nix-vscode-extensions, ... }: {
+{ config, pkgs, ... }: {
   programs.vscode = {
-    extensions = with input-nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
+    extensions = with pkgs.vscode-extensions; [
       matangover.mypy
       ms-python.python
       ms-pyright.pyright

@@ -1,7 +1,7 @@
-{ config, pkgs, input-fenix, input-nix-vscode-extensions, ... }: {
+{ config, pkgs, input-fenix, ... }: {
   programs = {
     vscode = {
-      extensions = with input-nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [ rust-lang.rust-analyzer ];
+      extensions = with pkgs.vscode-extensions; [ rust-lang.rust-analyzer ];
       userSettings = {
         "[rust]"."editor.formatOnSave" = true;
         "rust-analyzer.server.path" =

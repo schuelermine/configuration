@@ -1,8 +1,8 @@
-{ config, pkgs, input-nix-vscode-extensions, ... }: {
+{ config, pkgs, ... }: {
   programs.vscode = {
     enable = true;
     mutableExtensionsDir = false;
-    extensions = with input-nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
+    extensions = with pkgs.vscode-extensions; [
       bmalehorn.vscode-fish
       editorconfig.editorconfig
       firefox-devtools.vscode-firefox-debug
