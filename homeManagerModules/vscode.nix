@@ -23,6 +23,7 @@
       "editor.fontFamily" = "'${config.gnome.monospaceFont.name}'";
       "editor.fontSize" = config.gnome.monospaceFont.size;
       "editor.fontLigatures" = true;
+      "editor.minimap.renderCharacters" = false;
 
       "sonarlint.ls.javaHome" = "${pkgs.openjdk}/lib/openjdk";
 
