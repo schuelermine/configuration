@@ -22,6 +22,7 @@
         set indicator
         set afterends
         set stateflags
+        set tabsize 4
       '';
     };
     zoxide = {
