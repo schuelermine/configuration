@@ -26,6 +26,7 @@
       "editor.minimap.renderCharacters" = false;
 
       "sonarlint.ls.javaHome" = "${pkgs.openjdk}/lib/openjdk";
+      "sonarlint.pathToNodeExecutable" = "${pkgs.nodejs}/bin/node";
 
       "workbench.colorTheme" = "Default Dark+ Experimental";
 
