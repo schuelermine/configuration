@@ -141,7 +141,6 @@
     [ noto-fonts noto-fonts-cjk ] ++ lib.optionals (!machine-smol) [
       ubuntu_font_family
       atkinson-hyperlegible
-      google-fonts
       fira
       fira-code
       go-font
