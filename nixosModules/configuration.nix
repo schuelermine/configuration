@@ -138,7 +138,7 @@
     };
   };
   fonts.fonts = with pkgs;
-    [ noto-fonts noto-fonts-cjk ] ++ lib.optional (!machine-smol) [
+    [ noto-fonts noto-fonts-cjk ] ++ lib.optionals (!machine-smol) [
       ubuntu_font_family
       atkinson-hyperlegible
       google-fonts
