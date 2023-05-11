@@ -17,7 +17,7 @@
     let
       joinAttrs = builtins.foldl' (s1: s2: s1 // s2) { };
       guard = cond: name: if cond then name else null;
-      getSpecialArgs = { modules, model, powerful }:
+      getSpecialArgs = { modules, model, smol }:
         joinAttrs (map (module:
           if builtins.isFunction module then
             joinAttrs (map (arg:
@@ -31,12 +31,12 @@
               in builtins.filter (arg: !args.${arg}) (builtins.attrNames args)))
           else
             { }) modules) // {
-              machine-powerful = powerful;
+              machine-smol = smol;
               machine-model = model;
             };
       nixosConfigurations = builtins.mapAttrs (hostname:
         { system, usernames ? [ ], model ? null, moduleNames ? [ "default" ]
-        , useNixosHardware ? false, powerful ? false }:
+        , useNixosHardware ? false, smol ? false }:
         let
           modules = [ self.nixosModules."hardware-${hostname}" ]
             ++ map (moduleName: self.nixosModules.${moduleName}) moduleNames
@@ -47,7 +47,7 @@
               [ ]) ++ [{ networking.hostName = hostname; }];
         in nixpkgs.lib.nixosSystem {
           inherit system modules;
-          specialArgs = getSpecialArgs { inherit modules model powerful; };
+          specialArgs = getSpecialArgs { inherit modules model smol; };
         }) machines;
       homeConfigurations = joinAttrs (builtins.attrValues (builtins.mapAttrs
         (username:
@@ -69,7 +69,7 @@
                   extraSpecialArgs = getSpecialArgs {
                     inherit modules;
                     model = machines.${machineName}.model or null;
-                    powerful = machines.${machineName}.powerful or false;
+                    smol = machines.${machineName}.smol or false;
                   };
                 };
             }) machineNames)) users));
@@ -78,7 +78,6 @@
         system = "x86_64-linux";
         usernames = [ "anselmschueler" ];
         useNixosHardware = true;
-        powerful = true;
       };
       users.anselmschueler = {
         moduleNames = [

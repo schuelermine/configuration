@@ -1,4 +1,4 @@
-{ pkgs, input-nixpkgs, ... }: {
+{ lib, pkgs, input-nixpkgs, machine-smol, ... }: {
   nixpkgs.config.allowUnfree = true;
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
@@ -137,6 +137,14 @@
       ];
     };
   };
-  fonts.fonts = with pkgs; [ noto-fonts noto-fonts-cjk ];
+  fonts.fonts = with pkgs;
+    [ noto-fonts noto-fonts-cjk ] ++ lib.optional (!machine-smol) [
+      ubuntu_font_family
+      atkinson-hyperlegible
+      google-fonts
+      fira
+      fira-code
+      go-font
+    ];
   system.stateVersion = "22.11";
 }
