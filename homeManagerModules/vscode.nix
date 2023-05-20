@@ -36,7 +36,8 @@
       "sonarlint.ls.javaHome" = "${pkgs.openjdk}/lib/openjdk";
       "sonarlint.pathToNodeExecutable" = "${pkgs.nodejs}/bin/node";
 
-      "workbench.colorTheme" = "Deepdark Material Theme | Full Black Version";
+      "workbench.colorTheme" = "Default Dark+ Experimental";
+      "workbench.iconTheme" = "deepdark-material-icons"
 
       "editor.inlayHints.enabled" = "on";
 
