@@ -37,7 +37,7 @@
       "sonarlint.pathToNodeExecutable" = "${pkgs.nodejs}/bin/node";
 
       "workbench.colorTheme" = "Default Dark+ Experimental";
-      "workbench.iconTheme" = "deepdark-material-icons"
+      "workbench.iconTheme" = "deepdark-material-icons";
 
       "editor.inlayHints.enabled" = "on";
 
