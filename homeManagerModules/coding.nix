@@ -17,7 +17,7 @@
     python = {
       versionName = "3.10";
       enable = true;
-      mypy = { enable = true; };
+      mypy.enable = true;
     };
   };
   home.packages = with pkgs; [ openjdk clang gdb ];
