@@ -15,14 +15,6 @@
       thenuprojectcontributors.vscode-nushell-lang
       sonarsource.sonarlint-vscode
       bungcip.better-toml
-      (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
-        mktplcRef = {
-          publisher = "Nimda";
-          name = "deepdark-material";
-          version = "3.3.0";
-          sha256 = "sha256-BcNZYLVVbXU65Gi+8snpRgbbijqDQbHeWYDyt71+F4A=";
-        };
-      })
     ];
     package = pkgs.vscodium;
     userSettings = {
@@ -37,7 +29,6 @@
       "sonarlint.pathToNodeExecutable" = "${pkgs.nodejs}/bin/node";
 
       "workbench.colorTheme" = "Default Dark+ Experimental";
-      "workbench.iconTheme" = "deepdark-material-icons";
 
       "editor.inlayHints.enabled" = "on";
 
