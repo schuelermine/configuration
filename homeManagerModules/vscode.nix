@@ -32,7 +32,11 @@
         };
       })
     ];
-    package = pkgs.vscodium;
+    package = pkgs.vscodium.overrideAttrs (old: {
+      postInstall = old.postInstall or "" + ''
+        wrapProgram $out/bin/codium --prefix PATH : ${pkgs.nodejs}/bin
+      '';
+    });
     userSettings = {
       "update.mode" = "none";
 
@@ -42,7 +46,6 @@
       "editor.minimap.renderCharacters" = false;
 
       "sonarlint.ls.javaHome" = "${pkgs.openjdk}/lib/openjdk";
-      "sonarlint.pathToNodeExecutable" = "${pkgs.nodejs}/bin/node";
 
       "workbench.colorTheme" = "Default Dark+ Experimental";
 
@@ -64,6 +67,8 @@
       "window.zoomLevel" = 1;
 
       "scm.diffDecorationsGutterPattern" = { modified = false; };
+
+      "sqltools.useNodeRuntime" = true;
     };
   };
 }
