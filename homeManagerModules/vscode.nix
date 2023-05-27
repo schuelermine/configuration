@@ -17,18 +17,10 @@
       bungcip.better-toml
       (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
         mktplcRef = {
-          publisher = "mtxr";
-          name = "sqltools";
-          version = "0.27.1";
-          sha256 = "sha256-5XhPaxwr0yvIX0wSKDiDm+1iG947s84ULaWpxfpRcAU=";
-        };
-      })
-      (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
-        mktplcRef = {
-          publisher = "mtxr";
-          name = "sqltools-driver-sqlite";
-          version = "0.5.0";
-          sha256 = "sha256-6PoPUoOTIvDgWY3WJt/upn5MRNUjMcC68Q8ti0Nkk1c=";
+          publisher = "Nimda";
+          name = "deepdark-material";
+          version = "3.3.0";
+          sha256 = "sha256-BcNZYLVVbXU65Gi+8snpRgbbijqDQbHeWYDyt71+F4A=";
         };
       })
     ];
@@ -45,6 +37,7 @@
       "sonarlint.pathToNodeExecutable" = "${pkgs.nodejs}/bin/node";
 
       "workbench.colorTheme" = "Default Dark+ Experimental";
+      "workbench.iconTheme" = "deepdark-material-icons";
 
       "editor.inlayHints.enabled" = "on";
 
