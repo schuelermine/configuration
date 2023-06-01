@@ -58,7 +58,7 @@
       haskellPackages.ret
       asciinema
       chafa
-      powershell
+      # powershell <removed due to openssl insecurity>
       nushell
     ];
   };
