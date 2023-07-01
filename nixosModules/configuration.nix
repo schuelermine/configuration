@@ -59,7 +59,7 @@
       enable = true;
       dnssec = "true";
       extraConfig = ''
-        DNSOverTLS=opportunistic
+        DNSOverTLS=yes
       '';
     };
     xserver = {
