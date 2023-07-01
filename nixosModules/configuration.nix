@@ -55,7 +55,13 @@
     };
     printing.enable = true;
     switcherooControl.enable = true;
-    resolved.enable = true;
+    resolved = {
+      enable = true;
+      dnssec = "true";
+      extraConfig = ''
+        DNSOverTLS=opportunistic
+      '';
+    };
     xserver = {
       enable = true;
       libinput.enable = true;
