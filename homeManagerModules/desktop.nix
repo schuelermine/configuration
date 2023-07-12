@@ -34,6 +34,7 @@
     steam
     prismlauncher
     valent
+    virt-manager
   ];
   fonts.fontconfig.enable = true;
 }
