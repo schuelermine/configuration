@@ -12,12 +12,17 @@
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-on-droid = {
+      url = "github:t184256/nix-on-droid/release-23.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-  outputs = inputs@{ self, nixpkgs, home-manager, xhmm, nixos-hardware, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, xhmm, nixos-hardware
+    , nix-on-droid, ... }:
     let
       joinAttrs = builtins.foldl' (s1: s2: s1 // s2) { };
       guard = cond: name: if cond then name else null;
-      getSpecialArgs = { modules, model, smol }:
+      getSpecialArgs = { modules, model, smol, nixos }:
         joinAttrs (map (module:
           if builtins.isFunction module then
             joinAttrs (map (arg:
@@ -33,6 +38,7 @@
             { }) modules) // {
               machine-smol = smol;
               machine-model = model;
+              machine-normal = true;
             };
       nixosConfigurations = builtins.mapAttrs (hostname:
         { system, usernames ? [ ], model ? null, moduleNames ? [ "default" ]
@@ -47,16 +53,19 @@
               [ ]) ++ [{ networking.hostName = hostname; }];
         in nixpkgs.lib.nixosSystem {
           inherit system modules;
-          specialArgs = getSpecialArgs { inherit modules model smol; };
-        }) machines;
+          specialArgs = getSpecialArgs {
+            inherit modules model smol;
+            normal = true;
+          };
+        }) nixosMachines;
       homeConfigurations = joinAttrs (builtins.attrValues (builtins.mapAttrs
         (username:
-          { moduleNames, machineNames ? builtins.attrNames machines
+          { moduleNames, machineNames ? builtins.attrNames nixosMachines
           , useXhmm ? false }:
           joinAttrs (map (machineName:
             let
               userPresent =
-                builtins.elem username machines.${machineName}.usernames;
+                builtins.elem username nixosMachines.${machineName}.usernames;
               modules = [ self.homeManagerModules."home-${username}" ]
                 ++ map (module: self.homeManagerModules.${module}) moduleNames
                 ++ (if useXhmm then [ xhmm.homeManagerModules.all ] else [ ]);
@@ -64,16 +73,18 @@
               ${guard userPresent "${username}@${machineName}"} =
                 home-manager.lib.homeManagerConfiguration {
                   inherit modules;
-                  pkgs =
-                    import nixpkgs { system = machines.${machineName}.system; };
+                  pkgs = import nixpkgs {
+                    system = nixosMachines.${machineName}.system;
+                  };
                   extraSpecialArgs = getSpecialArgs {
                     inherit modules;
-                    model = machines.${machineName}.model or null;
-                    smol = machines.${machineName}.smol or false;
+                    model = nixosMachines.${machineName}.model or null;
+                    smol = nixosMachines.${machineName}.smol or false;
+                    normal = true;
                   };
                 };
             }) machineNames)) users));
-      machines.buggeryyacht = {
+      nixosMachines.buggeryyacht = {
         model = "lenovo-legion-y530-15ich";
         system = "x86_64-linux";
         usernames = [ "anselmschueler" ];
@@ -98,6 +109,22 @@
     in {
       inherit nixosConfigurations;
       inherit homeConfigurations;
+      nixOnDroidConfigurations.default =
+        nix-on-droid.lib.nixOnDroidConfiguration {
+          modules = [ self.nixosModules.default {
+            home-manager.config = [
+              ./homeManagerModules/coding.nix
+              ./homeManagerModules/git.nix
+              ./homeManagerModules/shell.nix
+            ];
+            stateVersion = "23.05";
+          } ];
+          extraSpecialArgs = getSpecialArgs {
+            modules = "default";
+            model = null;
+            normal = false;
+          };
+        };
       nixosModules = {
         default = import ./nixosModules/configuration.nix;
         user-anselmschueler = import ./nixosModules/users/anselmschueler.nix;

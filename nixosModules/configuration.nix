@@ -1,6 +1,6 @@
-{ lib, pkgs, input-nixpkgs, machine-smol, ... }: {
+{ lib, pkgs, input-nixpkgs, machine-smol, machine-normal, ... }: {
   nixpkgs.config.allowUnfree = true;
-  boot = {
+  boot = lib.mkIf machine-normal {
     kernelPackages = pkgs.linuxPackages_latest;
     supportedFilesystems = [ "ntfs" "exfat" ];
     loader = {
@@ -12,7 +12,7 @@
       efi.canTouchEfiVariables = true;
     };
   };
-  networking = {
+  networking = lib.mkIf machine-normal {
     nameservers = [
       "1.1.1.1#cloudflare-dns.com"
       "1.0.0.1#cloudflare-dns.com"
@@ -40,8 +40,8 @@
       LC_IDENTIFICATION = "en_GB.UTF-8";
     };
   };
-  console.useXkbConfig = true;
-  services = {
+  console.useXkbConfig = lib.mkIf machine-normal true;
+  services = lib.mkIf machine-normal {
     fwupd.enable = true;
     pipewire = {
       enable = true;
@@ -72,10 +72,10 @@
       xkbVariant = "nodeadkeys";
     };
   };
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  sound.enable = lib.mkIf machine-normal true;
+  hardware.pulseaudio.enable = lib.mkIf machine-normal false;
   environment = {
-    systemPackages = (with pkgs; [
+    systemPackages = lib.optionals machine-normal (with pkgs; [
       clapper
       qalculate-gtk
       firefox
@@ -83,6 +83,7 @@
       gnome.gnome-sound-recorder
       gimp
       libreoffice-fresh
+    ]) ++ (with pkgs; [
       nix-index
       nix-tree
       nix-top
@@ -120,10 +121,12 @@
       du-dust
       duf
       exa
-    ]) ++ (with pkgs.aspellDicts; [ de en en-computers en-science ])
-      ++ (with pkgs.hunspellDicts; [ de-de en-us en-us-large ]);
-    gnome.excludePackages = (with pkgs; [ gnome-tour ])
-      ++ (with pkgs.gnome; [ gnome-calculator epiphany totem ]);
+    ]) ++ lib.optionals machine-normal
+      (with pkgs.aspellDicts; [ de en en-computers en-science ])
+      ++ lib.optionals machine-normal
+      (with pkgs.hunspellDicts; [ de-de en-us en-us-large ]);
+    gnome.excludePackages = lib.mkIf machine-normal ((with pkgs; [ gnome-tour ])
+      ++ (with pkgs.gnome; [ gnome-calculator epiphany totem ]));
   };
   nix = {
     extraOptions = ''
@@ -145,13 +148,13 @@
       ];
     };
   };
-  fonts.fonts = with pkgs;
+  fonts.fonts = lib.mkIf machine-normal (with pkgs;
     [ noto-fonts noto-fonts-cjk ] ++ lib.optionals (!machine-smol) [
       ubuntu_font_family
       atkinson-hyperlegible
       fira
       fira-code
       go-font
-    ];
+    ]);
   system.stateVersion = "22.11";
 }
