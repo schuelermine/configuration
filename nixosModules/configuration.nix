@@ -152,6 +152,7 @@
       fira
       fira-code
       go-font
+      libertinus
     ];
   system.stateVersion = "22.11";
 }
