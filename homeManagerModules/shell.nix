@@ -34,10 +34,10 @@
     fish = {
       enable = true;
       shellAliases = {
-        ls = "exa --sort=type";
-        ll = "ls --classify --long";
-        la = "ls --classify --all";
-        l- = "ls --classify --long --all";
+        ls = "command exa -Gs type";
+        ll = "command exa -lFs type";
+        la = "ls -aGFs type";
+        l- = "ls -alFs type";
         cd = "z";
         c = "bat";
       };
