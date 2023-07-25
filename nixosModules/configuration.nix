@@ -120,10 +120,11 @@
       du-dust
       duf
       exa
+      thunderbird
     ]) ++ (with pkgs.aspellDicts; [ de en en-computers en-science ])
       ++ (with pkgs.hunspellDicts; [ de-de en-us en-us-large ]);
     gnome.excludePackages = (with pkgs; [ gnome-tour ])
-      ++ (with pkgs.gnome; [ gnome-calculator epiphany totem ]);
+      ++ (with pkgs.gnome; [ gnome-calculator epiphany totem geary ]);
   };
   nix = {
     extraOptions = ''
