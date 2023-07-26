@@ -40,6 +40,7 @@
         la = "exa -aFs type";
         l- = "exa -alFs type";
         l_ = "exa -alFGs type";
+        tree = "exa --tree";
         cd = "z";
         c = "bat";
       };
