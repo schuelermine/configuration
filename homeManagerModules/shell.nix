@@ -36,8 +36,10 @@
       shellAliases = {
         ls = "exa -s type";
         ll = "exa -lFs type";
+        lg = "exa -lFGs type";
         la = "exa -aFs type";
         l- = "exa -alFs type";
+        l_ = "exa -alFGs type";
         cd = "z";
         c = "bat";
       };
