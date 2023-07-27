@@ -1,5 +1,8 @@
 { pkgs, input-nixos-repl-setup, ... }: {
-  services.gpg-agent.enable = true;
+  services.gpg-agent = {
+    enable = true;
+    pinentryFlavor = "gnome3";
+  };
   programs = {
     gpg.enable = true;
     less = {
