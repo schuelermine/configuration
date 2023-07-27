@@ -42,6 +42,7 @@
   };
   console.useXkbConfig = true;
   services = {
+    dbus.packages = [ pkgs.gcr ];
     fwupd.enable = true;
     pipewire = {
       enable = true;
