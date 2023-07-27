@@ -1,5 +1,7 @@
 { pkgs, input-nixos-repl-setup, ... }: {
+  services.gpg-agent.enable = true;
   programs = {
+    gpg.enable = true;
     less = {
       enable = true;
       options = [ "-Rm" "--use-color" ];
