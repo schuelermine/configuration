@@ -5,7 +5,10 @@
       userName = "Anselm Schüler";
       enable = true;
       delta.enable = true;
-      signing.signByDefault = true;
+      signing = {
+        signByDefault = true;
+        key = null;
+      };
       extraConfig.init.defaultBranch = "b0";
     };
     gh = {
