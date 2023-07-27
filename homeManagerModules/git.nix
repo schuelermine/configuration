@@ -5,7 +5,7 @@
       userName = "Anselm Schüler";
       enable = true;
       delta.enable = true;
-      package = pkgs.gitFull;
+      signing.signByDefault = true;
       extraConfig.init.defaultBranch = "b0";
     };
     gh = {
