@@ -42,6 +42,7 @@
   };
   console.useXkbConfig = true;
   services = {
+    flatpak.enable = true;
     dbus.packages = [ pkgs.gcr ];
     fwupd.enable = true;
     pipewire = {
