@@ -40,13 +40,14 @@
       enable = true;
       shellAliases = {
         ls = "exa -s type";
-        ll = "exa -lFs type --git";
-        lg = "exa -lFGs type --git";
+        ll = "exa -lhFs type --git";
+        lg = "exa -lhFGs type --git";
         la = "exa -aFs type";
-        l- = "exa -alFs type --git";
-        "l." = "exa -alFGs type --git";
+        l- = "exa -alhFs type --git";
+        "l." = "exa -alhFGs type --git";
         lt = "exa --tree";
-        le = "exa -l --tree --git";
+        le = "exa -lh --tree --git";
+        l1 = "exa -1s type";
         cd = "z";
         c = "bat";
       };
