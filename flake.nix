@@ -17,7 +17,7 @@
     let
       joinAttrs = builtins.foldl' (s1: s2: s1 // s2) { };
       guard = cond: name: if cond then name else null;
-      getSpecialArgs = { modules, model, smol }:
+      getSpecialArgs = { modules, model, smol, name }:
         joinAttrs (map (module:
           if builtins.isFunction module then
             joinAttrs (map (arg:
@@ -33,6 +33,7 @@
             { }) modules) // {
               machine-smol = smol;
               machine-model = model;
+              machine-name = name;
             };
       nixosConfigurations = builtins.mapAttrs (hostname:
         { system, usernames ? [ ], model ? null, moduleNames ? [ "default" ]
@@ -47,7 +48,7 @@
               [ ]) ++ [{ networking.hostName = hostname; }];
         in nixpkgs.lib.nixosSystem {
           inherit system modules;
-          specialArgs = getSpecialArgs { inherit modules model smol; };
+          specialArgs = getSpecialArgs { inherit modules model smol; name = hostname; };
         }) machines;
       homeConfigurations = joinAttrs (builtins.attrValues (builtins.mapAttrs
         (username:
@@ -70,6 +71,7 @@
                     inherit modules;
                     model = machines.${machineName}.model or null;
                     smol = machines.${machineName}.smol or false;
+                    name = machineName;
                   };
                 };
             }) machineNames)) users));

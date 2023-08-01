@@ -1,4 +1,4 @@
-{ pkgs, input-nixos-repl-setup, ... }: {
+{ pkgs, input-nixos-repl-setup, machine-name, ... }: {
   services.gpg-agent = {
     pinentryFlavor = "gnome3";
     enable = true;
@@ -62,7 +62,17 @@
   home = {
     file."repl.nix".text = ''
       let repl-setup = import ${input-nixos-repl-setup};
-      in repl-setup { source = "git+file:///home/anselmschueler/Documents/git/github.com/schuelermine/configuration"; isUrl = true; } // builtins
+      in repl-setup {
+        source = "git+file:///home/anselmschueler/Documents/git/github.com/schuelermine/configuration";
+        hostname = "${machine-name}";
+        isUrl = true;
+        passExtra = [
+          [ "outputs" "homeConfigurations" ]
+          [ "outputs" "homeManagerModules" ]
+          [ "outputs" "nixosModules" ]
+          [ "outputs" "nixosConfigurations" ]
+        ];
+      } // builtins
     '';
     packages = with pkgs; [
       haskellPackages.ret
