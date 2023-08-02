@@ -57,11 +57,11 @@
     "nixos-repl-setup": {
       "flake": false,
       "locked": {
-        "lastModified": 1647542729,
-        "narHash": "sha256-yMeYygnz02gtdcipfxpSvig12SIJibrwh0dTOZVXmP4=",
+        "lastModified": 1690983242,
+        "narHash": "sha256-67sobltlzVr4Fj/T+I9/vwbXR5hgquVScMzw1W4yk3A=",
         "owner": "schuelermine",
         "repo": "nixos-repl-setup",
-        "rev": "ccebaaaf4858b7b1c005d2ec17806163b3a8d901",
+        "rev": "f4f6bf0491dbe7cd9f30c06947fcd31e19a0a66f",
         "type": "github"
       },
       "original": {
