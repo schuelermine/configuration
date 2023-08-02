@@ -1,4 +1,4 @@
-{ pkgs, input-nixos-repl-setup, machine-name, ... }: {
+{ pkgs, input-nixos-repl-setup, machine-name, source-flake, ... }: {
   services.gpg-agent = {
     pinentryFlavor = "gnome3";
     enable = true;
@@ -63,7 +63,7 @@
     file."repl.nix".text = ''
       let repl-setup = import ${input-nixos-repl-setup};
       in repl-setup {
-        source = "git+file:///home/anselmschueler/Documents/git/github.com/schuelermine/configuration";
+        source = "${source-flake}";
         hostname = "${machine-name}";
         isUrl = true;
         passExtra = [

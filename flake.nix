@@ -34,6 +34,7 @@
               machine-smol = smol;
               machine-model = model;
               machine-name = name;
+              source-flake = self;
             };
       nixosConfigurations = builtins.mapAttrs (hostname:
         { system, usernames ? [ ], model ? null, moduleNames ? [ "default" ]
