@@ -67,7 +67,7 @@
         hostname = "${machine-name}";
         isUrl = true;
         passExtra = [
-          [ "lib" [ "inputs" "nixpkgs" "lib" ] ]
+          [ "inputs" "nixpkgs" "lib" ]
           [ "outputs" "homeConfigurations" ]
           [ "outputs" "homeManagerModules" ]
           [ "outputs" "nixosModules" ]
