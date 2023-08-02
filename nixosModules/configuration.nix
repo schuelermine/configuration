@@ -123,6 +123,7 @@
       duf
       exa
       thunderbird
+      breeze-qt5
     ]) ++ (with pkgs.aspellDicts; [ de en en-computers en-science ])
       ++ (with pkgs.hunspellDicts; [ de-de en-us en-us-large ]);
     gnome.excludePackages = (with pkgs; [ gnome-tour ]) ++ (with pkgs.gnome; [
@@ -162,5 +163,9 @@
       go-font
       libertinus
     ];
+  qt = {
+    enable = true;
+    platformTheme = "qt5ct";
+  };
   system.stateVersion = "22.11";
 }
