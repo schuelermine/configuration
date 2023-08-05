@@ -1,4 +1,4 @@
-{ pkgs, nixpkgs-vscode-lldb }: {
+{ pkgs, nixpkgs-vscode-lldb, ... }: {
   programs.vscode = {
     extensions = with pkgs.vscode-extensions; [
       llvm-vs-code-extensions.vscode-clangd
