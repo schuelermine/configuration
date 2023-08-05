@@ -19,7 +19,7 @@
     let
       joinAttrs = builtins.foldl' (s1: s2: s1 // s2) { };
       guard = cond: name: if cond then name else null;
-      getSpecialArgs = { system, modules, model, smol, name }:
+      getSpecialArgs = { system, model, smol, name }:
         {
           machine-smol = smol;
           machine-model = model;
@@ -28,7 +28,7 @@
           inherit system;
         } // joinAttrs
         (map (inputName: { "input-${inputName}" = inputs.${inputName}; })
-          inputs) // joinAttrs (map (nixpkgsVersionName: {
+          (builtins.attrNames inputs)) // joinAttrs (map (nixpkgsVersionName: {
             "${nixpkgsVersionName}" =
               import inputs.${nixpkgsVersionName} { inherit system; };
           }) [ "nixpkgs" "nixpkgs-vscode-lldb" ]);
@@ -46,7 +46,7 @@
         in nixpkgs.lib.nixosSystem {
           inherit system modules;
           specialArgs = getSpecialArgs {
-            inherit modules model smol system;
+            inherit model smol system;
             name = hostname;
           };
         }) machines;
@@ -68,8 +68,7 @@
                   pkgs =
                     import nixpkgs { system = machines.${machineName}.system; };
                   extraSpecialArgs = getSpecialArgs {
-                    inherit modules;
-                    system = machines.${machineName}.system;
+                    inherit (machines.${machineName}) system;
                     model = machines.${machineName}.model or null;
                     smol = machines.${machineName}.smol or false;
                     name = machineName;
