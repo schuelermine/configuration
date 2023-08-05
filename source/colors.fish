@@ -7,15 +7,6 @@ set fish_color_cwd_root brred
 set fish_color_end brmagenta
 set fish_color_error white
 set fish_color_escape yellow
-set fish_color_hg_added green
-set fish_color_hg_clean green
-set fish_color_hg_copied magenta
-set fish_color_hg_deleted red
-set fish_color_hg_dirty red
-set fish_color_hg_modified yellow
-set fish_color_hg_renamed magenta
-set fish_color_hg_unmerged red
-set fish_color_hg_untracked yellow
 set fish_color_history_current --underline
 set fish_color_host normal
 set fish_color_host_remote bryellow
