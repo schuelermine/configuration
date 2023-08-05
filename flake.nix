@@ -1,6 +1,8 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-vscode-lldb.url =
+      "github:schuelermine/nixpkgs/patch/vscode-extensions.vadimcn.vscode-lldb/remove-custom-lldb";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     home-manager = { url = "github:nix-community/home-manager"; };
     nixos-repl-setup = {
@@ -17,25 +19,19 @@
     let
       joinAttrs = builtins.foldl' (s1: s2: s1 // s2) { };
       guard = cond: name: if cond then name else null;
-      getSpecialArgs = { modules, model, smol, name }:
-        joinAttrs (map (module:
-          if builtins.isFunction module then
-            joinAttrs (map (arg:
-              let matches = builtins.match "input-(.*)" arg;
-              in if isNull matches then
-                { }
-              else
-                let match = builtins.head matches;
-                in { "input-${match}" = inputs.${match}; })
-              (let args = builtins.functionArgs module;
-              in builtins.filter (arg: !args.${arg}) (builtins.attrNames args)))
-          else
-            { }) modules) // {
-              machine-smol = smol;
-              machine-model = model;
-              machine-name = name;
-              source-flake = self;
-            };
+      getSpecialArgs = { system, modules, model, smol, name }:
+        {
+          machine-smol = smol;
+          machine-model = model;
+          machine-name = name;
+          source-flake = self;
+          inherit system;
+        } // joinAttrs
+        (map (inputName: { "input-${inputName}" = inputs.${inputName}; })
+          inputs) // joinAttrs (map (nixpkgsVersionName: {
+            "${nixpkgsVersionName}" =
+              import inputs.${nixpkgsVersionName} { inherit system; };
+          }) [ "nixpkgs" "nixpkgs-vscode-lldb" ]);
       nixosConfigurations = builtins.mapAttrs (hostname:
         { system, usernames ? [ ], model ? null, moduleNames ? [ "default" ]
         , useNixosHardware ? false, smol ? false }:
@@ -49,7 +45,10 @@
               [ ]) ++ [{ networking.hostName = hostname; }];
         in nixpkgs.lib.nixosSystem {
           inherit system modules;
-          specialArgs = getSpecialArgs { inherit modules model smol; name = hostname; };
+          specialArgs = getSpecialArgs {
+            inherit modules model smol;
+            name = hostname;
+          };
         }) machines;
       homeConfigurations = joinAttrs (builtins.attrValues (builtins.mapAttrs
         (username:
