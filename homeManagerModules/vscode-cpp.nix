@@ -5,7 +5,7 @@
       ms-vscode.cmake-tools
       ms-vscode.makefile-tools
       twxs.cmake
-      nixpkgs-vscode-lldb.vadimcn.vscode-lldb
+      nixpkgs-vscode-lldb.vscode-extensions.vadimcn.vscode-lldb
     ];
     userSettings = {
       "clangd.path" = "${pkgs.clang-tools}/bin/clangd";
