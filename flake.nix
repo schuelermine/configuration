@@ -46,7 +46,7 @@
         in nixpkgs.lib.nixosSystem {
           inherit system modules;
           specialArgs = getSpecialArgs {
-            inherit modules model smol;
+            inherit modules model smol system;
             name = hostname;
           };
         }) machines;
@@ -69,6 +69,7 @@
                     import nixpkgs { system = machines.${machineName}.system; };
                   extraSpecialArgs = getSpecialArgs {
                     inherit modules;
+                    system = machines.${machineName}.system;
                     model = machines.${machineName}.model or null;
                     smol = machines.${machineName}.smol or false;
                     name = machineName;
