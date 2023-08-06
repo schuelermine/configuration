@@ -43,7 +43,7 @@
   console = {
     useXkbConfig = true;
     packages = with pkgs; [ terminus_font ];
-    font = "ter-v20b";
+    font = "ter-v24b";
   };
   services = {
     flatpak.enable = true;
