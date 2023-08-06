@@ -40,7 +40,11 @@
       LC_IDENTIFICATION = "en_GB.UTF-8";
     };
   };
-  console.useXkbConfig = true;
+  console = {
+    useXkbConfig = true;
+    packages = with pkgs; [ terminus_font ];
+    font = "ter-v20b";
+  };
   services = {
     flatpak.enable = true;
     dbus.packages = [ pkgs.gcr ];
