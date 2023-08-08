@@ -13,8 +13,8 @@
   gnome = {
     extensions.enabledExtensions = with pkgs.gnomeExtensions; [ appindicator ];
     monospaceFont = {
-      package = pkgs.source-code-pro;
-      name = "Source Code Pro";
+      package = pkgs.go-font;
+      name = "Go Mono";
       size = 14;
     };
   };

@@ -14,8 +14,9 @@
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    dwarffs.url = "github:edolstra/dwarffs";
   };
-  outputs = inputs@{ self, nixpkgs, home-manager, xhmm, nixos-hardware, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, xhmm, nixos-hardware, dwarffs, ... }:
     let
       joinAttrs = builtins.foldl' (s1: s2: s1 // s2) { };
       guard = cond: name: if cond then name else null;
@@ -34,12 +35,16 @@
           }) [ "nixpkgs" "nixpkgs-vscode-lldb" ]);
       nixosConfigurations = builtins.mapAttrs (hostname:
         { system, usernames ? [ ], model ? null, moduleNames ? [ "default" ]
-        , useNixosHardware ? false, smol ? false }:
+        , useNixosHardware ? false, useDwarffs ? false, smol ? false }:
         let
           modules = [ self.nixosModules."hardware-${hostname}" ]
             ++ map (moduleName: self.nixosModules.${moduleName}) moduleNames
             ++ map (username: self.nixosModules."user-${username}") usernames
-            ++ (if useNixosHardware then
+            ++ (if useDwarffs then
+              [ dwarffs.nixosModules.dwarffs ]
+            else
+              [ ]
+            ) ++ (if useNixosHardware then
               [ nixos-hardware.nixosModules.${model} ]
             else
               [ ]) ++ [{ networking.hostName = hostname; }];
@@ -80,6 +85,7 @@
         system = "x86_64-linux";
         usernames = [ "anselmschueler" ];
         useNixosHardware = true;
+        useDwarffs = true;
       };
       users.anselmschueler = {
         moduleNames = [
