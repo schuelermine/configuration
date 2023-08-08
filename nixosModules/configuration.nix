@@ -44,6 +44,7 @@
     useXkbConfig = true;
     packages = with pkgs; [ terminus_font ];
     font = "ter-v24b";
+    earlySetup = true;
   };
   services = {
     flatpak.enable = true;
