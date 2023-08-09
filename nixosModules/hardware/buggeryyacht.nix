@@ -20,7 +20,6 @@
   };
   swapDevices =
     [{ device = "/dev/disk/by-uuid/baa82ee2-1570-4f5c-821d-f5fc82f7a96f"; }];
-  nixpkgs.hostPlatform = "x86_64-linux";
   services.xserver.videoDrivers = [ "nvidia" ];
   powerManagement.cpuFreqGovernor = "performance";
   hardware = {

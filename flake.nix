@@ -47,7 +47,10 @@
             ) ++ (if useNixosHardware then
               [ nixos-hardware.nixosModules.${model} ]
             else
-              [ ]) ++ [{ networking.hostName = hostname; }];
+              [ ]) ++ [{
+                networking.hostName = hostname;
+                nixpkgs.hostPlatform = system;
+              }];
         in nixpkgs.lib.nixosSystem {
           inherit system modules;
           specialArgs = getSpecialArgs {
