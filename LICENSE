@@ -7,17 +7,13 @@
 This document contains multiple sections. They are delimited by the sequence “====”.
 
 All code in this repository except for the code contained within the “source” directory and the “.git” directory is licensed under the Apache License, which is listed below.
-Additionally, the files “source/colors.fish”, “source/commands.fish”, “source/config.nu”, “source/env.nu” and “source/features.fish” are also available licensed under the Apache License. Some of them are also licensed under the MIT license, as is stated further below the text of the Apache License.
+Additionally, the files “source/colors.fish”, “source/commands.fish”, and “source/features.fish” are also available licensed under the Apache License. Some of them are also licensed under the MIT license, as is stated further below the text of the Apache License.
 
-The license applying to the files “source/colors.fish”, “source/commands.fish”, “source/config.nu”, “source/env.nu” and “source/features.fish”:
+The license applying to the files “source/colors.fish”, “source/commands.fish”, and “source/features.fish”:
 
 ====
 
 For “source/colors.fish”, “source/commands.fish” and “source/features.fish”:
-ⓒ Copyright 2023 Anselm Schüler
-
-For “source/config.nu” and “source/env.nu”:
-Copyright (c) 2019 - 2022 The Nushell Project Developers
 ⓒ Copyright 2023 Anselm Schüler
 
                                  Apache License
@@ -349,13 +345,11 @@ This General Public License does not permit incorporating your program into prop
 
 ====
 
-The files “source/colors.fish”, “source/config.default.nu” and “source/env.default.nu” are licensed under the MIT License:
+The files “source/colors.fish” are licensed under the MIT License:
 
 ====
 
 For “source/colors.fish”: ⓒ Copyright 2023 Anselm Schüler
-
-For “source/config.default.nu” and “source/env.default.nu”: Copyright (c) 2019 - 2022 The Nushell Project Developers
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
