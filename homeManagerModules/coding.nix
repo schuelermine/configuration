@@ -5,8 +5,6 @@
         enable = true;
         ghciConfig = ''
           :set +m
-          :set +t
-          :set +s
         '';
       };
       cabal.enable = true;
