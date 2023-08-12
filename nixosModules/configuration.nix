@@ -114,8 +114,9 @@
       tldr
       trash-cli
       curl
-      bat
       fzf
+      bat
+      rich-cli
       glow
       frogmouth
       chafa
