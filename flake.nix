@@ -15,11 +15,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     dwarffs.url = "github:edolstra/dwarffs";
+    "-C".url = "github:schuelermine/-C";
   };
   outputs = inputs@{ self, nixpkgs, home-manager, xhmm, nixos-hardware, dwarffs, ... }:
     let
       joinAttrs = builtins.foldl' (s1: s2: s1 // s2) { };
       guard = cond: name: if cond then name else null;
+      overlays = [ inputs."-C".overlays.default ];
       getSpecialArgs = { system, model, smol, name }:
         {
           machine-smol = smol;
@@ -50,7 +52,8 @@
               [ ]) ++ [{
                 networking.hostName = hostname;
                 nixpkgs.hostPlatform = system;
-              }];
+              }]
+            ++ [{ nixpkgs.overlays = overlays; }];
         in nixpkgs.lib.nixosSystem {
           inherit system modules;
           specialArgs = getSpecialArgs {
@@ -68,7 +71,8 @@
                 builtins.elem username machines.${machineName}.usernames;
               modules = [ self.homeManagerModules."home-${username}" ]
                 ++ map (module: self.homeManagerModules.${module}) moduleNames
-                ++ (if useXhmm then [ xhmm.homeManagerModules.all ] else [ ]);
+                ++ (if useXhmm then [ xhmm.homeManagerModules.all ] else [ ])
+                ++ [{ nixpkgs.overlays = overlays; }];
             in {
               ${guard userPresent "${username}@${machineName}"} =
                 home-manager.lib.homeManagerConfiguration {

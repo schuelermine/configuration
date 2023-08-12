@@ -133,6 +133,7 @@
       thunderbird
       breeze-qt5
       breeze-icons
+      pkgs."-C"
     ]) ++ (with pkgs.aspellDicts; [ de en en-computers en-science ])
       ++ (with pkgs.hunspellDicts; [ de-de en-us en-us-large ]);
     gnome.excludePackages = (with pkgs; [ gnome-tour ]) ++ (with pkgs.gnome; [
