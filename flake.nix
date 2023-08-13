@@ -15,13 +15,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     dwarffs.url = "github:edolstra/dwarffs";
-    "-C".url = "github:schuelermine/-C";
   };
   outputs = inputs@{ self, nixpkgs, home-manager, xhmm, nixos-hardware, dwarffs, ... }:
     let
       joinAttrs = builtins.foldl' (s1: s2: s1 // s2) { };
       guard = cond: name: if cond then name else null;
-      overlays = [ inputs."-C".overlays.default ];
+      overlays = [ ];
       getSpecialArgs = { system, model, smol, name }:
         {
           machine-smol = smol;
