@@ -1,7 +1,10 @@
 { pkgs, ... }:
 {
   services.udev.packages = with pkgs; [ android-udev-rules ];
-  virtualisation.libvirtd.enable = true;
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu.swtpm.enable = true;
+  };
   programs.fish.enable = true;
   hardware.steam-hardware.enable = true;
   networking.firewall = let kdeconnect = {
