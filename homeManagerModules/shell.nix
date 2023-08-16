@@ -34,20 +34,19 @@
       enable = true;
       enableFishIntegration = true;
     };
-    exa.enable = true;
     direnv.enable = true;
     fish = {
       enable = true;
       shellAliases = {
-        ls = "exa -s type";
-        ll = "exa -lhFs type --git";
-        lg = "exa -lhFGs type --git";
-        la = "exa -aFs type";
-        l- = "exa -alhFs type --git";
-        "l." = "exa -alhFGs type --git";
-        lt = "exa --tree";
-        le = "exa -lh --tree --git";
-        l1 = "exa -1s type";
+        ls = "eza -s type";
+        ll = "eza -lhFs type --git";
+        lg = "eza -lhFGs type --git";
+        la = "eza -aFs type";
+        l- = "eza -alhFs type --git";
+        "l." = "eza -alhFGs type --git";
+        lt = "eza --tree";
+        le = "eza -lh --tree --git";
+        l1 = "eza -1s type";
         cd = "z";
         c = "bat";
       };

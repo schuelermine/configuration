@@ -129,7 +129,7 @@
       libqalculate
       du-dust
       duf
-      exa
+      eza
       thunderbird
       breeze-qt5
       breeze-icons
