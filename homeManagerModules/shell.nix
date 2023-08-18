@@ -1,4 +1,5 @@
 { pkgs, input-nixos-repl-setup, machine-name, source-flake, ... }: {
+  home.sessionVariables.EXA_COLORS = "xx=2";
   services.gpg-agent = {
     pinentryFlavor = "gnome3";
     enable = true;
