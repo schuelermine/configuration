@@ -23,7 +23,6 @@
     discord
     element-desktop
     signal-desktop
-    apostrophe
     steam
     prismlauncher
     valent
