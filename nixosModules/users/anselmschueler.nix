@@ -5,7 +5,7 @@
     enable = true;
     qemu = {
       swtpm.enable = true;
-      ovmf.packages = with pkgs; [ (OVMF.override { secureBoot = true; }) ];
+      ovmf.packages = [ pkgs.OVMFFull.fd ];
     };
   };
   programs.fish.enable = true;
