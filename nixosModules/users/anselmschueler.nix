@@ -1,11 +1,11 @@
 { pkgs, ... }:
 {
   services.udev.packages = with pkgs; [ android-udev-rules ];
-  virtualisation = {
-    useSecureBoot = true;
-    libvirtd = {
-      enable = true;
-      qemu.swtpm.enable = true;
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu = {
+      swtpm.enable = true;
+      ovmf.packages = with pkgs; [ (OVMF.override { secureBoot = true; }) ];
     };
   };
   programs.fish.enable = true;
