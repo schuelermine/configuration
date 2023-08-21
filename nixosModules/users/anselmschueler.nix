@@ -1,9 +1,12 @@
 { pkgs, ... }:
 {
   services.udev.packages = with pkgs; [ android-udev-rules ];
-  virtualisation.libvirtd = {
-    enable = true;
-    qemu.swtpm.enable = true;
+  virtualisation = {
+    useSecureBoot = true;
+    libvirtd = {
+      enable = true;
+      qemu.swtpm.enable = true;
+    };
   };
   programs.fish.enable = true;
   hardware.steam-hardware.enable = true;
