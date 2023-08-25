@@ -177,4 +177,8 @@
     platformTheme = "qt5ct";
   };
   system.stateVersion = "22.11";
+  specialisation.NoDNSOverTLSOrDNSSEC.configuration.services.resolved = {
+    dnssec = lib.mkForce "false";
+    extraConfig = lib.mkForce "";
+  };
 }
