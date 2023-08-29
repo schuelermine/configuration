@@ -5,6 +5,10 @@
     enable = true;
   };
   programs = {
+    programs.bat = {
+      enable = true;
+      config.style = "numbers,changes,rule,snip";
+    };
     gpg.enable = true;
     less = {
       enable = true;
