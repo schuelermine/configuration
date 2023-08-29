@@ -52,7 +52,7 @@
         c = "bat";
       };
       prompt = builtins.readFile ../source/prompt.fish;
-      shellInit = builtins.concatStringsSep "\n" (map builtins.readFile [
+      interactiveShellInit = builtins.concatStringsSep "\n" (map builtins.readFile [
         ../source/colors.fish
         ../source/features.fish
         ../source/commands.fish
