@@ -5,7 +5,7 @@
     enable = true;
   };
   programs = {
-    programs.bat = {
+    bat = {
       enable = true;
       config.style = "numbers,changes,rule,snip";
     };
