@@ -12,7 +12,7 @@
     gpg.enable = true;
     less = {
       enable = true;
-      options = [ "-Rm" "--use-color" ];
+      options = [ "-SRm" "--use-color" ];
     };
     nano = {
       enable = true;
