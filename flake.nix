@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-vscode-lldb.url =
       "github:schuelermine/nixpkgs/patch/vscode-extensions.vadimcn.vscode-lldb/remove-custom-lldb";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
@@ -16,11 +17,18 @@
     };
     dwarffs.url = "github:edolstra/dwarffs";
   };
-  outputs = inputs@{ self, nixpkgs, home-manager, xhmm, nixos-hardware, dwarffs, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-nixpkgs-unstable, home-manager, xhmm, nixos-hardware, dwarffs, ... }:
     let
       joinAttrs = builtins.foldl' (s1: s2: s1 // s2) { };
       guard = cond: name: if cond then name else null;
-      overlays = [ ];
+      overlays = [(self: super:
+        let pkgs = import nixpkgs-nixpkgs-unstable {
+          config = super.config;
+          system = super.system;
+        };
+        in {
+          inherit (pkgs) thunderbird firefox;
+        })];
       getSpecialArgs = { system, model, smol, name }:
         {
           machine-smol = smol;
