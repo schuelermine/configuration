@@ -27,7 +27,7 @@
       isNormalUser = true;
       description = "Anselm Schüler";
       extraGroups = [ "wheel" "libvirtd" "docker" ];
-      passwordFile = "/etc/anselmschueler.password";
+      hashedPasswordFile = "/etc/anselmschueler.password";
       shell = pkgs.fish;
     };
   };
