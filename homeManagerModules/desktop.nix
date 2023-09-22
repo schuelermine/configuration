@@ -13,8 +13,8 @@
   gnome = {
     extensions.enabledExtensions = with pkgs.gnomeExtensions; [ appindicator ];
     monospaceFont = {
-      package = pkgs.source-code-pro;
-      name = "Source Code Pro";
+      package = pkgs.ibm-plex;
+      name = "IBM Plex Mono";
       size = 14;
     };
   };
