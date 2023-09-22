@@ -162,11 +162,11 @@
     },
     "nixpkgs-vscode-lldb": {
       "locked": {
-        "lastModified": 1691684504,
-        "narHash": "sha256-lNCnbaE4Rs6DaXqDi5ApsORcy4fl0V8XrIQQ99SMriE=",
+        "lastModified": 1695344025,
+        "narHash": "sha256-CBpygJBoVez3TSXv9hHAyaSdlSLE9zdy7d6FoxW1BH0=",
         "owner": "schuelermine",
         "repo": "nixpkgs",
-        "rev": "2ef991128363aeb3c64330bc46c6b939b10db285",
+        "rev": "e9c1d638608de2c3a7cfd3cde5c27b6e262c2780",
         "type": "github"
       },
       "original": {
