@@ -28,6 +28,8 @@
       "sonarlint.ls.javaHome" = "${pkgs.openjdk}/lib/openjdk";
       "sonarlint.pathToNodeExecutable" = "${pkgs.nodejs}/bin/node";
 
+      "java.home" = "${pkgs.openjdk}/lib/openjdk";
+
       "workbench.colorTheme" = "Default Dark+ Experimental";
 
       "editor.inlayHints.enabled" = "on";
