@@ -74,7 +74,8 @@
         in nixpkgs.lib.nixosSystem {
           inherit system modules;
           specialArgs = getSpecialArgs {
-            inherit model weak system hidpi gui stateVersion useNixosHardware useDwarffs;
+            inherit model weak system hidpi gui stateVersion useNixosHardware
+              useDwarffs;
             name = hostname;
           };
         }) machines;

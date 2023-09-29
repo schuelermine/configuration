@@ -1,4 +1,5 @@
-{ pkgs, input-nixos-repl-setup, machine-name, machine-gui, source-flake, ... }: {
+{ pkgs, input-nixos-repl-setup, machine-name, machine-gui, source-flake, ...
+}: {
   home.sessionVariables.EXA_COLORS = "xx=2";
   services.gpg-agent = {
     pinentryFlavor = lib.mkIf machine-gui "gnome3";
@@ -56,11 +57,12 @@
         c = "bat";
       };
       prompt = builtins.readFile ../source/prompt.fish;
-      interactiveShellInit = builtins.concatStringsSep "\n" (map builtins.readFile [
-        ../source/colors.fish
-        ../source/features.fish
-        ../source/commands.fish
-      ]);
+      interactiveShellInit = builtins.concatStringsSep "\n"
+        (map builtins.readFile [
+          ../source/colors.fish
+          ../source/features.fish
+          ../source/commands.fish
+        ]);
     };
   };
   home = {
@@ -79,11 +81,6 @@
         ];
       } // builtins
     '';
-    packages = with pkgs; [
-      haskellPackages.ret
-      asciinema
-      powershell
-      nushell
-    ];
+    packages = with pkgs; [ haskellPackages.ret asciinema powershell nushell ];
   };
 }

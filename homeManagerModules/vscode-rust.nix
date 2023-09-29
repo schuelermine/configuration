@@ -8,6 +8,7 @@
           "${config.programs.rust.rust-analyzer.package}/bin/rust-analyzer";
       };
     };
-    rust.exposeRustSrcLocation = "${input-fenix.packages.${pkgs.system}.latest.rust-src}";
+    rust.exposeRustSrcLocation =
+      "${input-fenix.packages.${pkgs.system}.latest.rust-src}";
   };
 }
