@@ -40,9 +40,8 @@
     earlySetup = true;
   };
   services = {
-    flatpak.enable = true;
-    dbus.packages = [ pkgs.gcr ];
-    fwupd.enable = true;
+    flatpak.enable = lib.mkIf machine-gui true;
+    dbus.packages = lib.mkIf machine-gui [ pkgs.gcr ];
     pipewire = lib.mkIf machine-gui {
       enable = true;
       audio.enable = true;
@@ -119,8 +118,6 @@
         gimp
         libreoffice-fresh
         thunderbird
-        breeze-qt5
-        breeze-icons
       ]) ++ lib.optionals machine-gui (with pkgs; [
         clapper
         qalculate-gtk
@@ -128,6 +125,8 @@
         wl-clipboard
         xsel
         xorg.xkill
+        breeze-qt5
+        breeze-icons
       ]) ++ (with pkgs.aspellDicts; [ de en en-computers en-science ])
       ++ (with pkgs.hunspellDicts; [ de-de en-us ])
       ++ lib.optionals (!machine-weak) [ pkgs.hunspellDicts.en-us-large ];

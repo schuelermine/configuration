@@ -28,7 +28,10 @@
   };
   swapDevices =
     [{ device = "/dev/disk/by-uuid/baa82ee2-1570-4f5c-821d-f5fc82f7a96f"; }];
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services = {
+    xserver.videoDrivers = [ "nvidia" ];
+    fwupd.enable = true;
+  };
   powerManagement.cpuFreqGovernor = "performance";
   hardware = {
     opengl = {

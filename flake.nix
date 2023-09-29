@@ -74,7 +74,7 @@
         in nixpkgs.lib.nixosSystem {
           inherit system modules;
           specialArgs = getSpecialArgs {
-            inherit model weak system hidpi;
+            inherit model weak system hidpi gui stateVersion useNixosHardware useDwarffs;
             name = hostname;
           };
         }) machines;
@@ -112,14 +112,23 @@
                     import nixpkgs { system = machines.${machineName}.system; };
                 };
             }) machineNames)) users));
-      machines.buggeryyacht = {
-        model = "lenovo-legion-y530-15ich";
-        system = "x86_64-linux";
-        usernames = [ "anselmschueler" ];
-        hidpi = true;
-        useNixosHardware = true;
-        useDwarffs = true;
-        stateVersion = "22.11";
+      machines = {
+        buggeryyacht = {
+          model = "lenovo-legion-y530-15ich";
+          system = "x86_64-linux";
+          usernames = [ "anselmschueler" ];
+          hidpi = true;
+          useNixosHardware = true;
+          useDwarffs = true;
+          stateVersion = "22.11";
+        };
+        vm-hulahoop = {
+          system = "x86_64-linux";
+          usernames = [ "anselmschueler" ];
+          stateVersion = "23.05";
+          gui = false;
+          weak = true;
+        };
       };
       users.anselmschueler = {
         user = { gui ? defaults.gui, weak ? defaults.weak, ... }: {
@@ -144,6 +153,7 @@
         default = import ./nixosModules/configuration.nix;
         user-anselmschueler = import ./nixosModules/users/anselmschueler.nix;
         hardware-buggeryyacht = import ./nixosModules/hardware/buggeryyacht.nix;
+        hardware-vm-hulahoop = import ./nixosModules/hardware/vm-hulahoop.nix;
       };
       homeManagerModules = joinAttrs (map (path: {
         ${builtins.head (builtins.match "(.*).nix" path)} =

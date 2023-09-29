@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, lib, machine-weak, machine-gui, ... }:
 {
   services.udev.packages = with pkgs; [ android-udev-rules ];
-  virtualisation = {
+  virtualisation = lib.mkIf (!machine-weak) {
     docker.enable = true;
     libvirtd = {
       enable = true;
@@ -12,11 +12,11 @@
     };
   };
   programs.fish.enable = true;
-  hardware.steam-hardware.enable = true;
+  hardware.steam-hardware.enable = lib.mkIf machine-gui true;
   networking.firewall = let kdeconnect = {
     from = 1714;
     to = 1764;
-  }; in {
+  }; in lib.mkIf machine-gui {
     enable = true;
     allowedTCPPortRanges = [ kdeconnect ];
     allowedUDPPortRanges = [ kdeconnect ];

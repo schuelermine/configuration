@@ -1,7 +1,7 @@
-{ pkgs, input-nixos-repl-setup, machine-name, source-flake, ... }: {
+{ pkgs, input-nixos-repl-setup, machine-name, machine-gui, source-flake, ... }: {
   home.sessionVariables.EXA_COLORS = "xx=2";
   services.gpg-agent = {
-    pinentryFlavor = "gnome3";
+    pinentryFlavor = lib.mkIf machine-gui "gnome3";
     enable = true;
   };
   programs = {
