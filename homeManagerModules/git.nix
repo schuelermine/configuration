@@ -1,10 +1,10 @@
-{ pkgs, ... }: {
+{ pkgs, lib, machine-gui, ... }: {
   programs = {
     git = {
       userEmail = "mail@anselmschueler.com";
       userName = "Anselm Schüler";
       enable = true;
-      delta.enable = true;
+      delta.enable = lib.mkIf machine-gui true;
       signing = {
         signByDefault = true;
         key = null;
