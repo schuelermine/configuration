@@ -27,9 +27,13 @@
         hidpi = false;
         gui = true;
         weak = false;
+        useNixosHardware = false;
+        useDwarffs = false;
       };
       getSpecialArgs = { system, model ? defaults.model, hidpi ? defaults.hidpi
-        , gui ? defaults.gui, weak ? defaults.weak, name }:
+        , gui ? defaults.gui, weak ? defaults.weak, name
+        , useDwarffs ? defaults.useDwarffs
+        , useNixosHardware ? defaults.useNixosHardware, ... }:
         {
           machine-model = model;
           machine-name = name;
@@ -37,6 +41,8 @@
           machine-gui = gui;
           machine-weak = weak;
           source-flake = self;
+          configuration-dwarffs = useDwarffs;
+          configuration-nixos-hardware = useNixosHardware;
           inherit system;
         } // joinAttrs
         (map (inputName: { "input-${inputName}" = inputs.${inputName}; })
@@ -46,9 +52,10 @@
           }) [ "nixpkgs" "nixpkgs-vscode-lldb" ]);
       nixosConfigurations = builtins.mapAttrs (hostname:
         { system, usernames ? [ ], model ? defaults.model
-        , moduleNames ? [ "default" ], useNixosHardware ? false
-        , useDwarffs ? false, weak ? defaults.weak, hidpi ? defaults.hidpi
-        , gui ? defaults.gui }:
+        , moduleNames ? [ "default" ]
+        , useNixosHardware ? defaults.useNixosHardware
+        , useDwarffs ? defaults.useDwarffs, weak ? defaults.weak
+        , hidpi ? defaults.hidpi, gui ? defaults.gui }:
         let
           modules = [ self.nixosModules."hardware-${hostname}" ]
             ++ map (moduleName: self.nixosModules.${moduleName}) moduleNames
@@ -70,14 +77,11 @@
         }) machines;
       homeConfigurations = joinAttrs (builtins.attrValues (builtins.mapAttrs
         (username:
-          { machineNames, user }:
+          { machineNames ? builtins.attrNames machines, user }:
           joinAttrs (map (machineName:
             let
               user' = if builtins.isFunction user then
-                user {
-                  inherit (machines.${machineName}) system model hidpi gui weak;
-                  name = machineName;
-                }
+                user (machines.${machineName} // { name = machineName; })
               else
                 user;
               userPresent =
@@ -92,11 +96,8 @@
               ${guard userPresent "${username}@${machineName}"} =
                 home-manager.lib.homeManagerConfiguration {
                   inherit modules;
-                  extraSpecialArgs = getSpecialArgs {
-                    inherit (machines.${machineName})
-                      system model hidpi gui weak;
-                    name = machineName;
-                  };
+                  extraSpecialArgs = getSpecialArgs
+                    (machines.${machineName} // { name = machineName; });
                   pkgs =
                     import nixpkgs { system = machines.${machineName}.system; };
                 };
@@ -109,22 +110,20 @@
         useNixosHardware = true;
         useDwarffs = true;
       };
-      users.anselmschueler.user = { ... }: {
-        moduleNames = [
-          "coding"
-          "desktop"
-          "git"
-          "shell"
-          "vscode-cpp"
-          "vscode-haskell"
-          "vscode-java"
-          "vscode-nix"
-          "vscode-python"
-          "vscode-rust"
-          "vscode"
-        ];
-        useXhmm = true;
-      };
+      users.anselmschueler.user =
+        { gui ? defaults.gui, weak ? defaults.weak, ... }: {
+          moduleNames = [ "git" "shell" ] ++ nixpkgs.lib.optionals gui [
+            "desktop"
+            "vscode-cpp"
+            "vscode-haskell"
+            "vscode-java"
+            "vscode-nix"
+            "vscode-python"
+            "vscode-rust"
+            "vscode"
+          ] ++ nixpkgs.lib.optionals (!weak) [ "coding" ];
+          useXhmm = true;
+        };
     in {
       inherit nixosConfigurations;
       inherit homeConfigurations;
