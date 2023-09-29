@@ -55,7 +55,7 @@
         , moduleNames ? [ "default" ]
         , useNixosHardware ? defaults.useNixosHardware
         , useDwarffs ? defaults.useDwarffs, weak ? defaults.weak
-        , hidpi ? defaults.hidpi, gui ? defaults.gui }:
+        , hidpi ? defaults.hidpi, gui ? defaults.gui, stateVersion }:
         let
           modules = [ self.nixosModules."hardware-${hostname}" ]
             ++ map (moduleName: self.nixosModules.${moduleName}) moduleNames
@@ -67,7 +67,10 @@
               [ ]) ++ [{
                 networking.hostName = hostname;
                 nixpkgs.hostPlatform = system;
-              }] ++ [{ nixpkgs.overlays = overlays; }];
+              }] ++ [
+                { nixpkgs.overlays = overlays; }
+                { system.stateVersion = stateVersion; }
+              ];
         in nixpkgs.lib.nixosSystem {
           inherit system modules;
           specialArgs = getSpecialArgs {
@@ -77,7 +80,8 @@
         }) machines;
       homeConfigurations = joinAttrs (builtins.attrValues (builtins.mapAttrs
         (username:
-          { machineNames ? builtins.attrNames machines, user }:
+          { machineNames ? builtins.attrNames machines, user
+          , stateVersions ? { } }:
           joinAttrs (map (machineName:
             let
               user' = if builtins.isFunction user then
@@ -91,7 +95,13 @@
                 user'.moduleNames ++ (if user'.useXhmm then
                   [ xhmm.homeManagerModules.all ]
                 else
-                  [ ]) ++ [{ nixpkgs.overlays = overlays; }];
+                  [ ]) ++ [
+                    { nixpkgs.overlays = overlays; }
+                    {
+                      home.stateVersion =
+                        stateVersions.${machineName} or machines.${machineName}.stateVersion;
+                    }
+                  ];
             in {
               ${guard userPresent "${username}@${machineName}"} =
                 home-manager.lib.homeManagerConfiguration {
@@ -109,9 +119,10 @@
         hidpi = true;
         useNixosHardware = true;
         useDwarffs = true;
+        stateVersion = "22.11";
       };
-      users.anselmschueler.user =
-        { gui ? defaults.gui, weak ? defaults.weak, ... }: {
+      users.anselmschueler = {
+        user = { gui ? defaults.gui, weak ? defaults.weak, ... }: {
           moduleNames = [ "git" "shell" ] ++ nixpkgs.lib.optionals gui [
             "desktop"
             "vscode-cpp"
@@ -124,6 +135,8 @@
           ] ++ nixpkgs.lib.optionals (!weak) [ "coding" ];
           useXhmm = true;
         };
+        stateVersions.buggeryyacht = "21.11";
+      };
     in {
       inherit nixosConfigurations;
       inherit homeConfigurations;
