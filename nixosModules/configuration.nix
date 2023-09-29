@@ -154,7 +154,7 @@
       type = "github";
     };
     nixPath = [ "nixpkgs=${input-nixpkgs}" ];
-    package = pkgs.nixUnstable;
+    # package = pkgs.nixUnstable;
     settings = {
       auto-optimise-store = true;
       substituters = [ "https://nix-community.cachix.org" ];
