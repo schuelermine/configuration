@@ -1,16 +1,8 @@
-{ lib, pkgs, input-nixpkgs, machine-smol, ... }: {
+{ lib, pkgs, input-nixpkgs, machine-gui, machine-weak, machine-hidpi, ... }: {
   nixpkgs.config.allowUnfree = true;
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
-    supportedFilesystems = [ "ntfs" "exfat" ];
-    loader = {
-      systemd-boot = {
-        enable = true;
-        editor = false;
-      };
-      timeout = 0;
-      efi.canTouchEfiVariables = true;
-    };
+    supportedFilesystems = lib.mkIf (!machine-weak) [ "ntfs" "exfat" ];
   };
   networking = {
     nameservers = [
@@ -43,14 +35,14 @@
   console = {
     useXkbConfig = true;
     packages = with pkgs; [ terminus_font ];
-    font = "ter-v24b";
+    font = lib.mkIf machine-hidpi "ter-v24b";
     earlySetup = true;
   };
   services = {
     flatpak.enable = true;
     dbus.packages = [ pkgs.gcr ];
     fwupd.enable = true;
-    pipewire = {
+    pipewire = lib.mkIf machine-gui {
       enable = true;
       audio.enable = true;
       pulse.enable = true;
@@ -60,8 +52,8 @@
       };
       jack.enable = true;
     };
-    printing.enable = true;
-    switcherooControl.enable = true;
+    printing.enable = lib.mkIf machine-gui true;
+    switcherooControl.enable = lib.mkIf (!machine-weak) true;
     resolved = {
       enable = true;
       dnssec = "true";
@@ -69,7 +61,7 @@
         DNSOverTLS=true
       '';
     };
-    xserver = {
+    xserver = lib.mkIf machine-gui {
       enable = true;
       libinput.enable = true;
       displayManager.gdm.enable = true;
@@ -79,35 +71,25 @@
       xkbVariant = "nodeadkeys";
     };
   };
-  sound.enable = true;
+  sound.enable = lib.mkIf machine-gui true;
   hardware.pulseaudio.enable = false;
   environment = {
     systemPackages = (with pkgs; [
-      clapper
-      qalculate-gtk
-      firefox
-      gnome.dconf-editor
-      gnome.gnome-sound-recorder
-      gimp
-      libreoffice-fresh
       nix-index
       nix-tree
+      nix-diff
       nix-top
-      wl-clipboard
-      xsel
-      xorg.xkill
       nano
-      vim
       wget
       choose
       curl
       fd
-      ffmpeg
+      sd
+      (if machine-weak then ffmpeg else ffmpeg-full)
       file
       htop
       killall
       lsof
-      man-pages
       pciutils
       ripgrep
       rmtrash
@@ -118,7 +100,6 @@
       bat
       rich-cli
       glow
-      frogmouth
       chafa
       jq
       moreutils
@@ -130,18 +111,33 @@
       du-dust
       duf
       eza
-      thunderbird
-      breeze-qt5
-      breeze-icons
-    ]) ++ (with pkgs.aspellDicts; [ de en en-computers en-science ])
-      ++ (with pkgs.hunspellDicts; [ de-de en-us en-us-large ]);
-    gnome.excludePackages = (with pkgs; [ gnome-tour ]) ++ (with pkgs.gnome; [
-      gnome-calculator
-      epiphany
-      totem
-      geary
-      gnome-calendar
-    ]);
+    ]) ++ lib.optionals (!machine-weak) (with pkgs; [ man-pages frogmouth ])
+      ++ lib.optionals (machine-gui && !machine-weak) (with pkgs; [
+        gnome.dconf-editor
+        gnome.gnome-sound-recorder
+        gimp
+        libreoffice-fresh
+        thunderbird
+        breeze-qt5
+        breeze-icons
+      ]) ++ lib.optionals machine-gui (with pkgs; [
+        clapper
+        qalculate-gtk
+        firefox
+        wl-clipboard
+        xsel
+        xorg.xkill
+      ]) ++ (with pkgs.aspellDicts; [ de en en-computers en-science ])
+      ++ (with pkgs.hunspellDicts; [ de-de en-us ])
+      ++ lib.optionals (!machine-weak) [ pkgs.hunspellDicts.en-us-large ];
+    gnome.excludePackages = lib.mkIf machine-gui ([ pkgs.gnome-tour ]
+      ++ (with pkgs.gnome; [
+        gnome-calculator
+        epiphany
+        totem
+        geary
+        gnome-calendar
+      ]));
   };
   nix = {
     extraOptions = ''
@@ -163,16 +159,17 @@
       ];
     };
   };
-  fonts.packages = with pkgs;
-    [ noto-fonts noto-fonts-cjk ] ++ lib.optionals (!machine-smol) [
-      ubuntu_font_family
-      atkinson-hyperlegible
-      fira
-      fira-code
-      go-font
-      libertinus
-    ];
-  qt = {
+  fonts.packages = lib.mkIf machine-gui
+    ((with pkgs; [ noto-fonts noto-fonts-cjk ]) ++ lib.optionals (!machine-weak)
+      (with pkgs; [
+        ubuntu_font_family
+        atkinson-hyperlegible
+        fira
+        fira-code
+        go-font
+        libertinus
+      ]));
+  qt = lib.mkIf machine-gui {
     enable = true;
     platformTheme = "qt5ct";
   };

@@ -16,16 +16,26 @@
     };
     dwarffs.url = "github:edolstra/dwarffs";
   };
-  outputs = inputs@{ self, nixpkgs, home-manager, xhmm, nixos-hardware, dwarffs, ... }:
+  outputs =
+    inputs@{ self, nixpkgs, home-manager, xhmm, nixos-hardware, dwarffs, ... }:
     let
       joinAttrs = builtins.foldl' (s1: s2: s1 // s2) { };
       guard = cond: name: if cond then name else null;
       overlays = [ ];
-      getSpecialArgs = { system, model, smol, name }:
+      defaults = {
+        model = null;
+        hidpi = false;
+        gui = true;
+        weak = false;
+      };
+      getSpecialArgs = { system, model ? defaults.model, hidpi ? defaults.hidpi
+        , gui ? defaults.gui, weak ? defaults.weak, name }:
         {
-          machine-smol = smol;
           machine-model = model;
           machine-name = name;
+          machine-hidpi = hidpi;
+          machine-gui = gui;
+          machine-weak = weak;
           source-flake = self;
           inherit system;
         } // joinAttrs
@@ -35,65 +45,71 @@
               import inputs.${nixpkgsVersionName} { inherit system; };
           }) [ "nixpkgs" "nixpkgs-vscode-lldb" ]);
       nixosConfigurations = builtins.mapAttrs (hostname:
-        { system, usernames ? [ ], model ? null, moduleNames ? [ "default" ]
-        , useNixosHardware ? false, useDwarffs ? false, smol ? false }:
+        { system, usernames ? [ ], model ? defaults.model
+        , moduleNames ? [ "default" ], useNixosHardware ? false
+        , useDwarffs ? false, weak ? defaults.weak, hidpi ? defaults.hidpi
+        , gui ? defaults.gui }:
         let
           modules = [ self.nixosModules."hardware-${hostname}" ]
             ++ map (moduleName: self.nixosModules.${moduleName}) moduleNames
             ++ map (username: self.nixosModules."user-${username}") usernames
-            ++ (if useDwarffs then
-              [ dwarffs.nixosModules.dwarffs ]
-            else
-              [ ]
-            ) ++ (if useNixosHardware then
+            ++ (if useDwarffs then [ dwarffs.nixosModules.dwarffs ] else [ ])
+            ++ (if useNixosHardware then
               [ nixos-hardware.nixosModules.${model} ]
             else
               [ ]) ++ [{
                 networking.hostName = hostname;
                 nixpkgs.hostPlatform = system;
-              }]
-            ++ [{ nixpkgs.overlays = overlays; }];
+              }] ++ [{ nixpkgs.overlays = overlays; }];
         in nixpkgs.lib.nixosSystem {
           inherit system modules;
           specialArgs = getSpecialArgs {
-            inherit model smol system;
+            inherit model weak system hidpi;
             name = hostname;
           };
         }) machines;
       homeConfigurations = joinAttrs (builtins.attrValues (builtins.mapAttrs
         (username:
-          { moduleNames, machineNames ? builtins.attrNames machines
-          , useXhmm ? false }:
+          { machineNames, user }:
           joinAttrs (map (machineName:
             let
+              user' = if builtins.isFunction user then
+                user {
+                  inherit (machines.${machineName}) system model hidpi gui weak;
+                  name = machineName;
+                }
+              else
+                user;
               userPresent =
                 builtins.elem username machines.${machineName}.usernames;
               modules = [ self.homeManagerModules."home-${username}" ]
-                ++ map (module: self.homeManagerModules.${module}) moduleNames
-                ++ (if useXhmm then [ xhmm.homeManagerModules.all ] else [ ])
-                ++ [{ nixpkgs.overlays = overlays; }];
+                ++ map (module: self.homeManagerModules.${module})
+                user'.moduleNames ++ (if user'.useXhmm then
+                  [ xhmm.homeManagerModules.all ]
+                else
+                  [ ]) ++ [{ nixpkgs.overlays = overlays; }];
             in {
               ${guard userPresent "${username}@${machineName}"} =
                 home-manager.lib.homeManagerConfiguration {
                   inherit modules;
-                  pkgs =
-                    import nixpkgs { system = machines.${machineName}.system; };
                   extraSpecialArgs = getSpecialArgs {
-                    inherit (machines.${machineName}) system;
-                    model = machines.${machineName}.model or null;
-                    smol = machines.${machineName}.smol or false;
+                    inherit (machines.${machineName})
+                      system model hidpi gui weak;
                     name = machineName;
                   };
+                  pkgs =
+                    import nixpkgs { system = machines.${machineName}.system; };
                 };
             }) machineNames)) users));
       machines.buggeryyacht = {
         model = "lenovo-legion-y530-15ich";
         system = "x86_64-linux";
         usernames = [ "anselmschueler" ];
+        hidpi = true;
         useNixosHardware = true;
         useDwarffs = true;
       };
-      users.anselmschueler = {
+      users.anselmschueler.user = { ... }: {
         moduleNames = [
           "coding"
           "desktop"
