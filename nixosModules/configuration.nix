@@ -33,7 +33,8 @@
     };
   };
   console = {
-    useXkbConfig = true;
+    useXkbConfig = lib.mkIf machine-gui true;
+    keyMap = lib.mkIf (!machine-gui) "de-latin1-nodeadkeys";
     packages = with pkgs; [ terminus_font ];
     font = lib.mkIf machine-hidpi "ter-v24b";
     earlySetup = true;
