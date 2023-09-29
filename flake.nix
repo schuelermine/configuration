@@ -29,10 +29,11 @@
         weak = false;
         useNixosHardware = false;
         useDwarffs = false;
+        trusted = false;
       };
       getSpecialArgs = { system, model ? defaults.model, hidpi ? defaults.hidpi
         , gui ? defaults.gui, weak ? defaults.weak, name
-        , useDwarffs ? defaults.useDwarffs
+        , useDwarffs ? defaults.useDwarffs, trusted ? defaults.trusted
         , useNixosHardware ? defaults.useNixosHardware, ... }:
         {
           machine-model = model;
@@ -41,6 +42,7 @@
           machine-gui = gui;
           machine-weak = weak;
           source-flake = self;
+          configuration-trusted = trusted;
           configuration-dwarffs = useDwarffs;
           configuration-nixos-hardware = useNixosHardware;
           inherit system;
@@ -55,7 +57,8 @@
         , moduleNames ? [ "default" ]
         , useNixosHardware ? defaults.useNixosHardware
         , useDwarffs ? defaults.useDwarffs, weak ? defaults.weak
-        , hidpi ? defaults.hidpi, gui ? defaults.gui, stateVersion }:
+        , hidpi ? defaults.hidpi, gui ? defaults.gui, trusted ? defaults.trusted
+        , stateVersion }:
         let
           modules = [ self.nixosModules."hardware-${hostname}" ]
             ++ map (moduleName: self.nixosModules.${moduleName}) moduleNames
@@ -75,7 +78,7 @@
           inherit system modules;
           specialArgs = getSpecialArgs {
             inherit model weak system hidpi gui stateVersion useNixosHardware
-              useDwarffs;
+              useDwarffs trusted;
             name = hostname;
           };
         }) machines;
@@ -122,6 +125,7 @@
           useNixosHardware = true;
           useDwarffs = true;
           stateVersion = "22.11";
+          trusted = true;
         };
         vm-hulahoop = {
           system = "x86_64-linux";
