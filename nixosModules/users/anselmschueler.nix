@@ -1,6 +1,6 @@
-{ pkgs, lib, machine-weak, machine-gui, ... }: {
+{ pkgs, lib, machine-vm, machine-gui, ... }: {
   services.udev.packages = with pkgs; [ android-udev-rules ];
-  virtualisation = lib.mkIf (!machine-weak) {
+  virtualisation = lib.mkIf (!machine-vm) {
     docker.enable = true;
     libvirtd = {
       enable = true;

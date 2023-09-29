@@ -53,7 +53,7 @@
       jack.enable = true;
     };
     printing.enable = lib.mkIf machine-gui true;
-    switcherooControl.enable = lib.mkIf (!machine-weak) true;
+    switcherooControl.enable = lib.mkIf (machine-gui && !machine-weak) true;
     resolved = {
       enable = true;
       dnssec = "true";

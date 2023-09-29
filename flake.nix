@@ -30,17 +30,19 @@
         useNixosHardware = false;
         useDwarffs = false;
         trusted = false;
+        vm = false;
       };
       getSpecialArgs = { system, model ? defaults.model, hidpi ? defaults.hidpi
         , gui ? defaults.gui, weak ? defaults.weak, name
         , useDwarffs ? defaults.useDwarffs, trusted ? defaults.trusted
-        , useNixosHardware ? defaults.useNixosHardware, ... }:
+        , useNixosHardware ? defaults.useNixosHardware, vm ? defaults.vm, ... }:
         {
           machine-model = model;
           machine-name = name;
           machine-hidpi = hidpi;
           machine-gui = gui;
           machine-weak = weak;
+          machine-vm = vm;
           source-flake = self;
           configuration-trusted = trusted;
           configuration-dwarffs = useDwarffs;
@@ -58,7 +60,7 @@
         , useNixosHardware ? defaults.useNixosHardware
         , useDwarffs ? defaults.useDwarffs, weak ? defaults.weak
         , hidpi ? defaults.hidpi, gui ? defaults.gui, trusted ? defaults.trusted
-        , stateVersion }:
+        , vm ? defaults.vm, stateVersion }:
         let
           modules = [ self.nixosModules."hardware-${hostname}" ]
             ++ map (moduleName: self.nixosModules.${moduleName}) moduleNames
@@ -78,7 +80,7 @@
           inherit system modules;
           specialArgs = getSpecialArgs {
             inherit model weak system hidpi gui stateVersion useNixosHardware
-              useDwarffs trusted;
+              useDwarffs trusted vm;
             name = hostname;
           };
         }) machines;
@@ -133,6 +135,7 @@
           stateVersion = "23.05";
           gui = false;
           weak = true;
+          vm = true;
         };
       };
       users.anselmschueler = {
