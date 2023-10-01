@@ -50,8 +50,8 @@
         la = "eza -aFs type";
         l- = "eza -alhFs type --git";
         "l." = "eza -alhFGs type --git";
-        lt = "eza --tree";
-        le = "eza -lh --tree --git";
+        lt = "eza -s type --tree";
+        le = "eza -lhs type --tree --git";
         l1 = "eza -1s type";
         cd = "z";
         c = "bat";
