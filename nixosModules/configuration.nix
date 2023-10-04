@@ -73,13 +73,16 @@
   };
   sound.enable = lib.mkIf machine-gui true;
   hardware.pulseaudio.enable = false;
+  programs.nano = {
+    enable = true;
+    syntaxHighlight = true;
+  };
   environment = {
     systemPackages = (with pkgs; [
       nix-index
       nix-tree
       nix-diff
       nix-top
-      nano
       wget
       choose
       curl
