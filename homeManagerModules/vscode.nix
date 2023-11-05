@@ -50,6 +50,8 @@
       "window.zoomLevel" = 1;
 
       "scm.diffDecorationsGutterPattern" = { modified = false; };
+
+      "diffEditor.experimental.showMoves" = true;
     };
   };
 }
