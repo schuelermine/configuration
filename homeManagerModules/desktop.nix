@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, nixpkgs-master, ... }: {
   dconf = {
     enable = true;
     settings = {
@@ -13,8 +13,8 @@
   gnome = {
     extensions.enabledExtensions = with pkgs.gnomeExtensions; [ appindicator ];
     monospaceFont = {
-      package = pkgs.source-code-pro;
-      name = "Source Code Pro";
+      package = nixpkgs-master.monaspace;
+      name = "Monaspace Xenon, Medium";
       size = 14;
     };
   };

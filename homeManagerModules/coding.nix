@@ -13,7 +13,6 @@
     rust.customToolchain.toolchainPackage =
       input-fenix.packages.${pkgs.system}.complete.toolchain;
     python = {
-      versionName = "3.10";
       enable = true;
       mypy.enable = true;
     };
