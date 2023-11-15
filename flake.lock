@@ -256,11 +256,11 @@
     },
     "xhmm": {
       "locked": {
-        "lastModified": 1696023180,
-        "narHash": "sha256-VrI5icHB1xVW3FzsHkjeAbjA42mC6UOoBxE1ooQOJ3w=",
+        "lastModified": 1700046577,
+        "narHash": "sha256-NfSKxftXozjQo+Y0Ujv2sizK+3VF5MxLp6cAaLU1F5M=",
         "owner": "schuelermine",
         "repo": "xhmm",
-        "rev": "3e523ac29aa2324e51af8c6bef6ab9d21b1bd183",
+        "rev": "28e68f0cfb7ce2456465004ff54de4fc9cd718b1",
         "type": "github"
       },
       "original": {
