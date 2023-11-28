@@ -25,7 +25,7 @@
     signal-desktop
     steam
     prismlauncher
-    valent
+    # valent
     virt-manager
   ];
   fonts.fontconfig.enable = true;
