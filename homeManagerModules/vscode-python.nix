@@ -13,7 +13,7 @@
       "mypy.dmypyExecutable" =
         "${config.programs.python.mypy.package}/bin/dmypy";
       "python.defaultInterpreterPath" =
-        "${config.programs.python.package}/bin/python3";
+        "${config.programs.python.package}/bin/python";
       "python.formatting.provider" = "black";
       "python.formatting.blackPath" = "${pkgs.black}/bin/black";
     };

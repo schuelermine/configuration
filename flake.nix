@@ -3,7 +3,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-vscode-lldb.url =
       "github:schuelermine/nixpkgs/patch/vscode-extensions.vadimcn.vscode-lldb/remove-custom-lldb";
-    nixpkgs-master.url = "github:NixOS/nixpkgs/master";      
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     home-manager.url = "github:nix-community/home-manager";
     nixos-repl-setup = {
@@ -54,7 +53,7 @@
           (builtins.attrNames inputs)) // joinAttrs (map (nixpkgsVersionName: {
             "${nixpkgsVersionName}" =
               import inputs.${nixpkgsVersionName} { inherit system; };
-          }) [ "nixpkgs" "nixpkgs-vscode-lldb" "nixpkgs-master" ]);
+          }) [ "nixpkgs" "nixpkgs-vscode-lldb" ]);
       nixosConfigurations = builtins.mapAttrs (hostname:
         { system, usernames ? [ ], model ? defaults.model
         , moduleNames ? [ "default" ]

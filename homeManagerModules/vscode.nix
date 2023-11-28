@@ -17,12 +17,11 @@
       bungcip.better-toml
     ];
     package = pkgs.vscodium;
-    userSettings = let adjusted-weight = 700; in {
+    userSettings = {
       "update.mode" = "none";
 
-      "editor.fontFamily" = "'Monaspace Xenon Var'";
+      "editor.fontFamily" = "'${config.gnome.monospaceFont.name}'";
       "editor.fontSize" = config.gnome.monospaceFont.size;
-      "editor.fontWeight" = adjusted-weight;
       "editor.fontLigatures" = true;
       "editor.minimap.renderCharacters" = false;
 
@@ -44,7 +43,6 @@
       "editor.insertSpaces" = true;
 
       "terminal.integrated.cursorStyle" = "line";
-      "terminal.integrated.fontWeight" = adjusted-weight;
 
       "window.titleBarStyle" = "custom";
       "window.dialogStyle" = "native";
