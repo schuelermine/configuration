@@ -17,5 +17,4 @@
       mypy.enable = true;
     };
   };
-  home.packages = with pkgs; [ openjdk clang gdb ];
 }
