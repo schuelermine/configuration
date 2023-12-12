@@ -10,6 +10,9 @@
           "${config.programs.haskell.hls.package}/bin/haskell-language-server-wrapper";
       };
     };
-    haskell.hls.enable = true;
+    haskell.hls = {
+      enable = true;
+      extraSupportedGhcVersions = [ "947" ];
+    };
   };
 }
