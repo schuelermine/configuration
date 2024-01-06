@@ -1,4 +1,4 @@
-{ lib, machine-gui, configuration-trusted, ... }: {
+{ pkgs, lib, machine-gui, configuration-trusted, ... }: {
   programs = {
     git = {
       userEmail = "mail@anselmschueler.com";
@@ -16,4 +16,5 @@
       gitCredentialHelper.enable = true;
     };
   };
+  home.packages = [ pkgs.gh ];
 }

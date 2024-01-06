@@ -53,7 +53,7 @@
         lt = "eza -s type --tree";
         le = "eza -lhs type --tree --git";
         l1 = "eza -1s type";
-        cd = "z";
+        y = "z";
         c = "bat";
       };
       prompt = builtins.readFile ../source/prompt.fish;

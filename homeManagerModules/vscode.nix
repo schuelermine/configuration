@@ -15,6 +15,14 @@
       thenuprojectcontributors.vscode-nushell-lang
       sonarsource.sonarlint-vscode
       bungcip.better-toml
+      (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "agda-mode";
+          publisher = "banacorn";
+          version = "0.4.7";
+          sha256 = "sha256-gNa3n16lP3ooBRvGaugTua4IXcIzpMk7jBYMJDQsY00=";
+        };
+      })
     ];
     package = pkgs.vscodium;
     userSettings = {
@@ -52,6 +60,8 @@
       "scm.diffDecorationsGutterPattern" = { modified = false; };
 
       "diffEditor.experimental.showMoves" = true;
+
+      "[agda]"."editor.unicodeHighlight.ambiguousCharacters" = false;
     };
   };
 }

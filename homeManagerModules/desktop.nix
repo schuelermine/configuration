@@ -13,8 +13,8 @@
   gnome = {
     extensions.enabledExtensions = with pkgs.gnomeExtensions; [ appindicator ];
     monospaceFont = {
-      package = pkgs.source-code-pro;
-      name = "Source Code Pro";
+      package = pkgs.libertinus;
+      name = "Libertinus Mono";
       size = 14;
     };
   };
@@ -24,9 +24,13 @@
     element-desktop
     signal-desktop
     steam
+    lutris
+    wineWow64Packages.full
     prismlauncher
-    # valent
+    valent
     virt-manager
+    dino
+    fractal
   ];
   fonts.fontconfig.enable = true;
 }

@@ -17,4 +17,7 @@
       mypy.enable = true;
     };
   };
+  home.packages = with pkgs; [
+    agda
+  ];
 }
