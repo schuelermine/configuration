@@ -114,7 +114,7 @@
       du-dust
       duf
       eza
-    ]) ++ lib.optionals (!machine-weak) (with pkgs; [ man-pages frogmouth ])
+    ]) ++ lib.optionals (!machine-weak) (with pkgs; [ man-pages ])
       ++ lib.optionals (machine-gui && !machine-weak) (with pkgs; [
         gnome.dconf-editor
         gnome.gnome-sound-recorder
