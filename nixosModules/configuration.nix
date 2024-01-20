@@ -35,7 +35,7 @@
   console = {
     useXkbConfig = lib.mkIf machine-gui true;
     keyMap = lib.mkIf (!machine-gui) "de-latin1-nodeadkeys";
-    packages = with pkgs; [ terminus_font ];
+    packages = lib.mkIf machine-hidpi (with pkgs; [ terminus_font ]);
     font = lib.mkIf machine-hidpi "ter-v24b";
     earlySetup = true;
   };
@@ -171,6 +171,7 @@
         fira-code
         go-font
         libertinus
+        terminus_font_ttf
       ]));
   qt = lib.mkIf machine-gui {
     enable = true;
