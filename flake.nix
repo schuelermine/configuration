@@ -125,7 +125,7 @@
           usernames = [ "anselmschueler" ];
           hidpi = true;
           useNixosHardware = true;
-          useDwarffs = true;
+          useDwarffs = false;
           stateVersion = "22.11";
           trusted = true;
         };
