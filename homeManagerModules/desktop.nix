@@ -13,8 +13,8 @@
   gnome = {
     extensions.enabledExtensions = with pkgs.gnomeExtensions; [ appindicator ];
     monospaceFont = {
-      package = pkgs.libertinus;
-      name = "Libertinus Mono";
+      package = pkgs.source-code-pro;
+      name = "Source Code Pro";
       size = 14;
     };
   };
