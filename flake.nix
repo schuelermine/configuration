@@ -1,8 +1,6 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-vscode-lldb.url =
-      "github:schuelermine/nixpkgs/patch/vscode-extensions.vadimcn.vscode-lldb/remove-custom-lldb";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     home-manager.url = "github:nix-community/home-manager";
     nixos-repl-setup = {

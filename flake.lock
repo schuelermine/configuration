@@ -177,22 +177,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-vscode-lldb": {
-      "locked": {
-        "lastModified": 1696710090,
-        "narHash": "sha256-kADep0wtV8lfPCLVLKGtt7FO1paW7+9FM97tAsJIEb8=",
-        "owner": "schuelermine",
-        "repo": "nixpkgs",
-        "rev": "daaa8666869af787a5b61ae0a71d1558b263a8df",
-        "type": "github"
-      },
-      "original": {
-        "owner": "schuelermine",
-        "ref": "patch/vscode-extensions.vadimcn.vscode-lldb/remove-custom-lldb",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1706191920,
@@ -233,7 +217,6 @@
         "nixos-hardware": "nixos-hardware",
         "nixos-repl-setup": "nixos-repl-setup",
         "nixpkgs": "nixpkgs_3",
-        "nixpkgs-vscode-lldb": "nixpkgs-vscode-lldb",
         "xhmm": "xhmm"
       }
     },

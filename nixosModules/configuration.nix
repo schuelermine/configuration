@@ -66,9 +66,11 @@
       libinput.enable = true;
       displayManager.gdm.enable = true;
       desktopManager.gnome.enable = true;
-      layout = "de";
-      xkbOptions = "eurosign:e";
-      xkbVariant = "nodeadkeys";
+      xkb = {
+        layout = "de";
+        options = "eurosign:e";
+        variant = "nodeadkeys";
+      };
     };
   };
   sound.enable = lib.mkIf machine-gui true;
