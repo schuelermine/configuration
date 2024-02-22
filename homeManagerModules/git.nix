@@ -4,7 +4,7 @@
       userEmail = "mail@anselmschueler.com";
       userName = "Anselm Schüler";
       enable = true;
-      # delta.enable = lib.mkIf machine-gui true;
+      delta.enable = lib.mkIf machine-gui true;
       signing = lib.mkIf configuration-trusted {
         signByDefault = true;
         key = null;
