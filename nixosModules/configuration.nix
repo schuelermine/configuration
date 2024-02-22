@@ -116,6 +116,7 @@
       du-dust
       duf
       eza
+      wezterm
     ]) ++ lib.optionals (!machine-weak) (with pkgs; [ man-pages ])
       ++ lib.optionals (machine-gui && !machine-weak) (with pkgs; [
         gnome.dconf-editor
@@ -135,8 +136,8 @@
       ]) ++ (with pkgs.aspellDicts; [ de en en-computers en-science ])
       ++ (with pkgs.hunspellDicts; [ de-de en-us ])
       ++ lib.optionals (!machine-weak) [ pkgs.hunspellDicts.en-us-large ];
-    gnome.excludePackages = lib.mkIf machine-gui ([ pkgs.gnome-tour ]
-      ++ (with pkgs.gnome; [
+    gnome.excludePackages = lib.mkIf machine-gui
+      ((with pkgs; [ gnome-tour gnome-console ]) ++ (with pkgs.gnome; [
         gnome-calculator
         epiphany
         totem

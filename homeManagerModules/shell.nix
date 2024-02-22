@@ -45,14 +45,14 @@
       enable = true;
       shellAliases = {
         ls = "eza -s type";
-        ll = "eza -lhFs type --git";
-        lg = "eza -lhFGs type --git";
-        la = "eza -aFs type";
-        l- = "eza -alhFs type --git";
-        "l." = "eza -alhFGs type --git";
+        ll = "eza -lhF -s type --git";
+        lg = "eza -lhFG -s type --git";
+        la = "eza -aF -s type";
+        l- = "eza -alhF -s type --git";
+        "l." = "eza -alhFG -s type --git";
         lt = "eza -s type --tree";
-        le = "eza -lhs type --tree --git";
-        l1 = "eza -1s type";
+        le = "eza -lh -s type --tree --git";
+        l1 = "eza -1 -s type";
         y = "z";
         c = "bat";
       };
