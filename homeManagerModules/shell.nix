@@ -39,15 +39,12 @@
     zoxide = {
       enable = true;
       enableFishIntegration = true;
+      options = [ "--cmd" "y" ];
     };
     direnv.enable = true;
     fish = {
       enable = true;
-      shellAliases = {
-        l = "eza";
-        y = "z";
-        c = "bat";
-      };
+      shellAliases.c = "bat";
       prompt = builtins.readFile ../source/prompt.fish;
       interactiveShellInit = builtins.concatStringsSep "\n"
         (map builtins.readFile [
