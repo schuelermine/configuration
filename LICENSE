@@ -7,13 +7,14 @@
 This document contains multiple sections. They are delimited by the sequence “====”.
 
 All code in this repository except for the code contained within the “source” directory and the “.git” directory is licensed under the Apache License, which is listed below.
-Additionally, the files “source/colors.fish”, “source/commands.fish”, and “source/features.fish” are also available licensed under the Apache License. Some of them are also licensed under the MIT license, as is stated further below the text of the Apache License.
 
-The license applying to the files “source/colors.fish”, “source/commands.fish”, and “source/features.fish”:
+The files “source/colors.fish”, “source/commands.fish”, “source/abbr.fish”, and “source/features.fish” are also available licensed under the Apache License. Some of them are also licensed under the MIT license, as is stated further below the text of the Apache License.
+
+The license applying to the files “source/colors.fish”, “source/commands.fish”, “source/abbr.fish”, and “source/features.fish”:
 
 ====
 
-For “source/colors.fish”, “source/commands.fish” and “source/features.fish”:
+For “source/colors.fish”, “source/commands.fish”, “source/abbr.fish”, and “source/features.fish”:
 ⓒ Copyright 2023 Anselm Schüler
 
                                  Apache License
@@ -220,7 +221,7 @@ For “source/colors.fish”, “source/commands.fish” and “source/features.
 
 ====
 
-The file “source/fish_prompt.fish” is licensed under the GNU General Public License Version 2:
+The file “source/prompt.fish” is licensed under the GNU General Public License Version 2:
 
 ====
 

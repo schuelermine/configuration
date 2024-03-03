@@ -54,6 +54,7 @@
           ../source/colors.fish
           ../source/features.fish
           ../source/commands.fish
+          ../source/abbr.fish
         ]);
     };
   };
