@@ -1,8 +1,13 @@
 { lib, pkgs, input-nixpkgs, machine-gui, machine-weak, machine-hidpi, ... }: {
   nixpkgs.config.allowUnfree = true;
   boot = {
+    initrd.systemd.enable = true;
     kernelPackages = pkgs.linuxPackages_latest;
     supportedFilesystems = lib.mkIf (!machine-weak) [ "ntfs" "exfat" ];
+    plymouth = {
+      enable = true;
+      font = "${pkgs.cantarell-fonts}/share/fonts/cantarell/Cantarell-VF.otf";
+    };
   };
   networking = {
     nameservers = [
@@ -104,6 +109,7 @@
       fzf
       bat
       rich-cli
+      frogmouth
       glow
       chafa
       jq

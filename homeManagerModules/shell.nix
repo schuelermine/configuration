@@ -2,7 +2,7 @@
 , ... }: {
   home.sessionVariables.EXA_COLORS = "xx=2";
   services.gpg-agent = {
-    pinentryFlavor = lib.mkIf machine-gui "gnome3";
+    pinentryPackage = lib.mkIf machine-gui pkgs.pinentry-gnome3;
     enable = true;
   };
   programs = {

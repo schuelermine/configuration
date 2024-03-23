@@ -5,6 +5,7 @@ function resolve-l
     set recursion_mode none
     set sort_mode type
     set force_grid 0
+    set git_ignore 0
     if not test $argv[1] = l
         for char in (string split "" (string sub --start 2 $argv[1]))
             switch $char
@@ -30,6 +31,8 @@ function resolve-l
                     set sort_mode name
                 case g
                     set force_grid 1
+                case i
+                    set git_ignore 1
                 case "*"
                     return 1
             end
@@ -63,8 +66,11 @@ function resolve-l
         end
         set -a flags --grid
     end
+    if test $git_ignore = 1
+        set -a flags --git-ignore
+    end
     set -a flags --sort=$sort_mode
     string join -- " " eza $flags
 end
 
-abbr --add eza --regex "l[0l1artcmsng]*" --function resolve-l
+abbr --add eza --regex "l[0l1artcmsngi]*" --function resolve-l
