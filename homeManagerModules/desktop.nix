@@ -3,7 +3,7 @@
     enable = true;
     extraConfig = ''
       local config = wezterm.config_builder()
-      config.font = wezterm.font("${lib.escape [ "\\" "\"" ] config.gnome.monospaceFont.name}")
+      config.font = wezterm.font("Commit Mono")
       config.font_size = ${builtins.toString config.gnome.monospaceFont.size}
       config.mouse_bindings = {
         {
@@ -39,9 +39,9 @@
   gnome = {
     extensions.enabledExtensions = with pkgs.gnomeExtensions; [ appindicator ];
     monospaceFont = {
-      package = pkgs.monaspace;
-      name = "Monaspace Argon";
-      size = 14;
+      package = pkgs.commit-mono;
+      name = "CommitMono";
+      size = 15;
     };
   };
   home.packages = with pkgs; [
