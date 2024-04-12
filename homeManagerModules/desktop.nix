@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ... }: {
+{ pkgs, config, ... }: {
   programs.wezterm = {
     enable = true;
     extraConfig = ''
@@ -20,6 +20,13 @@
           event = { Down = { streak = 1, button = "Left" }},
           mods = "CTRL",
           action = wezterm.action.Nop
+        }
+      }
+      config.keys = {
+        {
+          key = "Enter",
+          mods = "ALT",
+          action = wezterm.action.DisableDefaultAssignment
         }
       }
       return config
@@ -53,10 +60,15 @@
     lutris
     wineWow64Packages.full
     prismlauncher
-    valent
+    # valent
     virt-manager
     dino
     fractal
   ];
   fonts.fontconfig.enable = true;
+  xdg.configFile."discord/settings.json".text = ''
+    {
+      "SKIP_HOST_UPDATE": true
+    }
+  '';
 }

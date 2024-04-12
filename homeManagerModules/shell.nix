@@ -71,6 +71,6 @@
         ];
       } // builtins
     '';
-    packages = with pkgs; [ haskellPackages.ret asciinema powershell nushell ];
+    packages = with pkgs; [ haskellPackages.ret asciinema powershell nushell gcc ];
   };
 }

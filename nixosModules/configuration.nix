@@ -20,8 +20,18 @@
   };
   time.timeZone = "Europe/Berlin";
   i18n = {
-    supportedLocales =
-      [ "en_US.UTF-8/UTF-8" "de_DE.UTF-8/UTF-8" "en_GB.UTF-8/UTF-8" ];
+    inputMethod = {
+      enabled = "ibus";
+      ibus.engines = with pkgs.ibus-engines; [ libpinyin ];
+    };
+    supportedLocales = [
+      "en_US.UTF-8/UTF-8"
+      "de_DE.UTF-8/UTF-8"
+      "en_GB.UTF-8/UTF-8"
+      "zh_CN.UTF-8/UTF-8"
+      "ja_JP.UTF-8/UTF-8"
+      "ko_KR.UTF-8/UTF-8"
+    ];
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
       LC_TIME = "en_GB.UTF-8";
@@ -162,7 +172,7 @@
       type = "github";
     };
     nixPath = [ "nixpkgs=${input-nixpkgs}" ];
-    # package = pkgs.nixUnstable;
+    package = pkgs.nixUnstable;
     settings = {
       auto-optimise-store = true;
       substituters = [ "https://nix-community.cachix.org" ];

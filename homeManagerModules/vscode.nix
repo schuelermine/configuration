@@ -17,6 +17,14 @@
       bungcip.better-toml
       (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
         mktplcRef = {
+          name = "vscode-deno";
+          publisher = "denoland";
+          version = "3.36.0";
+          sha256 = "sha256-xHf7cI+lCPoImdsnqBNJjT7+8UJs9tXXUm+TgiYmCdA=";
+        };
+      })
+      (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+        mktplcRef = {
           name = "agda-mode";
           publisher = "banacorn";
           version = "0.4.7";
@@ -42,7 +50,10 @@
 
       "editor.inlayHints.enabled" = "on";
 
-      "editor.bracketPairColorization.enabled" = true;
+      "editor.bracketPairColorization.enabled" = false;
+      "editor.guides.bracketPairs" = true;
+      "editor.guides.bracketPairsHorizontal" = true;
+
       "editor.stickyScroll.enabled" = true;
 
       "editor.acceptSuggestionOnEnter" = "off";
