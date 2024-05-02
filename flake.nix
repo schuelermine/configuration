@@ -13,31 +13,53 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     dwarffs.url = "github:edolstra/dwarffs";
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
-    inputs@{ self, nixpkgs, home-manager, xhmm, nixos-hardware, dwarffs, ... }:
+    inputs@{
+      self,
+      nixpkgs,
+      home-manager,
+      xhmm,
+      nixos-hardware,
+      dwarffs,
+      disko,
+      ...
+    }:
     let
       joinAttrs = builtins.foldl' (s1: s2: s1 // s2) { };
       guard = cond: name: if cond then name else null;
       overlays = [ ];
       defaults = {
         model = null;
-        hidpi = false;
         gui = true;
         weak = false;
         useNixosHardware = false;
+        useDisko = false;
         useDwarffs = false;
         trusted = false;
         vm = false;
       };
-      getSpecialArgs = { system, model ? defaults.model, hidpi ? defaults.hidpi
-        , gui ? defaults.gui, weak ? defaults.weak, name
-        , useDwarffs ? defaults.useDwarffs, trusted ? defaults.trusted
-        , useNixosHardware ? defaults.useNixosHardware, vm ? defaults.vm, ... }:
+      getSpecialArgs =
+        {
+          system,
+          model ? defaults.model,
+          gui ? defaults.gui,
+          weak ? defaults.weak,
+          name,
+          useDwarffs ? defaults.useDwarffs,
+          trusted ? defaults.trusted,
+          useNixosHardware ? defaults.useNixosHardware,
+          vm ? defaults.vm,
+          useDisko ? defaults.useDisko,
+          ...
+        }:
         {
           machine-model = model;
           machine-name = name;
-          machine-hidpi = hidpi;
           machine-gui = gui;
           machine-weak = weak;
           machine-vm = vm;
@@ -45,114 +67,155 @@
           configuration-trusted = trusted;
           configuration-dwarffs = useDwarffs;
           configuration-nixos-hardware = useNixosHardware;
+          configuration-disko = useDisko;
           inherit system;
-        } // joinAttrs
-        (map (inputName: { "input-${inputName}" = inputs.${inputName}; })
-          (builtins.attrNames inputs)) // joinAttrs (map (nixpkgsVersionName: {
-            "${nixpkgsVersionName}" =
-              import inputs.${nixpkgsVersionName} { inherit system; };
-          }) [ "nixpkgs" "nixpkgs-vscode-lldb" ]);
-      nixosConfigurations = builtins.mapAttrs (hostname:
-        { system, usernames ? [ ], model ? defaults.model
-        , moduleNames ? [ "default" ]
-        , useNixosHardware ? defaults.useNixosHardware
-        , useDwarffs ? defaults.useDwarffs, weak ? defaults.weak
-        , hidpi ? defaults.hidpi, gui ? defaults.gui, trusted ? defaults.trusted
-        , vm ? defaults.vm, stateVersion }:
+        }
+        // joinAttrs (
+          map (inputName: { "input-${inputName}" = inputs.${inputName}; }) (builtins.attrNames inputs)
+        )
+        // joinAttrs (
+          map
+            (nixpkgsVersionName: {
+              "${nixpkgsVersionName}" = import inputs.${nixpkgsVersionName} { inherit system; };
+            })
+            [
+              "nixpkgs"
+              "nixpkgs-vscode-lldb"
+            ]
+        );
+      nixosConfigurations = builtins.mapAttrs (
+        hostname:
+        {
+          system,
+          usernames ? [ ],
+          model ? defaults.model,
+          moduleNames ? [ "default" ],
+          useNixosHardware ? defaults.useNixosHardware,
+          useDisko ? defaults.useDisko,
+          useDwarffs ? defaults.useDwarffs,
+          weak ? defaults.weak,
+          gui ? defaults.gui,
+          trusted ? defaults.trusted,
+          vm ? defaults.vm,
+          stateVersion,
+        }:
         let
-          modules = [ self.nixosModules."hardware-${hostname}" ]
+          modules =
+            [ self.nixosModules."hardware-${hostname}" ]
             ++ map (moduleName: self.nixosModules.${moduleName}) moduleNames
             ++ map (username: self.nixosModules."user-${username}") usernames
             ++ (if useDwarffs then [ dwarffs.nixosModules.dwarffs ] else [ ])
-            ++ (if useNixosHardware then
-              [ nixos-hardware.nixosModules.${model} ]
-            else
-              [ ]) ++ [{
+            ++ (if useNixosHardware then [ nixos-hardware.nixosModules.${model} ] else [ ])
+            ++ (if useDisko then [ disko.nixosModules.default ] else [ ])
+            ++ [
+              {
                 networking.hostName = hostname;
                 nixpkgs.hostPlatform = system;
-              }] ++ [
-                { nixpkgs.overlays = overlays; }
-                { system.stateVersion = stateVersion; }
-              ];
-        in nixpkgs.lib.nixosSystem {
+              }
+            ]
+            ++ [
+              { nixpkgs.overlays = overlays; }
+              { system.stateVersion = stateVersion; }
+            ];
+        in
+        nixpkgs.lib.nixosSystem {
           inherit system modules;
           specialArgs = getSpecialArgs {
-            inherit model weak system hidpi gui stateVersion useNixosHardware
-              useDwarffs trusted vm;
+            inherit
+              model
+              weak
+              system
+              gui
+              stateVersion
+              useNixosHardware
+              useDisko
+              useDwarffs
+              trusted
+              vm
+              ;
             name = hostname;
           };
-        }) machines;
-      homeConfigurations = joinAttrs (builtins.attrValues (builtins.mapAttrs
-        (username:
-          { machineNames ? builtins.attrNames machines, user
-          , stateVersions ? { } }:
-          joinAttrs (map (machineName:
-            let
-              user' = if builtins.isFunction user then
-                user (machines.${machineName} // { name = machineName; })
-              else
-                user;
-              userPresent =
-                builtins.elem username machines.${machineName}.usernames;
-              modules = [ self.homeManagerModules."home-${username}" ]
-                ++ map (module: self.homeManagerModules.${module})
-                user'.moduleNames ++ (if user'.useXhmm then
-                  [ xhmm.homeManagerModules.all ]
-                else
-                  [ ]) ++ [
-                    { nixpkgs.overlays = overlays; }
-                    {
-                      home.stateVersion =
-                        stateVersions.${machineName} or machines.${machineName}.stateVersion;
-                    }
-                  ];
-            in {
-              ${guard userPresent "${username}@${machineName}"} =
-                home-manager.lib.homeManagerConfiguration {
-                  inherit modules;
-                  extraSpecialArgs = getSpecialArgs
-                    (machines.${machineName} // { name = machineName; });
-                  pkgs =
-                    import nixpkgs { system = machines.${machineName}.system; };
-                };
-            }) machineNames)) users));
-      machines = {
-        buggeryyacht = {
-          model = "lenovo-legion-y530-15ich";
-          system = "x86_64-linux";
-          usernames = [ "anselmschueler" ];
-          hidpi = true;
-          useNixosHardware = true;
-          useDwarffs = false;
-          stateVersion = "22.11";
-          trusted = true;
-        };
-        vm-hulahoop = {
-          system = "x86_64-linux";
-          usernames = [ "anselmschueler" ];
-          stateVersion = "23.05";
-          gui = false;
-          weak = true;
-          vm = true;
-        };
+        }
+      ) machines;
+      homeConfigurations = joinAttrs (
+        builtins.attrValues (
+          builtins.mapAttrs (
+            username:
+            {
+              machineNames ? builtins.attrNames machines,
+              user,
+              stateVersions ? { },
+            }:
+            joinAttrs (
+              map (
+                machineName:
+                let
+                  user' =
+                    if builtins.isFunction user then
+                      user (machines.${machineName} // { name = machineName; })
+                    else
+                      user;
+                  userPresent = builtins.elem username machines.${machineName}.usernames;
+                  modules =
+                    [ self.homeManagerModules."home-${username}" ]
+                    ++ map (module: self.homeManagerModules.${module}) user'.moduleNames
+                    ++ (if user'.useXhmm then [ xhmm.homeManagerModules.all ] else [ ])
+                    ++ [
+                      { nixpkgs.overlays = overlays; }
+                      { home.stateVersion = stateVersions.${machineName} or machines.${machineName}.stateVersion; }
+                    ];
+                in
+                {
+                  ${guard userPresent "${username}@${machineName}"} = home-manager.lib.homeManagerConfiguration {
+                    inherit modules;
+                    extraSpecialArgs = getSpecialArgs (machines.${machineName} // { name = machineName; });
+                    pkgs = import nixpkgs { system = machines.${machineName}.system; };
+                  };
+                }
+              ) machineNames
+            )
+          ) users
+        )
+      );
+      machines.nailbox = {
+        model = "framework-16-7040-amd";
+        system = "x86_64-linux";
+        usernames = [ "anselmschueler" ];
+        useNixosHardware = true;
+        useDisko = true;
+        stateVersion = "23.11";
+        trusted = true;
       };
       users.anselmschueler = {
-        user = { gui ? defaults.gui, weak ? defaults.weak, ... }: {
-          moduleNames = [ "git" "shell" ] ++ nixpkgs.lib.optionals gui [
-            "desktop"
-            "vscode-cpp"
-            "vscode-haskell"
-            "vscode-java"
-            "vscode-nix"
-            "vscode-python"
-            "vscode-rust"
-            "vscode"
-          ] ++ nixpkgs.lib.optionals (!weak) [ "coding" ];
-          useXhmm = true;
-        };
-        stateVersions.buggeryyacht = "21.11";
+        user =
+          {
+            gui ? defaults.gui,
+            weak ? defaults.weak,
+            ...
+          }:
+          {
+            moduleNames =
+              [
+                "git"
+                "shell"
+              ]
+              ++ nixpkgs.lib.optionals gui [
+                "desktop"
+                "vscode-cpp"
+                "vscode-haskell"
+                "vscode-java"
+                "vscode-nix"
+                "vscode-python"
+                "vscode-rust"
+                "vscode"
+              ]
+              ++ nixpkgs.lib.optionals (!weak) [ "coding" ];
+            useXhmm = true;
+          };
+        stateVersions.nailbox = "23.11";
       };
-    in {
+    in
+    {
       inherit nixosConfigurations;
       inherit homeConfigurations;
       nixosModules = {
@@ -160,10 +223,12 @@
         user-anselmschueler = import ./nixosModules/users/anselmschueler.nix;
         hardware-buggeryyacht = import ./nixosModules/hardware/buggeryyacht.nix;
         hardware-vm-hulahoop = import ./nixosModules/hardware/vm-hulahoop.nix;
+        hardware-nailbox = import ./nixosModules/hardware/nailbox.nix;
       };
-      homeManagerModules = joinAttrs (map (path: {
-        ${builtins.head (builtins.match "(.*).nix" path)} =
-          import (./homeManagerModules + "/${path}");
-      }) (builtins.attrNames (builtins.readDir ./homeManagerModules)));
+      homeManagerModules = joinAttrs (
+        map (path: {
+          ${builtins.head (builtins.match "(.*).nix" path)} = import (./homeManagerModules + "/${path}");
+        }) (builtins.attrNames (builtins.readDir ./homeManagerModules))
+      );
     };
 }

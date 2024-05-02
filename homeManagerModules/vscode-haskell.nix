@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   programs = {
     vscode = {
       extensions = with pkgs.vscode-extensions; [
@@ -6,8 +7,7 @@
         justusadam.language-haskell
       ];
       userSettings = {
-        "haskell.serverExecutablePath" =
-          "${config.programs.haskell.hls.package}/bin/haskell-language-server-wrapper";
+        "haskell.serverExecutablePath" = "${config.programs.haskell.hls.package}/bin/haskell-language-server-wrapper";
       };
     };
     haskell.hls.enable = true;

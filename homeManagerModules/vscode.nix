@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   programs.vscode = {
     enable = true;
     mutableExtensionsDir = false;
@@ -31,6 +32,14 @@
           sha256 = "sha256-gNa3n16lP3ooBRvGaugTua4IXcIzpMk7jBYMJDQsY00=";
         };
       })
+      (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "code-spell-checker-german";
+          publisher = "streetsidesoftware";
+          version = "2.3.1";
+          sha256 = "sha256-LxgftSpGk7+SIUdZcNpL7UZoAx8IMIcwPYIGqSfVuDc=";
+        };
+      })
     ];
     package = pkgs.vscodium;
     userSettings = {
@@ -51,7 +60,7 @@
       "editor.inlayHints.enabled" = "on";
 
       "editor.bracketPairColorization.enabled" = false;
-      "editor.guides.bracketPairs" = true;
+      "editor.guides.bracketPairs" = "active";
       "editor.guides.bracketPairsHorizontal" = true;
 
       "editor.stickyScroll.enabled" = true;
@@ -68,11 +77,15 @@
       "window.menuBarVisibility" = "compact";
       "window.zoomLevel" = 1;
 
-      "scm.diffDecorationsGutterPattern" = { modified = false; };
+      "scm.diffDecorationsGutterPattern" = {
+        modified = false;
+      };
 
       "diffEditor.experimental.showMoves" = true;
 
       "[agda]"."editor.unicodeHighlight.ambiguousCharacters" = false;
+
+      "redhat.telemetry.enabled" = false;
     };
   };
 }

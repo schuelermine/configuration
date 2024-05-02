@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "disko": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1714103775,
+        "narHash": "sha256-kcBiIrmqzt3bNTr2GMBfAyA+on8BEKO1iKzzDFQZkjI=",
+        "owner": "nix-community",
+        "repo": "disko",
+        "rev": "285e26465a0bae510897ca04da26ce6307c652b4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "disko",
+        "type": "github"
+      }
+    },
     "dwarffs": {
       "inputs": {
         "nix": "nix",
@@ -65,11 +85,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1714202901,
-        "narHash": "sha256-cSr6EfTxpYUoIUmgagR9/CeYjs4PU6ZB3nVPvCaydac=",
+        "lastModified": 1714203603,
+        "narHash": "sha256-eT7DENhYy7EPLOqHI9zkIMD9RvMCXcqh6gGqOK5BWYQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "26e72d85e6fbda36bf2266f1447215501ec376fd",
+        "rev": "c1609d584a6b5e9e6a02010f51bd368cb4782f8e",
         "type": "github"
       },
       "original": {
@@ -211,6 +231,7 @@
     },
     "root": {
       "inputs": {
+        "disko": "disko",
         "dwarffs": "dwarffs",
         "fenix": "fenix",
         "home-manager": "home-manager",

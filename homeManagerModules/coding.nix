@@ -1,4 +1,5 @@
-{ pkgs, input-fenix, ... }: {
+{ pkgs, input-fenix, ... }:
+{
   programs = {
     haskell = {
       ghc = {
@@ -10,8 +11,7 @@
       cabal.enable = true;
       stack.enable = true;
     };
-    rust.customToolchain.toolchainPackage =
-      input-fenix.packages.${pkgs.system}.complete.toolchain;
+    rust.customToolchain.toolchainPackage = input-fenix.packages.${pkgs.system}.complete.toolchain;
     python = {
       enable = true;
       mypy.enable = true;

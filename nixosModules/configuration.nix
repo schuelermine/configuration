@@ -1,9 +1,20 @@
-{ lib, pkgs, input-nixpkgs, machine-gui, machine-weak, machine-hidpi, ... }: {
+{
+  lib,
+  pkgs,
+  input-nixpkgs,
+  machine-gui,
+  machine-weak,
+  ...
+}:
+{
   nixpkgs.config.allowUnfree = true;
   boot = {
     initrd.systemd.enable = true;
     kernelPackages = pkgs.linuxPackages_latest;
-    supportedFilesystems = lib.mkIf (!machine-weak) [ "ntfs" "exfat" ];
+    supportedFilesystems = lib.mkIf (!machine-weak) [
+      "ntfs"
+      "exfat"
+    ];
     plymouth = {
       enable = true;
       font = "${pkgs.cantarell-fonts}/share/fonts/cantarell/Cantarell-VF.otf";
@@ -50,11 +61,11 @@
   console = {
     useXkbConfig = lib.mkIf machine-gui true;
     keyMap = lib.mkIf (!machine-gui) "de-latin1-nodeadkeys";
-    packages = lib.mkIf machine-hidpi (with pkgs; [ terminus_font ]);
-    font = lib.mkIf machine-hidpi "ter-v24b";
     earlySetup = true;
   };
+  security.pam.services.gdm-password.fprintAuth = false;
   services = {
+    gpm.enable = lib.mkIf machine-gui true;
     flatpak.enable = lib.mkIf machine-gui true;
     dbus.packages = lib.mkIf machine-gui [ pkgs.gcr ];
     pipewire = lib.mkIf machine-gui {
@@ -83,7 +94,7 @@
       desktopManager.gnome.enable = true;
       xkb = {
         layout = "de";
-        options = "eurosign:e";
+        options = "eurosign:e,compose:caps";
         variant = "nodeadkeys";
       };
     };
@@ -95,71 +106,101 @@
     syntaxHighlight = true;
   };
   environment = {
-    systemPackages = (with pkgs; [
-      nix-index
-      nix-tree
-      nix-diff
-      nix-top
-      wget
-      choose
-      curl
-      fd
-      sd
-      (if machine-weak then ffmpeg else ffmpeg-full)
-      file
-      htop
-      killall
-      lsof
-      pciutils
-      ripgrep
-      rmtrash
-      tldr
-      trash-cli
-      curl
-      fzf
-      bat
-      rich-cli
-      frogmouth
-      glow
-      chafa
-      jq
-      moreutils
-      procs
-      git
-      unicode-paracode
-      uni
-      libqalculate
-      du-dust
-      duf
-      eza
-      wezterm
-    ]) ++ lib.optionals (!machine-weak) (with pkgs; [ man-pages ])
-      ++ lib.optionals (machine-gui && !machine-weak) (with pkgs; [
-        gnome.dconf-editor
-        gnome.gnome-sound-recorder
-        gimp
-        libreoffice-fresh
-        thunderbird
-      ]) ++ lib.optionals machine-gui (with pkgs; [
-        clapper
-        qalculate-gtk
-        firefox
-        wl-clipboard
-        xsel
-        xorg.xkill
-        breeze-qt5
-        breeze-icons
-      ]) ++ (with pkgs.aspellDicts; [ de en en-computers en-science ])
-      ++ (with pkgs.hunspellDicts; [ de-de en-us ])
+    systemPackages =
+      (with pkgs; [
+        nix-index
+        nix-tree
+        nix-diff
+        nix-top
+        wget
+        choose
+        curl
+        fd
+        sd
+        (if machine-weak then ffmpeg else ffmpeg-full)
+        imagemagick
+        file
+        htop
+        killall
+        lsof
+        pciutils
+        ripgrep
+        rmtrash
+        tldr
+        trash-cli
+        curl
+        fzf
+        bat
+        rich-cli
+        frogmouth
+        glow
+        chafa
+        jq
+        moreutils
+        procs
+        git
+        unicode-paracode
+        uni
+        libqalculate
+        du-dust
+        duf
+        eza
+        wezterm
+        smartmontools
+        pv
+        usbutils
+        whois
+        dig
+        lshw
+      ])
+      ++ lib.optionals (!machine-weak) (with pkgs; [ man-pages btop ])
+      ++ lib.optionals (machine-gui && !machine-weak) (
+        with pkgs;
+        [
+          gnome.dconf-editor
+          gnome.gnome-sound-recorder
+          gimp
+          libreoffice-fresh
+          thunderbird
+        ]
+      )
+      ++ lib.optionals machine-gui (
+        with pkgs;
+        [
+          clapper
+          qalculate-gtk
+          firefox
+          wl-clipboard
+          xsel
+          xorg.xkill
+          breeze-qt5
+          breeze-icons
+        ]
+      )
+      ++ (with pkgs.aspellDicts; [
+        de
+        en
+        en-computers
+        en-science
+      ])
+      ++ (with pkgs.hunspellDicts; [
+        de-de
+        en-us
+      ])
       ++ lib.optionals (!machine-weak) [ pkgs.hunspellDicts.en-us-large ];
-    gnome.excludePackages = lib.mkIf machine-gui
-      ((with pkgs; [ gnome-tour gnome-console ]) ++ (with pkgs.gnome; [
+    gnome.excludePackages = lib.mkIf machine-gui (
+      (with pkgs; [
+        gnome-tour
+        gnome-console
+      ])
+      ++ (with pkgs.gnome; [
         gnome-calculator
         epiphany
         totem
         geary
         gnome-calendar
-      ]));
+      ])
+    );
   };
   nix = {
     extraOptions = ''
@@ -172,18 +213,21 @@
       type = "github";
     };
     nixPath = [ "nixpkgs=${input-nixpkgs}" ];
-    package = pkgs.nixUnstable;
+    # package = pkgs.nixUnstable;
     settings = {
       auto-optimise-store = true;
       substituters = [ "https://nix-community.cachix.org" ];
-      trusted-public-keys = [
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      ];
+      trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
     };
   };
-  fonts.packages = lib.mkIf machine-gui
-    ((with pkgs; [ noto-fonts noto-fonts-cjk ]) ++ lib.optionals (!machine-weak)
-      (with pkgs; [
+  fonts.packages = lib.mkIf machine-gui (
+    (with pkgs; [
+      noto-fonts
+      noto-fonts-cjk
+    ])
+    ++ lib.optionals (!machine-weak) (
+      with pkgs;
+      [
         ubuntu_font_family
         atkinson-hyperlegible
         fira
@@ -191,7 +235,10 @@
         go-font
         libertinus
         terminus_font_ttf
-      ]));
+        newcomputermodern
+      ]
+    )
+  );
   qt = lib.mkIf machine-gui {
     enable = true;
     platformTheme = "qt5ct";

@@ -1,5 +1,13 @@
-{ pkgs, lib, input-nixos-repl-setup, machine-name, machine-gui, source-flake
-, ... }: {
+{
+  pkgs,
+  lib,
+  input-nixos-repl-setup,
+  machine-name,
+  machine-gui,
+  source-flake,
+  ...
+}:
+{
   home.sessionVariables.EXA_COLORS = "xx=2";
   services.gpg-agent = {
     pinentryPackage = lib.mkIf machine-gui pkgs.pinentry-gnome3;
@@ -13,7 +21,10 @@
     gpg.enable = true;
     less = {
       enable = true;
-      options = [ "-SRm" "--use-color" ];
+      options = [
+        "-SRm"
+        "--use-color"
+      ];
     };
     nano = {
       enable = true;
@@ -39,20 +50,24 @@
     zoxide = {
       enable = true;
       enableFishIntegration = true;
-      options = [ "--cmd" "y" ];
+      options = [
+        "--cmd"
+        "y"
+      ];
     };
     direnv.enable = true;
     fish = {
       enable = true;
       shellAliases.c = "bat";
       prompt = builtins.readFile ../source/prompt.fish;
-      interactiveShellInit = builtins.concatStringsSep "\n"
-        (map builtins.readFile [
+      interactiveShellInit = builtins.concatStringsSep "\n" (
+        map builtins.readFile [
           ../source/colors.fish
           ../source/features.fish
           ../source/commands.fish
           ../source/abbr.fish
-        ]);
+        ]
+      );
     };
   };
   home = {
@@ -71,6 +86,12 @@
         ];
       } // builtins
     '';
-    packages = with pkgs; [ haskellPackages.ret asciinema powershell nushell gcc ];
+    packages = with pkgs; [
+      haskellPackages.ret
+      asciinema
+      powershell
+      nushell
+      gcc
+    ];
   };
 }
