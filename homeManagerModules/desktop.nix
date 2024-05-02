@@ -5,29 +5,31 @@
   machine-model,
   ...
 }:
-/* TODO let
-  patch-commit-mono-script = pkgs.writeText "patch-commit-mono-script.py" ''
-    from fontforge import open as ffopen
-    from sys import argv
-    font = ffopen(argv[1], 32)
-    target_features =
-    for lookup in font.gsub_lookups:
-      match font.getLookupInfo(lookup):
-        case _, _, (("cv08", _, _),):
-          for subtable in font.getLookupSubtables(lookup):
+/*
+  TODO let
+    patch-commit-mono-script = pkgs.writeText "patch-commit-mono-script.py" ''
+      from fontforge import open as ffopen
+      from sys import argv
+      font = ffopen(argv[1], 32)
+      target_features =
+      for lookup in font.gsub_lookups:
+        match font.getLookupInfo(lookup):
+          case _, _, (("cv08", _, _),):
+            for subtable in font.getLookupSubtables(lookup):
 
-  '';
-  patched-commit-mono =
-    pkgs.runCommand "patched-${pkgs.commit-mono.name}" { nativeBuildInputs = [ pkgs.fontforge ]; }
-      ''
-        cp -r ${pkgs.commit-mono} $out
-        for file in $out/share/fonts/{opentype,truetype}/*
-        do
-          chmod +w $file
-          fontforge -script ${patch-commit-mono-script} $file
-        done
-      '';
-in */
+    '';
+    patched-commit-mono =
+      pkgs.runCommand "patched-${pkgs.commit-mono.name}" { nativeBuildInputs = [ pkgs.fontforge ]; }
+        ''
+          cp -r ${pkgs.commit-mono} $out
+          for file in $out/share/fonts/{opentype,truetype}/*
+          do
+            chmod +w $file
+            fontforge -script ${patch-commit-mono-script} $file
+          done
+        '';
+  in
+*/
 {
   programs.wezterm = {
     enable = true;
@@ -125,6 +127,8 @@ in */
         "SKIP_HOST_UPDATE": true
       }
     '';
-    "easyeffects/output/cab-fw.json".source = ../source/cab-fw.json;
+    "easyeffects/output/cab-fw.json".source = lib.mkIf (
+      machine-model == "framework-16-7040-amd"
+    ) ../source/cab-fw.json;
   };
 }
