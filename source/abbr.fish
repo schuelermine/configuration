@@ -29,21 +29,21 @@ function resolve-l
                     set sort_mode modified
                 case M
                     set sort_mode Modified
-                case s
+                case z
                     set sort_mode size
-                case S
+                case Z
                     set sort_mode Size
-                case n
+                case b
                     set sort_mode name
-                case N
+                case B
                     set sort_mode Name
                 case x
                     set sort_mode ext
                 case X
                     set sort_mode Ext
-                case e
+                case s
                     set sort_mode accessed
-                case E
+                case S
                     set sort_mode Accessed
                 case g
                     set force_grid 1
@@ -89,4 +89,4 @@ function resolve-l
     string join -- " " eza $flags
 end
 
-abbr --add eza --regex "l[0l1artcCmMsSnNxXeEgi]*" --function resolve-l
+abbr --add eza --regex "l[0l1artcCmMzZBxXsSgi]*" --function resolve-l
