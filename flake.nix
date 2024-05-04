@@ -17,6 +17,10 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.3.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     inputs@{
@@ -27,6 +31,7 @@
       nixos-hardware,
       dwarffs,
       disko,
+      lanzaboote,
       ...
     }:
     let
@@ -42,6 +47,7 @@
         useDwarffs = false;
         trusted = false;
         vm = false;
+        useLanzaboote = false;
       };
       getSpecialArgs =
         {
@@ -55,6 +61,7 @@
           useNixosHardware ? defaults.useNixosHardware,
           vm ? defaults.vm,
           useDisko ? defaults.useDisko,
+          useLanzaboote ? defaults.useLanzaboote,
           ...
         }:
         {
@@ -68,6 +75,7 @@
           configuration-dwarffs = useDwarffs;
           configuration-nixos-hardware = useNixosHardware;
           configuration-disko = useDisko;
+          configuration-lanzaboote = useLanzaboote;
           inherit system;
         }
         // joinAttrs (
@@ -97,6 +105,7 @@
           gui ? defaults.gui,
           trusted ? defaults.trusted,
           vm ? defaults.vm,
+          useLanzaboote ? defaults.useLanzaboote,
           stateVersion,
         }:
         let
@@ -107,6 +116,7 @@
             ++ (if useDwarffs then [ dwarffs.nixosModules.dwarffs ] else [ ])
             ++ (if useNixosHardware then [ nixos-hardware.nixosModules.${model} ] else [ ])
             ++ (if useDisko then [ disko.nixosModules.default ] else [ ])
+            ++ (if useLanzaboote then [ lanzaboote.nixosModules.lanzaboote ] else [ ])
             ++ [
               {
                 networking.hostName = hostname;
@@ -132,6 +142,7 @@
               useDwarffs
               trusted
               vm
+              useLanzaboote
               ;
             name = hostname;
           };
@@ -185,6 +196,7 @@
         useDisko = true;
         stateVersion = "23.11";
         trusted = true;
+        useLanzaboote = true;
       };
       users.anselmschueler = {
         user =

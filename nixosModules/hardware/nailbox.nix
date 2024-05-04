@@ -7,14 +7,6 @@
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
   boot = {
-    loader = {
-      systemd-boot = {
-        enable = true;
-        editor = false;
-      };
-      timeout = 0;
-      efi.canTouchEfiVariables = true;
-    };
     initrd = {
       availableKernelModules = [
         "nvme"
@@ -28,6 +20,7 @@
     };
     kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];
+    lanzaboote.pkiBundle = "/etc/secureboot";
   };
   services = {
     fwupd.enable = true;

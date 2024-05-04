@@ -4,21 +4,29 @@
   input-nixpkgs,
   machine-gui,
   machine-weak,
+  configuration-lanzaboote,
   ...
 }:
 {
   nixpkgs.config.allowUnfree = true;
   boot = {
     initrd.systemd.enable = true;
-    kernelPackages = pkgs.linuxPackages_latest;
+    loader = {
+      timeout = lib.mkDefault 0;
+      systemd-boot = {
+        enable = lib.mkDefault (!configuration-lanzaboote);
+        editor = false;
+      };
+    };
+    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
     supportedFilesystems = lib.mkIf (!machine-weak) [
       "ntfs"
       "exfat"
+      "ext4"
     ];
-    plymouth = {
-      enable = true;
-      font = "${pkgs.cantarell-fonts}/share/fonts/cantarell/Cantarell-VF.otf";
-    };
+    plymouth.enable = lib.mkIf machine-gui true;
+  } // lib.optionalAttrs configuration-lanzaboote {
+    lanzaboote.enable = lib.mkDefault configuration-lanzaboote;
   };
   networking = {
     nameservers = [
@@ -153,7 +161,13 @@
         dig
         lshw
       ])
-      ++ lib.optionals (!machine-weak) (with pkgs; [ man-pages btop ])
+      ++ lib.optionals (!machine-weak) (
+        with pkgs;
+        [
+          man-pages
+          btop
+        ]
+      )
       ++ lib.optionals (machine-gui && !machine-weak) (
         with pkgs;
         [
@@ -187,7 +201,8 @@
         de-de
         en-us
       ])
-      ++ lib.optionals (!machine-weak) [ pkgs.hunspellDicts.en-us-large ];
+      ++ lib.optionals (!machine-weak) [ pkgs.hunspellDicts.en-us-large ]
+      ++ lib.optional configuration-lanzaboote pkgs.sbctl;
     gnome.excludePackages = lib.mkIf machine-gui (
       (with pkgs; [
         gnome-tour
