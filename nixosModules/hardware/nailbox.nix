@@ -34,7 +34,7 @@
       type = "gpt";
       partitions = {
         esp = {
-          size = "512M";
+          size = "10G";
           type = "EF00";
           content = {
             type = "filesystem";
@@ -45,7 +45,7 @@
         };
         root = {
           name = "root-crypt";
-          end = "-32G";
+          end = "100%";
           content = {
             type = "luks";
             name = "root";
@@ -55,17 +55,6 @@
               type = "btrfs";
               mountpoint = "/";
             };
-          };
-        };
-        swap = {
-          name = "swap-crypt";
-          size = "100%";
-          content = {
-            type = "luks";
-            name = "swap";
-            settings.allowDiscards = true;
-            passwordFile = "/tmp/nixos-install-nailbox-disko-nvme0n1-luks-password";
-            content.type = "swap";
           };
         };
       };
