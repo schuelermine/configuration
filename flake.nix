@@ -2,7 +2,10 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-repl-setup = {
       flake = false;
       url = "github:schuelermine/nixos-repl-setup";
@@ -21,6 +24,10 @@
       url = "github:nix-community/lanzaboote/v0.3.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     inputs@{
@@ -32,6 +39,7 @@
       dwarffs,
       disko,
       lanzaboote,
+      stylix,
       ...
     }:
     let
@@ -48,6 +56,8 @@
         trusted = false;
         vm = false;
         useLanzaboote = false;
+        useXhmm = false;
+        useStylix = false;
       };
       getSpecialArgs =
         {
@@ -62,6 +72,7 @@
           vm ? defaults.vm,
           useDisko ? defaults.useDisko,
           useLanzaboote ? defaults.useLanzaboote,
+          useStylix ? defaults.useStylix,
           ...
         }:
         {
@@ -76,6 +87,7 @@
           configuration-nixos-hardware = useNixosHardware;
           configuration-disko = useDisko;
           configuration-lanzaboote = useLanzaboote;
+          configuration-stylix = useStylix;
           inherit system;
         }
         // joinAttrs (
@@ -106,6 +118,8 @@
           trusted ? defaults.trusted,
           vm ? defaults.vm,
           useLanzaboote ? defaults.useLanzaboote,
+          useStylix ? defaults.useStylix,
+          styleModule ? null,
           stateVersion,
         }:
         let
@@ -117,6 +131,15 @@
             ++ (if useNixosHardware then [ nixos-hardware.nixosModules.${model} ] else [ ])
             ++ (if useDisko then [ disko.nixosModules.default ] else [ ])
             ++ (if useLanzaboote then [ lanzaboote.nixosModules.lanzaboote ] else [ ])
+            ++ (
+              if useStylix then
+                [
+                  stylix.nixosModules.stylix
+                  styleModule
+                ]
+              else
+                [ ]
+            )
             ++ [
               {
                 networking.hostName = hostname;
@@ -161,16 +184,22 @@
               map (
                 machineName:
                 let
-                  user' =
-                    if builtins.isFunction user then
-                      user (machines.${machineName} // { name = machineName; })
-                    else
-                      user;
+                  user' = if builtins.isFunction user then user (machine // { name = machineName; }) else user;
                   userPresent = builtins.elem username machines.${machineName}.usernames;
+                  machine = machines.${machineName};
                   modules =
                     [ self.homeManagerModules."home-${username}" ]
                     ++ map (module: self.homeManagerModules.${module}) user'.moduleNames
-                    ++ (if user'.useXhmm then [ xhmm.homeManagerModules.all ] else [ ])
+                    ++ (if user'.useXhmm or defaults.useXhmm then [ xhmm.homeManagerModules.all ] else [ ])
+                    ++ (
+                      if user'.useStylix or defaults.useStylix && (!user' ? styleModule -> machine.useStylix) then
+                        [
+                          stylix.homeManagerModules.stylix
+                          user'.styleModule or machine.styleModule
+                        ]
+                      else
+                        [ ]
+                    )
                     ++ [
                       { nixpkgs.overlays = overlays; }
                       { home.stateVersion = stateVersions.${machineName} or machines.${machineName}.stateVersion; }
@@ -197,6 +226,8 @@
         stateVersion = "23.11";
         trusted = true;
         useLanzaboote = true;
+        useStylix = true;
+        styleModule = ./stylixModules/style-1.nix;
       };
       users.anselmschueler = {
         user =
@@ -223,6 +254,8 @@
               ]
               ++ nixpkgs.lib.optionals (!weak) [ "coding" ];
             useXhmm = true;
+            useStylix = true;
+            styleModule = ./stylixModules/style-1.nix;
           };
         stateVersions.nailbox = "23.11";
       };

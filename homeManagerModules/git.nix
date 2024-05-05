@@ -12,6 +12,7 @@
       userName = "Anselm Schüler";
       enable = true;
       delta.enable = lib.mkIf machine-gui true;
+      lfs.enable = true;
       signing = lib.mkIf configuration-trusted {
         signByDefault = true;
         key = null;

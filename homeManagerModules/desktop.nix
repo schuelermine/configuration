@@ -36,7 +36,7 @@
     extraConfig = ''
       local config = wezterm.config_builder()
       config.font = wezterm.font("Commit Mono")
-      config.font_size = ${builtins.toString config.gnome.monospaceFont.size}
+      config.font_size = ${builtins.toString config.stylix.fonts.sizes.terminal}
       config.enable_wayland = false
       config.mouse_bindings = {
         {
@@ -84,21 +84,13 @@
         "thunderbird.desktop"
         "org.wezfurlong.wezterm.desktop"
       ];
-      "org/gnome/desktop/interface".color-scheme = "prefer-dark";
       "org/gnome/mutter".edge-tiling = true;
       "org/gnome/desktop/media-handling".autorun-never = true;
       "org/gnome/desktop/notifications".show-in-lock-screen = false;
       "org/gnome/system/location".enabled = true;
     };
   };
-  gnome = {
-    extensions.enabledExtensions = with pkgs.gnomeExtensions; [ appindicator ];
-    monospaceFont = {
-      package = pkgs.commit-mono;
-      name = "CommitMono";
-      size = 15;
-    };
-  };
+  gnome.extensions.enabledExtensions = with pkgs.gnomeExtensions; [ appindicator ];
   home.packages = with pkgs; [
     spotify
     discord

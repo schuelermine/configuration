@@ -9,25 +9,27 @@
 }:
 {
   nixpkgs.config.allowUnfree = true;
-  boot = {
-    initrd.systemd.enable = true;
-    loader = {
-      timeout = lib.mkDefault 0;
-      systemd-boot = {
-        enable = lib.mkDefault (!configuration-lanzaboote);
-        editor = false;
+  boot =
+    {
+      initrd.systemd.enable = true;
+      loader = {
+        timeout = lib.mkDefault 0;
+        systemd-boot = {
+          enable = lib.mkDefault (!configuration-lanzaboote);
+          editor = false;
+        };
       };
+      kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+      supportedFilesystems = lib.mkIf (!machine-weak) [
+        "ntfs"
+        "exfat"
+        "ext4"
+      ];
+      plymouth.enable = lib.mkIf machine-gui true;
+    }
+    // lib.optionalAttrs configuration-lanzaboote {
+      lanzaboote.enable = lib.mkDefault configuration-lanzaboote;
     };
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
-    supportedFilesystems = lib.mkIf (!machine-weak) [
-      "ntfs"
-      "exfat"
-      "ext4"
-    ];
-    plymouth.enable = lib.mkIf machine-gui true;
-  } // lib.optionalAttrs configuration-lanzaboote {
-    lanzaboote.enable = lib.mkDefault configuration-lanzaboote;
-  };
   networking = {
     nameservers = [
       "1.1.1.1#cloudflare-dns.com"
@@ -95,9 +97,9 @@
         DNSOverTLS=true
       '';
     };
+    libinput.enable = true;
     xserver = lib.mkIf machine-gui {
       enable = true;
-      libinput.enable = true;
       displayManager.gdm.enable = true;
       desktopManager.gnome.enable = true;
       xkb = {
@@ -147,6 +149,7 @@
         moreutils
         procs
         git
+        git-lfs
         unicode-paracode
         uni
         libqalculate
@@ -258,7 +261,7 @@
     enable = true;
     platformTheme = "qt5ct";
   };
-  specialisation.NoDNSOverTLSOrDNSSEC.configuration.services.resolved = {
+  specialisation.NoDnsOverTlsOrDnssec.configuration.services.resolved = {
     dnssec = lib.mkForce "false";
     extraConfig = lib.mkForce "";
   };
