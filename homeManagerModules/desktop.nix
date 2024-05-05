@@ -102,7 +102,7 @@
     prismlauncher
     valent
     virt-manager
-    dino
+    # dino
     fractal
     blender-hip
     obs-studio

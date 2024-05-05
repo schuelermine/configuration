@@ -227,6 +227,7 @@
         trusted = true;
         useLanzaboote = true;
         useStylix = true;
+        useDwarffs = true;
         styleModule = ./stylixModules/style-1.nix;
       };
       users.anselmschueler = {
