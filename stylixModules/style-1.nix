@@ -5,7 +5,8 @@
       name = "Adwaita";
       size = 24;
     };
-    # polarity = "dark";
+    polarity = "dark";
+    base16Scheme = ../source/knockoff-adwaita.yaml;
     image = ../blob/adwaita-d.jpg;
     fonts = {
       monospace = {
