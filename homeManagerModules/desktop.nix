@@ -31,39 +31,47 @@
   in
 */
 {
-  programs.wezterm = {
-    enable = true;
-    extraConfig = ''
-      local config = wezterm.config_builder()
-      config.font = wezterm.font("Commit Mono")
-      config.font_size = ${builtins.toString config.gnome.monospaceFont.size}
-      config.enable_wayland = false
-      config.mouse_bindings = {
-        {
-          event = { Up = { streak = 1, button = "Left" }},
-          mods = "NONE",
-          action = wezterm.action.CompleteSelection("ClipboardAndPrimarySelection")
-        },
-        {
-          event = { Up = { streak = 1, button = "Left" }},
-          mods = "CTRL",
-          action = wezterm.action.OpenLinkAtMouseCursor
-        },
-        {
-          event = { Down = { streak = 1, button = "Left" }},
-          mods = "CTRL",
-          action = wezterm.action.Nop
+  programs = {
+    wezterm = {
+      enable = true;
+      extraConfig = ''
+        local config = wezterm.config_builder()
+        config.font = wezterm.font("Commit Mono")
+        config.font_size = ${builtins.toString config.gnome.monospaceFont.size}
+        config.enable_wayland = false
+        config.mouse_bindings = {
+          {
+            event = { Up = { streak = 1, button = "Left" }},
+            mods = "NONE",
+            action = wezterm.action.CompleteSelection("ClipboardAndPrimarySelection")
+          },
+          {
+            event = { Up = { streak = 1, button = "Left" }},
+            mods = "CTRL",
+            action = wezterm.action.OpenLinkAtMouseCursor
+          },
+          {
+            event = { Down = { streak = 1, button = "Left" }},
+            mods = "CTRL",
+            action = wezterm.action.Nop
+          }
         }
-      }
-      config.keys = {
-        {
-          key = "Enter",
-          mods = "ALT",
-          action = wezterm.action.DisableDefaultAssignment
+        config.keys = {
+          {
+            key = "Enter",
+            mods = "ALT",
+            action = wezterm.action.DisableDefaultAssignment
+          }
         }
-      }
-      return config
-    '';
+        return config
+      '';
+    };
+    obs-studio = {
+      enable = true;
+      plugins = with pkgs.obs-studio-plugins; [
+        obs-vaapi
+      ];
+    };
   };
   dconf = {
     enable = true;
@@ -113,8 +121,6 @@
     # dino
     fractal
     blender-hip
-    obs-studio
-    obs-studio-plugins.obs-vaapi
     bottles
   ];
   fonts.fontconfig.enable = true;
