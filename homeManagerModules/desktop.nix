@@ -36,7 +36,7 @@
     extraConfig = ''
       local config = wezterm.config_builder()
       config.font = wezterm.font("Commit Mono")
-      config.font_size = ${builtins.toString config.stylix.fonts.sizes.terminal}
+      config.font_size = ${builtins.toString config.gnome.monospaceFont.size}
       config.enable_wayland = false
       config.mouse_bindings = {
         {
@@ -76,6 +76,7 @@
         command = "${config.programs.wezterm.package}/bin/wezterm";
         name = "Terminal";
       };
+      "org/gnome/desktop/interface".color-scheme = "prefer-dark";
       "org/gnome/settings-daemon/plugins/media-keys".email = [ "<Super>e" ];
       "org/gnome/settings-daemon/plugins/media-keys".www = [ "<Super>b" ];
       "org/gnome/settings-daemon/plugins/media-keys".home = [ "<Super>f" ];
@@ -90,7 +91,14 @@
       "org/gnome/system/location".enabled = true;
     };
   };
-  gnome.extensions.enabledExtensions = with pkgs.gnomeExtensions; [ appindicator ];
+  gnome = {
+    extensions.enabledExtensions = with pkgs.gnomeExtensions; [ appindicator ];
+    monospaceFont = {
+      package = pkgs.commit-mono;
+      name = "CommitMono";
+      size = 15;
+    };
+  };
   home.packages = with pkgs; [
     spotify
     discord

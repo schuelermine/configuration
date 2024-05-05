@@ -45,8 +45,8 @@
     userSettings = {
       "update.mode" = "none";
 
-      "editor.fontFamily" = "'${config.stylix.fonts.monospace.name}'";
-      "editor.fontSize" = config.stylix.fonts.sizes.terminal;
+      "editor.fontFamily" = "'${config.gnome.monospaceFont.name}'";
+      "editor.fontSize" = config.gnome.monospaceFont.size;
       "editor.fontLigatures" = true;
       "editor.minimap.renderCharacters" = false;
 
@@ -54,6 +54,8 @@
       "sonarlint.pathToNodeExecutable" = "${pkgs.nodejs}/bin/node";
 
       "java.home" = "${pkgs.openjdk}/lib/openjdk";
+
+      "workbench.colorTheme" = "Default Dark+";
 
       "editor.inlayHints.enabled" = "on";
 
