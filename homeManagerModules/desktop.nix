@@ -138,4 +138,9 @@
       machine-model == "framework-16-7040-amd"
     ) ../source/cab-fw.json;
   };
+  qt = {
+    enable = true;
+    platformTheme.name = "qtct";
+    style.name = "breeze";
+  };
 }
