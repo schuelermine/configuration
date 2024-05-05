@@ -114,6 +114,7 @@
     fractal
     blender-hip
     obs-studio
+    obs-studio-plugins.obs-vaapi
     bottles
   ];
   fonts.fontconfig.enable = true;
