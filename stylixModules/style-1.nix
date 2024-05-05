@@ -5,7 +5,7 @@
       name = "Adwaita";
       size = 24;
     };
-    polarity = "dark";
+    # polarity = "dark";
     image = ../blob/adwaita-d.jpg;
     fonts = {
       monospace = {
