@@ -84,10 +84,7 @@
         command = "${config.programs.wezterm.package}/bin/wezterm";
         name = "Terminal";
       };
-      "org/gnome/desktop/interface" = {
-        color-scheme = "prefer-dark";
-        font-antialiasing = "rgba";
-      };
+      "org/gnome/desktop/interface".color-scheme = "prefer-dark";
       "org/gnome/settings-daemon/plugins/media-keys".email = [ "<Super>e" ];
       "org/gnome/settings-daemon/plugins/media-keys".www = [ "<Super>b" ];
       "org/gnome/settings-daemon/plugins/media-keys".home = [ "<Super>f" ];
