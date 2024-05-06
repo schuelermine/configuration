@@ -145,7 +145,7 @@
         curl
         fzf
         bat
-        rich-cli
+        # rich-cli
         frogmouth
         glow
         chafa
