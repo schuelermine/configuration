@@ -107,13 +107,17 @@
         options = "eurosign:e,compose:caps";
         variant = "nodeadkeys";
       };
+      excludePackages = [ pkgs.xterm ];
     };
   };
   sound.enable = lib.mkIf machine-gui true;
   hardware.pulseaudio.enable = false;
-  programs.nano = {
-    enable = true;
-    syntaxHighlight = true;
+  programs = {
+    nano = {
+      enable = true;
+      syntaxHighlight = true;
+    };
+    gamemode.enable = lib.mkIf (!machine-weak) true;
   };
   environment = {
     systemPackages =
@@ -179,6 +183,8 @@
           gimp
           libreoffice-fresh
           thunderbird
+          inkscape
+          bottles
         ]
       )
       ++ lib.optionals machine-gui (

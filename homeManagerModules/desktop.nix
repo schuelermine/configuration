@@ -127,7 +127,7 @@
     # dino
     fractal
     blender-hip
-    bottles
+    zulip
   ];
   fonts.fontconfig.enable = true;
   services.easyeffects = {
