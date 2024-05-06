@@ -84,7 +84,10 @@
         command = "${config.programs.wezterm.package}/bin/wezterm";
         name = "Terminal";
       };
-      "org/gnome/desktop/interface".color-scheme = "prefer-dark";
+      "org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
+        font-antialiasing = "rgba";
+      };
       "org/gnome/settings-daemon/plugins/media-keys".email = [ "<Super>e" ];
       "org/gnome/settings-daemon/plugins/media-keys".www = [ "<Super>b" ];
       "org/gnome/settings-daemon/plugins/media-keys".home = [ "<Super>f" ];
@@ -93,14 +96,17 @@
         "thunderbird.desktop"
         "org.wezfurlong.wezterm.desktop"
       ];
-      "org/gnome/mutter".edge-tiling = true;
+      "org/gnome/mutter" = {
+        edge-tiling = true;
+        attach-modal-dialogs = true;
+      };
       "org/gnome/desktop/media-handling".autorun-never = true;
       "org/gnome/desktop/notifications".show-in-lock-screen = false;
       "org/gnome/system/location".enabled = true;
     };
   };
   gnome = {
-    extensions.enabledExtensions = with pkgs.gnomeExtensions; [ appindicator ];
+    extensions.enabledExtensions = with pkgs.gnomeExtensions; [ appindicator pano blur-my-shell ];
     monospaceFont = {
       package = pkgs.commit-mono;
       name = "CommitMono";
