@@ -75,6 +75,7 @@
   };
   security.pam.services.gdm-password.fprintAuth = false;
   services = {
+    nixseparatedebuginfod.enable = lib.mkIf (!machine-weak) true;
     gpm.enable = lib.mkIf machine-gui true;
     flatpak.enable = lib.mkIf machine-gui true;
     dbus.packages = lib.mkIf machine-gui [ pkgs.gcr ];

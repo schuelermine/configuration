@@ -15,7 +15,6 @@
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    dwarffs.url = "github:edolstra/dwarffs";
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,7 +31,6 @@
       home-manager,
       xhmm,
       nixos-hardware,
-      dwarffs,
       disko,
       lanzaboote,
       ...
@@ -47,7 +45,6 @@
         weak = false;
         useNixosHardware = false;
         useDisko = false;
-        useDwarffs = false;
         trusted = false;
         vm = false;
         useLanzaboote = false;
@@ -60,7 +57,6 @@
           gui ? defaults.gui,
           weak ? defaults.weak,
           name,
-          useDwarffs ? defaults.useDwarffs,
           trusted ? defaults.trusted,
           useNixosHardware ? defaults.useNixosHardware,
           vm ? defaults.vm,
@@ -76,7 +72,6 @@
           machine-vm = vm;
           source-flake = self;
           configuration-trusted = trusted;
-          configuration-dwarffs = useDwarffs;
           configuration-nixos-hardware = useNixosHardware;
           configuration-disko = useDisko;
           configuration-lanzaboote = useLanzaboote;
@@ -104,7 +99,6 @@
           moduleNames ? [ "default" ],
           useNixosHardware ? defaults.useNixosHardware,
           useDisko ? defaults.useDisko,
-          useDwarffs ? defaults.useDwarffs,
           weak ? defaults.weak,
           gui ? defaults.gui,
           trusted ? defaults.trusted,
@@ -118,7 +112,6 @@
             [ self.nixosModules."hardware-${hostname}" ]
             ++ map (moduleName: self.nixosModules.${moduleName}) moduleNames
             ++ map (username: self.nixosModules."user-${username}") usernames
-            ++ (if useDwarffs then [ dwarffs.nixosModules.dwarffs ] else [ ])
             ++ (if useNixosHardware then [ nixos-hardware.nixosModules.${model} ] else [ ])
             ++ (if useDisko then [ disko.nixosModules.default ] else [ ])
             ++ (if useLanzaboote then [ lanzaboote.nixosModules.lanzaboote ] else [ ])
@@ -144,7 +137,6 @@
               stateVersion
               useNixosHardware
               useDisko
-              useDwarffs
               trusted
               vm
               useLanzaboote
@@ -199,7 +191,6 @@
         stateVersion = "23.11";
         trusted = true;
         useLanzaboote = true;
-        # useDwarffs = true;
       };
       users.anselmschueler = {
         user =
