@@ -122,6 +122,7 @@
     valent
     virt-manager
     # dino
+    apostrophe
     fractal
     blender-hip
     zulip
