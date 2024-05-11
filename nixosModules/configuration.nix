@@ -5,6 +5,7 @@
   machine-gui,
   machine-weak,
   configuration-lanzaboote,
+  machine-vm,
   ...
 }:
 {
@@ -75,6 +76,7 @@
   };
   security.pam.services.gdm-password.fprintAuth = false;
   services = {
+    spice-vdagentd.enable = lib.mkIf machine-vm true;
     nixseparatedebuginfod.enable = lib.mkIf (!machine-weak) true;
     gpm.enable = lib.mkIf machine-gui true;
     flatpak.enable = lib.mkIf machine-gui true;
@@ -109,6 +111,16 @@
         variant = "nodeadkeys";
       };
       excludePackages = [ pkgs.xterm ];
+    };
+  };
+  virtualisation = lib.mkIf (!machine-vm) {
+    docker.enable = true;
+    libvirtd = {
+      enable = true;
+      qemu = {
+        swtpm.enable = true;
+        ovmf.packages = [ pkgs.OVMFFull.fd ];
+      };
     };
   };
   sound.enable = lib.mkIf machine-gui true;
@@ -211,8 +223,9 @@
         de-de
         en-us
       ])
-      ++ lib.optionals (!machine-weak) [ pkgs.hunspellDicts.en-us-large ]
-      ++ lib.optional configuration-lanzaboote pkgs.sbctl;
+      ++ lib.optional (!machine-weak) pkgs.hunspellDicts.en-us-large
+      ++ lib.optional configuration-lanzaboote pkgs.sbctl
+      ++ lib.optional (!machine-vm) pkgs.virtiofsd;
     gnome.excludePackages = lib.mkIf machine-gui (
       (with pkgs; [
         gnome-tour

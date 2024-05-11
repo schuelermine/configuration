@@ -1,22 +1,11 @@
 {
   pkgs,
   lib,
-  machine-vm,
   machine-gui,
   ...
 }:
 {
   services.udev.packages = with pkgs; [ android-udev-rules ];
-  virtualisation = lib.mkIf (!machine-vm) {
-    docker.enable = true;
-    libvirtd = {
-      enable = true;
-      qemu = {
-        swtpm.enable = true;
-        ovmf.packages = [ pkgs.OVMFFull.fd ];
-      };
-    };
-  };
   programs.fish.enable = true;
   hardware.steam-hardware.enable = lib.mkIf machine-gui true;
   networking.firewall =
