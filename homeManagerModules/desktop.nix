@@ -128,10 +128,7 @@
     zulip
   ];
   fonts.fontconfig.enable = true;
-  services.easyeffects = {
-    enable = lib.mkIf (machine-model == "framework-16-7040-amd") true;
-    preset = "cab-fw-improved";
-  };
+  services.easyeffects.enable = lib.mkIf (machine-model == "framework-16-7040-amd") true;
   xdg.configFile = {
     "discord/settings.json".text = ''
       {
