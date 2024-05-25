@@ -103,7 +103,7 @@
     };
   };
   gnome = {
-    extensions.enabledExtensions = with pkgs.gnomeExtensions; [ appindicator pano blur-my-shell ];
+    extensions.enabledExtensions = with pkgs.gnomeExtensions; [ pano blur-my-shell ];
     monospaceFont = {
       package = pkgs.commit-mono;
       name = "CommitMono";
