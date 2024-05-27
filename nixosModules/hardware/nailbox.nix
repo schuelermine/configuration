@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   modulesPath,
   ...
@@ -27,14 +26,7 @@
     fwupd.enable = true;
     xserver.synaptics.palmDetect = true;
   };
-  hardware = {
-    cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-    opengl.extraPackages = with pkgs; [
-      amdvlk
-      libvdpau-va-gl
-      vaapiVdpau
-    ];
-  };
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   disko.devices.disk.nvme0n1 = {
     device = "/dev/disk/by-id/nvme-WD_BLACK_SN850X_2000GB_23514Y806477";
     type = "disk";
