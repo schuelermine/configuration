@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  input-nixpkgs,
   machine-gui,
   machine-weak,
   configuration-lanzaboote,
@@ -130,7 +129,7 @@
       enable = true;
       syntaxHighlight = true;
     };
-    gamemode.enable = lib.mkIf (!machine-weak) true;
+    # gamemode.enable = lib.mkIf (!machine-weak) true;
   };
   environment = {
     systemPackages =
@@ -211,6 +210,7 @@
           xorg.xkill
           breeze-qt5
           breeze-icons
+          amberol
         ]
       )
       ++ (with pkgs.aspellDicts; [
@@ -232,6 +232,7 @@
         gnome-console
       ])
       ++ (with pkgs.gnome; [
+        gnome-music
         gnome-calculator
         epiphany
         totem
@@ -244,13 +245,6 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-    registry.nixpkgs.to = {
-      owner = "NixOS";
-      repo = "nixpkgs";
-      rev = input-nixpkgs.sourceInfo.rev;
-      type = "github";
-    };
-    nixPath = [ "nixpkgs=${input-nixpkgs}" ];
     # package = pkgs.nixUnstable;
     settings = {
       auto-optimise-store = true;
