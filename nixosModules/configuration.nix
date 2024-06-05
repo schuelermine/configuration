@@ -129,7 +129,7 @@
       enable = true;
       syntaxHighlight = true;
     };
-    # gamemode.enable = lib.mkIf (!machine-weak) true;
+    gamemode.enable = lib.mkIf (!machine-weak) true;
   };
   environment = {
     systemPackages =
