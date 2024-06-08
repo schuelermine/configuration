@@ -40,6 +40,14 @@
           sha256 = "sha256-LxgftSpGk7+SIUdZcNpL7UZoAx8IMIcwPYIGqSfVuDc=";
         };
       })
+      (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "swift-lang";
+          publisher = "sswg";
+          version = "1.10.0";
+          sha256 = "sha256-RrGf+/w9zEE+pc9Pokfn/lOjcaFYfoQnUkg/BQCh7TI=";
+        };
+      })
     ];
     package = pkgs.vscodium;
     userSettings = {
