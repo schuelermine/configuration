@@ -48,6 +48,18 @@
           sha256 = "sha256-RrGf+/w9zEE+pc9Pokfn/lOjcaFYfoQnUkg/BQCh7TI=";
         };
       })
+      (pkgs.vscode-utils.buildVscodeExtension rec {
+        vscodeExtPublisher = "jeanp413";
+        vscodeExtName = "open-remote-ssh";
+        vscodeExtUniqueId = "${vscodeExtPublisher}.${vscodeExtName}";
+        version = "0.0.45";
+        name = "${vscodeExtPublisher}-${vscodeExtName}-${version}";
+        src = pkgs.fetchurl {
+          url = "https://open-vsx.org/api/jeanp413/open-remote-ssh/${version}/file/jeanp413.open-remote-ssh-${version}.vsix";
+          hash = "sha256-YoeUNvxLSmy3OftZp2AnqRU+TKe3KYLt3zZ0B5XGgeE=";
+          name = "${vscodeExtPublisher}-${vscodeExtName}.zip";
+        };
+      })
     ];
     package = pkgs.vscodium;
     userSettings = {
@@ -63,7 +75,7 @@
 
       "java.home" = "${pkgs.openjdk}/lib/openjdk";
 
-      "workbench.colorTheme" = "Default Dark+";
+      "workbench.colorTheme" = "Default Dark Modern";
 
       "editor.inlayHints.enabled" = "on";
 

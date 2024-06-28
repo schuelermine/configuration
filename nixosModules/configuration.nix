@@ -1,13 +1,15 @@
 {
   lib,
   pkgs,
+  config,
   machine-gui,
   machine-weak,
   configuration-lanzaboote,
   machine-vm,
   ...
 }:
-{
+let lxd-interface = "lxdbr0";
+in {
   nixpkgs.config.allowUnfree = true;
   boot =
     {
@@ -38,6 +40,20 @@
       "2606:4700:4700::1001#cloudflare-dns.com"
     ];
     networkmanager.enable = true;
+    firewall.interfaces.lxdbr0 = lib.mkIf (!machine-vm) {
+      allowedTCPPortRanges = [
+        {
+          from = 0;
+          to = 65535;
+        }
+      ];
+      allowedUDPPortRanges = [
+        {
+          from = 0;
+          to = 65535;
+        }
+      ];
+    };
   };
   time.timeZone = "Europe/Berlin";
   i18n = {
@@ -73,7 +89,6 @@
     keyMap = lib.mkIf (!machine-gui) "de-latin1-nodeadkeys";
     earlySetup = true;
   };
-  security.pam.services.gdm-password.fprintAuth = false;
   services = {
     spice-vdagentd.enable = lib.mkIf machine-vm true;
     nixseparatedebuginfod.enable = lib.mkIf (!machine-weak) true;
@@ -113,7 +128,47 @@
     };
   };
   virtualisation = lib.mkIf (!machine-vm) {
-    docker.enable = true;
+    # docker.enable = true;
+    lxd = {
+      enable = true;
+      preseed = {
+        networks = [
+          {
+            config = {
+              "ipv4.address" = "auto";
+              "ipv6.address" = "auto";
+              "dns.mode" = "managed";
+            };
+            name = lxd-interface;
+            project = "default";
+          }
+        ];
+        storage_pools = [
+          {
+            name = "default";
+            driver = "btrfs";
+          }
+        ];
+        profiles = [
+          {
+            devices = {
+              eth0 = {
+                name = "eth0";
+                network = "lxdbr0";
+                type = "nic";
+              };
+              root = {
+                path = "/";
+                pool = "default";
+                type = "disk";
+              };
+            };
+            name = "default";
+          }
+        ];
+      };
+    };
+    lxc.lxcfs.enable = true;
     libvirtd = {
       enable = true;
       qemu = {
@@ -121,6 +176,20 @@
         ovmf.packages = [ pkgs.OVMFFull.fd ];
       };
     };
+  };
+  systemd.services.lxd-dns-lxdbr0 = lib.mkIf (!machine-vm) rec {
+    script = let lxcBin = "${config.virtualisation.lxd.package}/bin/lxc"; in ''
+      IPV4="$(${lxcBin} network get ${lxd-interface} ipv4.address 2>/dev/null)"
+      IPV6="$(${lxcBin} network get ${lxd-interface} ipv6.address 2>/dev/null)"
+      DOMAIN="$(${lxcBin} network get ${lxd-interface} dns.domain 2>/dev/null)"
+      resolvectl dns lxdbr0 "''${IPV4%/*}" "''${IPV6%/*}"
+      resolvectl domain ${lxd-interface} \~"''${DOMAIN:-lxd}"
+      resolvectl dnssec ${lxd-interface} no
+      resolvectl dnsovertls ${lxd-interface} no
+      echo "Successfully configured DNS for LXD/LXC (interface ${lxd-interface})"
+    '';
+    wantedBy = [ "sys-subsystem-net-devices-${lxd-interface}.device" ];
+    after = wantedBy;
   };
   sound.enable = lib.mkIf machine-gui true;
   hardware.pulseaudio.enable = false;
@@ -172,7 +241,6 @@
         du-dust
         duf
         eza
-        wezterm
         smartmontools
         pv
         usbutils
@@ -227,11 +295,7 @@
       ++ lib.optional configuration-lanzaboote pkgs.sbctl
       ++ lib.optional (!machine-vm) pkgs.virtiofsd;
     gnome.excludePackages = lib.mkIf machine-gui (
-      (with pkgs; [
-        gnome-tour
-        gnome-console
-      ])
-      ++ (with pkgs.gnome; [
+      [ pkgs.gnome-tour ] ++ (with pkgs.gnome; [
         gnome-music
         gnome-calculator
         epiphany

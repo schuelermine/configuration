@@ -31,47 +31,9 @@
   in
 */
 {
-  programs = {
-    wezterm = {
-      enable = true;
-      extraConfig = ''
-        local config = wezterm.config_builder()
-        config.font = wezterm.font("Commit Mono")
-        config.font_size = ${builtins.toString config.gnome.monospaceFont.size}
-        config.enable_wayland = false
-        config.mouse_bindings = {
-          {
-            event = { Up = { streak = 1, button = "Left" }},
-            mods = "NONE",
-            action = wezterm.action.CompleteSelection("ClipboardAndPrimarySelection")
-          },
-          {
-            event = { Up = { streak = 1, button = "Left" }},
-            mods = "CTRL",
-            action = wezterm.action.OpenLinkAtMouseCursor
-          },
-          {
-            event = { Down = { streak = 1, button = "Left" }},
-            mods = "CTRL",
-            action = wezterm.action.Nop
-          }
-        }
-        config.keys = {
-          {
-            key = "Enter",
-            mods = "ALT",
-            action = wezterm.action.DisableDefaultAssignment
-          }
-        }
-        return config
-      '';
-    };
-    obs-studio = {
-      enable = true;
-      plugins = with pkgs.obs-studio-plugins; [
-        obs-vaapi
-      ];
-    };
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [ obs-vaapi ];
   };
   dconf = {
     enable = true;
@@ -81,7 +43,7 @@
       ];
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
         binding = "<Super>t";
-        command = "${config.programs.wezterm.package}/bin/wezterm";
+        command = "${pkgs.gnome-console}/bin/kgx";
         name = "Terminal";
       };
       "org/gnome/desktop/interface".color-scheme = "prefer-dark";
@@ -91,7 +53,6 @@
       "org/gnome/shell".favorite-apps = [
         "firefox.desktop"
         "thunderbird.desktop"
-        "org.wezfurlong.wezterm.desktop"
       ];
       "org/gnome/mutter" = {
         edge-tiling = true;
@@ -103,10 +64,13 @@
     };
   };
   gnome = {
-    extensions.enabledExtensions = with pkgs.gnomeExtensions; [ pano blur-my-shell ];
+    extensions.enabledExtensions = with pkgs.gnomeExtensions; [
+      pano
+      blur-my-shell
+    ];
     monospaceFont = {
-      package = pkgs.commit-mono;
-      name = "CommitMono";
+      package = pkgs.source-code-pro;
+      name = "Source Code Pro";
       size = 15;
     };
   };
@@ -121,7 +85,7 @@
     prismlauncher
     valent
     virt-manager
-    # dino
+    dino
     apostrophe
     fractal
     blender-hip

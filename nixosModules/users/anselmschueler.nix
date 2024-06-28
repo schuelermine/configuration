@@ -29,6 +29,7 @@
         "wheel"
         "libvirtd"
         "docker"
+        "lxd"
       ];
       hashedPasswordFile = "/etc/anselmschueler.password";
       shell = pkgs.fish;

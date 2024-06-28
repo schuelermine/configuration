@@ -58,14 +58,16 @@
     direnv.enable = true;
     fish = {
       enable = true;
-      shellAliases.c = "bat";
+      shellAliases = {
+        c = "bat";
+        x = "eza";
+      };
       prompt = builtins.readFile ../source/prompt.fish;
       interactiveShellInit = builtins.concatStringsSep "\n" (
         map builtins.readFile [
           ../source/colors.fish
           ../source/features.fish
           ../source/commands.fish
-          ../source/abbr.fish
         ]
       );
     };
@@ -91,7 +93,6 @@
       asciinema
       powershell
       nushell
-      gcc
     ];
   };
 }
