@@ -206,7 +206,6 @@ in {
         nix-index
         nix-tree
         nix-diff
-        nix-top
         wget
         choose
         curl
