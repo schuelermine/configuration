@@ -61,7 +61,11 @@
     };
   };
   environment.etc."libinput/local-overrides.quirks".text = ''
-    [Logitech MX Master 3S]
+    [Logitech MX Master 3S Bolt]
+    MatchVendor=0x046D
+    MatchProduct=0xB034
+    AttrEventCode=-REL_WHEEL_HI_RES;-REL_HWHEEL_HI_RES;
+    [Logitech MX Master 3S Bluetooth]
     MatchVendor=0x046D
     MatchProduct=0xC548
     AttrEventCode=-REL_WHEEL_HI_RES;-REL_HWHEEL_HI_RES;
