@@ -88,7 +88,7 @@
     dino
     apostrophe
     fractal
-    blender-hip
+    # blender-hip
     zulip
   ];
   fonts.fontconfig.enable = true;
