@@ -58,7 +58,8 @@ in {
   time.timeZone = "Europe/Berlin";
   i18n = {
     inputMethod = {
-      enabled = "ibus";
+      enable = true;
+      type = "ibus";
       ibus.engines = with pkgs.ibus-engines; [ libpinyin ];
     };
     supportedLocales = [
@@ -191,7 +192,6 @@ in {
     wantedBy = [ "sys-subsystem-net-devices-${lxd-interface}.device" ];
     after = wantedBy;
   };
-  sound.enable = lib.mkIf machine-gui true;
   hardware.pulseaudio.enable = false;
   programs = {
     nano = {
@@ -226,7 +226,7 @@ in {
         fzf
         bat
         # rich-cli
-        frogmouth
+        # frogmouth
         glow
         chafa
         jq
@@ -257,7 +257,7 @@ in {
       ++ lib.optionals (machine-gui && !machine-weak) (
         with pkgs;
         [
-          gnome.dconf-editor
+          dconf-editor
           gnome.gnome-sound-recorder
           gimp
           libreoffice-fresh
@@ -294,8 +294,8 @@ in {
       ++ lib.optional configuration-lanzaboote pkgs.sbctl
       ++ lib.optional (!machine-vm) pkgs.virtiofsd;
     gnome.excludePackages = lib.mkIf machine-gui (
-      [ pkgs.gnome-tour ] ++ (with pkgs.gnome; [
-        gnome-music
+      [ pkgs.gnome.gnome-music ] ++ (with pkgs; [
+        gnome-tour
         gnome-calculator
         epiphany
         totem
