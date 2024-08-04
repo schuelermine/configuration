@@ -99,9 +99,11 @@
         "SKIP_HOST_UPDATE": true
       }
     '';
-    "easyeffects/output/cab-fw.json".source = lib.mkIf (
+    "easyeffects/output/cab-fw.json" = lib.mkIf (
       machine-model == "framework-16-7040-amd"
-    ) ../source/cab-fw.json;
+    ) {
+      source = ../source/cab-fw.json;
+    };
   };
   qt = {
     enable = true;

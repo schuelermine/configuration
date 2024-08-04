@@ -182,15 +182,22 @@
           ) users
         )
       );
-      machines.nailbox = {
-        model = "framework-16-7040-amd";
-        system = "x86_64-linux";
-        usernames = [ "anselmschueler" ];
-        useNixosHardware = true;
-        useDisko = true;
-        stateVersion = "23.11";
-        trusted = true;
-        useLanzaboote = true;
+      machines = rec {
+        nailbox = {
+          model = "framework-16-7040-amd";
+          system = "x86_64-linux";
+          usernames = [ "anselmschueler" ];
+          useNixosHardware = true;
+          useDisko = true;
+          stateVersion = "23.11";
+          trusted = true;
+          useLanzaboote = true;
+        };
+        nailbox-on-buggeryyacht = {
+          model = "lenovo-legion-y530-15ich";
+          useLanzaboote = false;
+          inherit (nailbox) system usernames useNixosHardware useDisko stateVersion trusted;
+        };
       };
       users.anselmschueler = {
         user =
@@ -230,6 +237,7 @@
         hardware-buggeryyacht = import ./nixosModules/hardware/buggeryyacht.nix;
         hardware-vm-hulahoop = import ./nixosModules/hardware/vm-hulahoop.nix;
         hardware-nailbox = import ./nixosModules/hardware/nailbox.nix;
+        hardware-nailbox-on-buggeryyacht = ./nixosModules/hardware/nailbox-on-buggeryyacht.nix;
       };
       homeManagerModules = joinAttrs (
         map (path: {

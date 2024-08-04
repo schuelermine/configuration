@@ -178,19 +178,22 @@ in {
       };
     };
   };
-  systemd.services.lxd-dns-lxdbr0 = lib.mkIf (!machine-vm) rec {
-    script = let lxcBin = "${config.virtualisation.lxd.package}/bin/lxc"; in ''
-      IPV4="$(${lxcBin} network get ${lxd-interface} ipv4.address 2>/dev/null)"
-      IPV6="$(${lxcBin} network get ${lxd-interface} ipv6.address 2>/dev/null)"
-      DOMAIN="$(${lxcBin} network get ${lxd-interface} dns.domain 2>/dev/null)"
-      resolvectl dns lxdbr0 "''${IPV4%/*}" "''${IPV6%/*}"
-      resolvectl domain ${lxd-interface} \~"''${DOMAIN:-lxd}"
-      resolvectl dnssec ${lxd-interface} no
-      resolvectl dnsovertls ${lxd-interface} no
-      echo "Successfully configured DNS for LXD/LXC (interface ${lxd-interface})"
-    '';
-    wantedBy = [ "sys-subsystem-net-devices-${lxd-interface}.device" ];
-    after = wantedBy;
+  systemd = {
+    services.lxd-dns-lxdbr0 = lib.mkIf (!machine-vm) rec {
+      script = let lxcBin = "${config.virtualisation.lxd.package}/bin/lxc"; in ''
+        IPV4="$(${lxcBin} network get ${lxd-interface} ipv4.address 2>/dev/null)"
+        IPV6="$(${lxcBin} network get ${lxd-interface} ipv6.address 2>/dev/null)"
+        DOMAIN="$(${lxcBin} network get ${lxd-interface} dns.domain 2>/dev/null)"
+        resolvectl dns lxdbr0 "''${IPV4%/*}" "''${IPV6%/*}"
+        resolvectl domain ${lxd-interface} \~"''${DOMAIN:-lxd}"
+        resolvectl dnssec ${lxd-interface} no
+        resolvectl dnsovertls ${lxd-interface} no
+        echo "Successfully configured DNS for LXD/LXC (interface ${lxd-interface})"
+      '';
+      wantedBy = [ "sys-subsystem-net-devices-${lxd-interface}.device" ];
+      after = wantedBy;
+    };
+    enableUnifiedCgroupHierarchy = lib.mkForce true;
   };
   hardware.pulseaudio.enable = false;
   programs = {
