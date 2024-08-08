@@ -8,7 +8,7 @@
   machine-vm,
   ...
 }:
-let lxd-interface = "lxdbr0";
+let incus-interface = "incusbr0";
 in {
   nixpkgs.config.allowUnfree = true;
   boot =
@@ -33,6 +33,7 @@ in {
       lanzaboote.enable = lib.mkDefault configuration-lanzaboote;
     };
   networking = {
+    nftables.enable = true;
     nameservers = [
       "1.1.1.1#cloudflare-dns.com"
       "1.0.0.1#cloudflare-dns.com"
@@ -40,7 +41,7 @@ in {
       "2606:4700:4700::1001#cloudflare-dns.com"
     ];
     networkmanager.enable = true;
-    firewall.interfaces.lxdbr0 = lib.mkIf (!machine-vm) {
+    firewall.interfaces.${incus-interface} = lib.mkIf (!machine-vm) {
       allowedTCPPortRanges = [
         {
           from = 0;
@@ -129,8 +130,7 @@ in {
     };
   };
   virtualisation = lib.mkIf (!machine-vm) {
-    # docker.enable = true;
-    lxd = {
+    incus = {
       enable = true;
       preseed = {
         networks = [
@@ -140,14 +140,16 @@ in {
               "ipv6.address" = "auto";
               "dns.mode" = "managed";
             };
-            name = lxd-interface;
+            name = incus-interface;
             project = "default";
           }
         ];
         storage_pools = [
           {
-            name = "default";
-            driver = "btrfs";
+            config = {
+              name = "default";
+              driver = "btrfs";
+            };
           }
         ];
         profiles = [
@@ -155,7 +157,7 @@ in {
             devices = {
               eth0 = {
                 name = "eth0";
-                network = "lxdbr0";
+                network = incus-interface;
                 type = "nic";
               };
               root = {
@@ -169,7 +171,6 @@ in {
         ];
       };
     };
-    lxc.lxcfs.enable = true;
     libvirtd = {
       enable = true;
       qemu = {
@@ -179,18 +180,18 @@ in {
     };
   };
   systemd = {
-    services.lxd-dns-lxdbr0 = lib.mkIf (!machine-vm) rec {
-      script = let lxcBin = "${config.virtualisation.lxd.package}/bin/lxc"; in ''
-        IPV4="$(${lxcBin} network get ${lxd-interface} ipv4.address 2>/dev/null)"
-        IPV6="$(${lxcBin} network get ${lxd-interface} ipv6.address 2>/dev/null)"
-        DOMAIN="$(${lxcBin} network get ${lxd-interface} dns.domain 2>/dev/null)"
-        resolvectl dns lxdbr0 "''${IPV4%/*}" "''${IPV6%/*}"
-        resolvectl domain ${lxd-interface} \~"''${DOMAIN:-lxd}"
-        resolvectl dnssec ${lxd-interface} no
-        resolvectl dnsovertls ${lxd-interface} no
-        echo "Successfully configured DNS for LXD/LXC (interface ${lxd-interface})"
+    services."incus-dns-${incus-interface}" = lib.mkIf (!machine-vm) rec {
+      script = let incus-client = "${config.virtualisation.incus.clientPackage}/bin/incus"; in ''
+        IPV4="$(${incus-client} network get ${incus-interface} ipv4.address 2>/dev/null)"
+        IPV6="$(${incus-client} network get ${incus-interface} ipv6.address 2>/dev/null)"
+        DOMAIN="$(${incus-client} network get ${incus-interface} dns.domain 2>/dev/null)"
+        resolvectl dns ${incus-interface} "''${IPV4%/*}" "''${IPV6%/*}"
+        resolvectl domain ${incus-interface} \~"''${DOMAIN:-incus}"
+        resolvectl dnssec ${incus-interface} no
+        resolvectl dnsovertls ${incus-interface} no
+        echo "Successfully configured DNS for Incus (interface ${incus-interface})"
       '';
-      wantedBy = [ "sys-subsystem-net-devices-${lxd-interface}.device" ];
+      wantedBy = [ "sys-subsystem-net-devices-${incus-interface}.device" ];
       after = wantedBy;
     };
     enableUnifiedCgroupHierarchy = lib.mkForce true;

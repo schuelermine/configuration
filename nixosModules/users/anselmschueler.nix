@@ -29,7 +29,7 @@
         "wheel"
         "libvirtd"
         "docker"
-        "lxd"
+        "incus-admin"
       ];
       hashedPasswordFile = "/etc/anselmschueler.password";
       shell = pkgs.fish;
