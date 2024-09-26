@@ -81,6 +81,7 @@
     signal-desktop
     steam
     lutris
+    heroic
     wineWow64Packages.full
     prismlauncher
     valent

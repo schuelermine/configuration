@@ -33,6 +33,7 @@ in {
       lanzaboote.enable = lib.mkDefault configuration-lanzaboote;
     };
   networking = {
+    dhcpcd.denyInterfaces = lib.mkIf (!machine-vm) [ incus-interface ];
     nftables.enable = true;
     nameservers = [
       "1.1.1.1#cloudflare-dns.com"
@@ -94,7 +95,6 @@ in {
   services = {
     spice-vdagentd.enable = lib.mkIf machine-vm true;
     nixseparatedebuginfod.enable = lib.mkIf (!machine-weak) true;
-    gpm.enable = lib.mkIf machine-gui true;
     flatpak.enable = lib.mkIf machine-gui true;
     dbus.packages = lib.mkIf machine-gui [ pkgs.gcr ];
     pipewire = lib.mkIf machine-gui {
@@ -132,7 +132,7 @@ in {
   virtualisation = lib.mkIf (!machine-vm) {
     incus = {
       enable = true;
-      preseed = {
+/*      preseed = {
         networks = [
           {
             config = {
@@ -146,9 +146,10 @@ in {
         ];
         storage_pools = [
           {
+            name = "default";
             config = {
-              name = "default";
               driver = "btrfs";
+              size = "100G";
             };
           }
         ];
@@ -169,7 +170,7 @@ in {
             name = "default";
           }
         ];
-      };
+      }; */
     };
     libvirtd = {
       enable = true;
@@ -178,23 +179,26 @@ in {
         ovmf.packages = [ pkgs.OVMFFull.fd ];
       };
     };
+    podman.enable = true;
   };
-  systemd = {
-    services."incus-dns-${incus-interface}" = lib.mkIf (!machine-vm) rec {
-      script = let incus-client = "${config.virtualisation.incus.clientPackage}/bin/incus"; in ''
-        IPV4="$(${incus-client} network get ${incus-interface} ipv4.address 2>/dev/null)"
-        IPV6="$(${incus-client} network get ${incus-interface} ipv6.address 2>/dev/null)"
-        DOMAIN="$(${incus-client} network get ${incus-interface} dns.domain 2>/dev/null)"
-        resolvectl dns ${incus-interface} "''${IPV4%/*}" "''${IPV6%/*}"
-        resolvectl domain ${incus-interface} \~"''${DOMAIN:-incus}"
-        resolvectl dnssec ${incus-interface} no
-        resolvectl dnsovertls ${incus-interface} no
-        echo "Successfully configured DNS for Incus (interface ${incus-interface})"
-      '';
-      wantedBy = [ "sys-subsystem-net-devices-${incus-interface}.device" ];
-      after = wantedBy;
-    };
-    enableUnifiedCgroupHierarchy = lib.mkForce true;
+  systemd.services."incus-dns-${incus-interface}" = lib.mkIf (!machine-vm) rec {
+    script =
+    let incus-client = "${config.virtualisation.incus.clientPackage}/bin/incus";
+        resolvectl = "${config.systemd.package}/bin/resolvectl";
+    in ''
+      trap "${resolvectl} revert ${incus-interface}" EXIT
+      IPV4="$(${incus-client} network get ${incus-interface} ipv4.address 2>/dev/null)"
+      IPV6="$(${incus-client} network get ${incus-interface} ipv6.address 2>/dev/null)"
+      DOMAIN="$(${incus-client} network get ${incus-interface} dns.domain 2>/dev/null)"
+      ${resolvectl} dns ${incus-interface} "''${IPV4%/*}" "''${IPV6%/*}"
+      ${resolvectl} domain ${incus-interface} \~"''${DOMAIN:-incus}"
+      ${resolvectl} dnssec ${incus-interface} no
+      ${resolvectl} dnsovertls ${incus-interface} no
+      trap EXIT
+      printf %s "Successfully configured DNS for Incus (interface ${incus-interface})"
+    '';
+    wantedBy = [ "sys-subsystem-net-devices-${incus-interface}.device" ];
+    after = wantedBy;
   };
   hardware.pulseaudio.enable = false;
   programs = {
@@ -262,7 +266,7 @@ in {
         with pkgs;
         [
           dconf-editor
-          gnome.gnome-sound-recorder
+          gnome-sound-recorder
           gimp
           libreoffice-fresh
           thunderbird
@@ -296,16 +300,20 @@ in {
       ])
       ++ lib.optional (!machine-weak) pkgs.hunspellDicts.en-us-large
       ++ lib.optional configuration-lanzaboote pkgs.sbctl
-      ++ lib.optional (!machine-vm) pkgs.virtiofsd;
+      ++ lib.optionals (!machine-vm) (with pkgs; [
+        virtiofsd
+        podman-compose
+      ]);
     gnome.excludePackages = lib.mkIf machine-gui (
-      [ pkgs.gnome.gnome-music ] ++ (with pkgs; [
+      with pkgs; [
+        gnome-music
         gnome-tour
         gnome-calculator
         epiphany
         totem
         geary
         gnome-calendar
-      ])
+      ]
     );
   };
   nix = {

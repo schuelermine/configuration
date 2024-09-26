@@ -72,27 +72,10 @@
       );
     };
   };
-  home = {
-    file."repl.nix".text = ''
-      let repl-setup = import ${input-nixos-repl-setup};
-      in repl-setup {
-        source = "${source-flake}";
-        hostname = "${machine-name}";
-        isUrl = true;
-        passExtra = [
-          [ "inputs" "nixpkgs" "lib" ]
-          [ "outputs" "homeConfigurations" ]
-          [ "outputs" "homeManagerModules" ]
-          [ "outputs" "nixosModules" ]
-          [ "outputs" "nixosConfigurations" ]
-        ];
-      } // builtins
-    '';
-    packages = with pkgs; [
-      haskellPackages.ret
-      asciinema
-      powershell
-      nushell
-    ];
-  };
+  home.packages = with pkgs; [
+    haskellPackages.ret
+    asciinema
+    powershell
+    nushell
+  ];
 }

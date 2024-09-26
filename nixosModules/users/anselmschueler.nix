@@ -14,11 +14,14 @@
         from = 1714;
         to = 1764;
       };
+      ausweisapp = 24727;
     in
     lib.mkIf machine-gui {
       enable = true;
       allowedTCPPortRanges = [ kdeconnect ];
       allowedUDPPortRanges = [ kdeconnect ];
+      allowedTCPPorts = [ ausweisapp ];
+      allowedUDPPorts = [ ausweisapp ];
     };
   users = {
     mutableUsers = false;

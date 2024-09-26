@@ -15,7 +15,7 @@
       streetsidesoftware.code-spell-checker
       thenuprojectcontributors.vscode-nushell-lang
       sonarsource.sonarlint-vscode
-      bungcip.better-toml
+      tamasfe.even-better-toml
       (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "vscode-deno";

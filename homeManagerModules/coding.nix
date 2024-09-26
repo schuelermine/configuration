@@ -17,5 +17,5 @@
       mypy.enable = true;
     };
   };
-  home.packages = with pkgs; [ agda ];
+  home.packages = with pkgs; [ agda clang ];
 }

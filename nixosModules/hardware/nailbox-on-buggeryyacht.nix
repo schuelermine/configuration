@@ -23,8 +23,9 @@
   };
   powerManagement.cpuFreqGovernor = "performance";
   hardware = {
-    opengl.driSupport32Bit = true;
+    graphics.enable32Bit = true;
     nvidia = {
+      open = false;
       powerManagement.enable = true;
       modesetting.enable = true;
       nvidiaPersistenced = true;
