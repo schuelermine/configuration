@@ -107,7 +107,8 @@ in {
       };
       jack.enable = true;
     };
-    printing.enable = lib.mkIf machine-gui true;
+    # printing.enable = lib.mkIf machine-gui true;
+    printing.enable = false; # precaution
     switcherooControl.enable = lib.mkIf (machine-gui && !machine-weak) true;
     resolved = {
       enable = true;
