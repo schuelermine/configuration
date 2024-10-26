@@ -196,7 +196,14 @@
         nailbox-on-buggeryyacht = {
           model = "lenovo-legion-y530-15ich";
           useLanzaboote = false;
-          inherit (nailbox) system usernames useNixosHardware useDisko stateVersion trusted;
+          inherit (nailbox)
+            system
+            usernames
+            useNixosHardware
+            useDisko
+            stateVersion
+            trusted
+            ;
         };
       };
       users.anselmschueler = {

@@ -1,5 +1,9 @@
-{ modulesPath, ... }: {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ./nailbox-disk.nix ];
+{ modulesPath, ... }:
+{
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    ./nailbox-disk.nix
+  ];
   boot = {
     loader = {
       systemd-boot = {
@@ -10,8 +14,14 @@
       efi.canTouchEfiVariables = true;
     };
     initrd = {
-      availableKernelModules =
-        [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
+      availableKernelModules = [
+        "xhci_pci"
+        "ahci"
+        "nvme"
+        "usbhid"
+        "usb_storage"
+        "sd_mod"
+      ];
       kernelModules = [ ];
     };
     kernelModules = [ "kvm-intel" ];

@@ -5,7 +5,10 @@
   ...
 }:
 {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ./nailbox-disk.nix ];
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    ./nailbox-disk.nix
+  ];
   boot = {
     initrd = {
       availableKernelModules = [

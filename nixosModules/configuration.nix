@@ -8,8 +8,10 @@
   machine-vm,
   ...
 }:
-let incus-interface = "incusbr0";
-in {
+let
+  incus-interface = "incusbr0";
+in
+{
   nixpkgs.config.allowUnfree = true;
   boot =
     {
@@ -133,45 +135,47 @@ in {
   virtualisation = lib.mkIf (!machine-vm) {
     incus = {
       enable = true;
-/*      preseed = {
-        networks = [
-          {
-            config = {
-              "ipv4.address" = "auto";
-              "ipv6.address" = "auto";
-              "dns.mode" = "managed";
-            };
-            name = incus-interface;
-            project = "default";
-          }
-        ];
-        storage_pools = [
-          {
-            name = "default";
-            config = {
-              driver = "btrfs";
-              size = "100G";
-            };
-          }
-        ];
-        profiles = [
-          {
-            devices = {
-              eth0 = {
-                name = "eth0";
-                network = incus-interface;
-                type = "nic";
-              };
-              root = {
-                path = "/";
-                pool = "default";
-                type = "disk";
-              };
-            };
-            name = "default";
-          }
-        ];
-      }; */
+      /*
+        preseed = {
+             networks = [
+               {
+                 config = {
+                   "ipv4.address" = "auto";
+                   "ipv6.address" = "auto";
+                   "dns.mode" = "managed";
+                 };
+                 name = incus-interface;
+                 project = "default";
+               }
+             ];
+             storage_pools = [
+               {
+                 name = "default";
+                 config = {
+                   driver = "btrfs";
+                   size = "100G";
+                 };
+               }
+             ];
+             profiles = [
+               {
+                 devices = {
+                   eth0 = {
+                     name = "eth0";
+                     network = incus-interface;
+                     type = "nic";
+                   };
+                   root = {
+                     path = "/";
+                     pool = "default";
+                     type = "disk";
+                   };
+                 };
+                 name = "default";
+               }
+             ];
+           };
+      */
     };
     libvirtd = {
       enable = true;
@@ -184,20 +188,22 @@ in {
   };
   systemd.services."incus-dns-${incus-interface}" = lib.mkIf (!machine-vm) rec {
     script =
-    let incus-client = "${config.virtualisation.incus.clientPackage}/bin/incus";
+      let
+        incus-client = "${config.virtualisation.incus.clientPackage}/bin/incus";
         resolvectl = "${config.systemd.package}/bin/resolvectl";
-    in ''
-      trap "${resolvectl} revert ${incus-interface}" EXIT
-      IPV4="$(${incus-client} network get ${incus-interface} ipv4.address 2>/dev/null)"
-      IPV6="$(${incus-client} network get ${incus-interface} ipv6.address 2>/dev/null)"
-      DOMAIN="$(${incus-client} network get ${incus-interface} dns.domain 2>/dev/null)"
-      ${resolvectl} dns ${incus-interface} "''${IPV4%/*}" "''${IPV6%/*}"
-      ${resolvectl} domain ${incus-interface} \~"''${DOMAIN:-incus}"
-      ${resolvectl} dnssec ${incus-interface} no
-      ${resolvectl} dnsovertls ${incus-interface} no
-      trap EXIT
-      printf %s "Successfully configured DNS for Incus (interface ${incus-interface})"
-    '';
+      in
+      ''
+        trap "${resolvectl} revert ${incus-interface}" EXIT
+        IPV4="$(${incus-client} network get ${incus-interface} ipv4.address 2>/dev/null)"
+        IPV6="$(${incus-client} network get ${incus-interface} ipv6.address 2>/dev/null)"
+        DOMAIN="$(${incus-client} network get ${incus-interface} dns.domain 2>/dev/null)"
+        ${resolvectl} dns ${incus-interface} "''${IPV4%/*}" "''${IPV6%/*}"
+        ${resolvectl} domain ${incus-interface} \~"''${DOMAIN:-incus}"
+        ${resolvectl} dnssec ${incus-interface} no
+        ${resolvectl} dnsovertls ${incus-interface} no
+        trap EXIT
+        printf %s "Successfully configured DNS for Incus (interface ${incus-interface})"
+      '';
     wantedBy = [ "sys-subsystem-net-devices-${incus-interface}.device" ];
     after = wantedBy;
   };
@@ -301,12 +307,16 @@ in {
       ])
       ++ lib.optional (!machine-weak) pkgs.hunspellDicts.en-us-large
       ++ lib.optional configuration-lanzaboote pkgs.sbctl
-      ++ lib.optionals (!machine-vm) (with pkgs; [
-        virtiofsd
-        podman-compose
-      ]);
+      ++ lib.optionals (!machine-vm) (
+        with pkgs;
+        [
+          virtiofsd
+          podman-compose
+        ]
+      );
     gnome.excludePackages = lib.mkIf machine-gui (
-      with pkgs; [
+      with pkgs;
+      [
         gnome-music
         gnome-tour
         gnome-calculator
