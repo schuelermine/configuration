@@ -341,7 +341,7 @@ in
   fonts.packages = lib.mkIf machine-gui (
     (with pkgs; [
       noto-fonts
-      noto-fonts-cjk
+      noto-fonts-cjk-sans
     ])
     ++ lib.optionals (!machine-weak) (
       with pkgs;
