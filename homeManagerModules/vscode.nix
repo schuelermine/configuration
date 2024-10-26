@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  machine-name,
+  ...
+}:
 {
   programs.vscode = {
     enable = true;
@@ -16,6 +21,8 @@
       thenuprojectcontributors.vscode-nushell-lang
       sonarsource.sonarlint-vscode
       tamasfe.even-better-toml
+      ms-azuretools.vscode-docker
+      myriad-dreamin.tinymist
       (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "vscode-deno";
@@ -75,7 +82,9 @@
 
       "java.home" = "${pkgs.openjdk}/lib/openjdk";
 
-      "workbench.colorTheme" = "Default Dark Modern";
+      "workbench.preferredDarkColorTheme" = "Default Dark Modern";
+      "workbench.preferredHighContrastLightColorTheme" = "Default Light Modern";
+      "window.autoDetectColorScheme" = true;
 
       "editor.inlayHints.enabled" = "on";
 
@@ -106,6 +115,9 @@
       "[agda]"."editor.unicodeHighlight.ambiguousCharacters" = false;
 
       "redhat.telemetry.enabled" = false;
+
+      "docker.dockerPath" = "podman";
+      "docker.environment".DOCKER_HOST = "unix://${config.home.homeDirectory}/.local/share/containers/podman/machine/${machine-name}/podman.sock";
     };
   };
 }
