@@ -84,7 +84,7 @@
     heroic
     wineWow64Packages.full
     prismlauncher
-    valent
+    # valent
     virt-manager
     dino
     apostrophe
