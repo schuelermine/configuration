@@ -51,8 +51,8 @@
         mktplcRef = {
           name = "swift-lang";
           publisher = "sswg";
-          version = "1.10.0";
-          sha256 = "sha256-RrGf+/w9zEE+pc9Pokfn/lOjcaFYfoQnUkg/BQCh7TI=";
+          version = "1.11.3";
+          sha256 = "sha256-1zxgLPJo5U4xzJkzSlLtvAOSzW1PSya1n73Mk3GFEuo=";
         };
       })
       (pkgs.vscode-utils.buildVscodeExtension rec {
