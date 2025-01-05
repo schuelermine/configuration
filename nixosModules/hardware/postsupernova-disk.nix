@@ -24,7 +24,7 @@
             settings.allowDiscards = true;
             passwordFile = "/tmp/nixos-install-nailbox-disko-nvme0n1-luks-password";
             content = {
-              type = "btrfs";
+              type = "ext4";
               mountpoint = "/";
             };
           };

@@ -183,7 +183,7 @@
         )
       );
       machines = rec {
-        nailbox = {
+        postsupernova = {
           model = "framework-16-7040-amd";
           system = "x86_64-linux";
           usernames = [ "anselmschueler" ];
@@ -191,19 +191,7 @@
           useDisko = true;
           stateVersion = "23.11";
           trusted = true;
-          useLanzaboote = true;
-        };
-        nailbox-on-buggeryyacht = {
-          model = "lenovo-legion-y530-15ich";
           useLanzaboote = false;
-          inherit (nailbox)
-            system
-            usernames
-            useNixosHardware
-            useDisko
-            stateVersion
-            trusted
-            ;
         };
       };
       users.anselmschueler = {
@@ -242,10 +230,8 @@
       nixosModules = {
         default = import ./nixosModules/configuration.nix;
         user-anselmschueler = import ./nixosModules/users/anselmschueler.nix;
-        hardware-buggeryyacht = import ./nixosModules/hardware/buggeryyacht.nix;
         hardware-vm-hulahoop = import ./nixosModules/hardware/vm-hulahoop.nix;
-        hardware-nailbox = import ./nixosModules/hardware/nailbox.nix;
-        hardware-nailbox-on-buggeryyacht = ./nixosModules/hardware/nailbox-on-buggeryyacht.nix;
+        hardware-postsupernova = import ./nixosModules/hardware/postsupernova.nix;
       };
       homeManagerModules = joinAttrs (
         map (path: {
