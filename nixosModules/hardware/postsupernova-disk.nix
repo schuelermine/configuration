@@ -17,7 +17,7 @@
         };
         root = {
           name = "root-crypt";
-          end = "100%";
+          size = "100%";
           content = {
             type = "luks";
             name = "root";
