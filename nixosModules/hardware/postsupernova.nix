@@ -2,6 +2,7 @@
   lib,
   config,
   modulesPath,
+  configuration-lanzaboote,
   ...
 }:
 {
@@ -23,7 +24,7 @@
     };
     kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];
-    lanzaboote.pkiBundle = "/etc/secureboot";
+    lanzaboote.pkiBundle = lib.mkIf configuration-lanzaboote "/etc/secureboot";
   };
   services = {
     fwupd.enable = true;
