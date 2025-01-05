@@ -24,7 +24,8 @@
             settings.allowDiscards = true;
             passwordFile = "/tmp/nixos-install-postsupernova-disko-nvme0n1-luks-password";
             content = {
-              type = "ext4";
+              type = "filesystem";
+              format = "ext4";
               mountpoint = "/";
             };
           };
