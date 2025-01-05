@@ -24,7 +24,7 @@
     };
     kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];
-    lanzaboote.pkiBundle = lib.mkIf configuration-lanzaboote "/etc/secureboot";
+    lanzaboote = lib.mkIf configuration-lanzaboote { pkiBundle = "/var/lib/sbctl"; };
   };
   services = {
     fwupd.enable = true;
