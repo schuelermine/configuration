@@ -221,7 +221,7 @@
               ++ nixpkgs.lib.optionals (!weak) [ "coding" ];
             useXhmm = true;
           };
-        stateVersions.nailbox = "23.11";
+        stateVersions.postsupernova = "24.11";
       };
     in
     {
