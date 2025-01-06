@@ -19,7 +19,7 @@ in
       loader = {
         timeout = lib.mkDefault 0;
         systemd-boot = {
-          enable = lib.mkDefault (!configuration-lanzaboote);
+          enable = lib.mkForce (!configuration-lanzaboote);
           editor = false;
         };
       };
@@ -32,7 +32,7 @@ in
       plymouth.enable = lib.mkIf machine-gui true;
     }
     // lib.optionalAttrs configuration-lanzaboote {
-      lanzaboote.enable = lib.mkDefault configuration-lanzaboote;
+      lanzaboote.enable = true;
     };
   networking = {
     dhcpcd.denyInterfaces = lib.mkIf (!machine-vm) [ incus-interface ];

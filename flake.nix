@@ -191,7 +191,7 @@
           useDisko = true;
           stateVersion = "23.11";
           trusted = true;
-          useLanzaboote = false;
+          useLanzaboote = true;
         };
       };
       users.anselmschueler = {
