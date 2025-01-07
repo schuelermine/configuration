@@ -23,7 +23,7 @@ in
           editor = false;
         };
       };
-      kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+      # kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
       supportedFilesystems = lib.mkIf (!machine-weak) [
         "ntfs"
         "exfat"
