@@ -62,8 +62,20 @@
         version = "0.0.45";
         name = "${vscodeExtPublisher}-${vscodeExtName}-${version}";
         src = pkgs.fetchurl {
-          url = "https://open-vsx.org/api/jeanp413/open-remote-ssh/${version}/file/jeanp413.open-remote-ssh-${version}.vsix";
+          url = "https://open-vsx.org/api/${vscodeExtPublisher}/${vscodeExtName}/${version}/file/${vscodeExtUniqueId}-${version}.vsix";
           hash = "sha256-YoeUNvxLSmy3OftZp2AnqRU+TKe3KYLt3zZ0B5XGgeE=";
+          name = "${vscodeExtPublisher}-${vscodeExtName}.zip";
+        };
+      })
+      (pkgs.vscode-utils.buildVscodeExtension rec {
+        vscodeExtPublisher = "pixl-garden";
+        vscodeExtName = "BongoCat";
+        vscodeExtUniqueId = "${vscodeExtPublisher}.${vscodeExtName}";
+        version = "0.0.2";
+        name = "${vscodeExtPublisher}-${vscodeExtName}-${version}";
+        src = pkgs.fetchurl {
+          url = "https://open-vsx.org/api/${vscodeExtPublisher}/${vscodeExtName}/${version}/file/${vscodeExtUniqueId}-${version}.vsix";
+          hash = "sha256-ETc/0NK2/yeOl7jKERv9XMp1Cph498onOXePLkcbyhQ=";
           name = "${vscodeExtPublisher}-${vscodeExtName}.zip";
         };
       })
@@ -118,6 +130,8 @@
 
       "docker.dockerPath" = "podman";
       "docker.environment".DOCKER_HOST = "unix://${config.home.homeDirectory}/.local/share/containers/podman/machine/${machine-name}/podman.sock";
+
+      "[typst]"."editor.wordSeparators" = "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?";
     };
   };
 }

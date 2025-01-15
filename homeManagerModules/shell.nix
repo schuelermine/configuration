@@ -1,10 +1,7 @@
 {
   pkgs,
   lib,
-  input-nixos-repl-setup,
-  machine-name,
   machine-gui,
-  source-flake,
   ...
 }:
 {
@@ -77,5 +74,6 @@
     asciinema
     powershell
     nushell
+    typst
   ];
 }

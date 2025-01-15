@@ -46,7 +46,6 @@
         command = "${pkgs.gnome-console}/bin/kgx";
         name = "Terminal";
       };
-      "org/gnome/desktop/interface".color-scheme = "prefer-dark";
       "org/gnome/settings-daemon/plugins/media-keys".email = [ "<Super>e" ];
       "org/gnome/settings-daemon/plugins/media-keys".www = [ "<Super>b" ];
       "org/gnome/settings-daemon/plugins/media-keys".home = [ "<Super>f" ];
@@ -67,6 +66,8 @@
     extensions.enabledExtensions = with pkgs.gnomeExtensions; [
       pano
       blur-my-shell
+      gsconnect
+      appindicator
     ];
     monospaceFont = {
       package = pkgs.source-code-pro;
@@ -84,13 +85,18 @@
     heroic
     wineWow64Packages.full
     prismlauncher
-    # valent
     virt-manager
     dino
     apostrophe
     fractal
-    # blender-hip
+    blender-hip
     zulip
+    losslesscut-bin
+    shortwave
+    denaro
+    musescore
+    darktable
+    freecad
   ];
   fonts.fontconfig.enable = true;
   services.easyeffects.enable = lib.mkIf (machine-model == "framework-16-7040-amd") true;
