@@ -68,14 +68,14 @@
         };
       })
       (pkgs.vscode-utils.buildVscodeExtension rec {
-        vscodeExtPublisher = "pixl-garden";
-        vscodeExtName = "BongoCat";
+        vscodeExtPublisher = "slevesque";
+        vscodeExtName = "shader";
         vscodeExtUniqueId = "${vscodeExtPublisher}.${vscodeExtName}";
-        version = "0.0.2";
+        version = "1.1.5";
         name = "${vscodeExtPublisher}-${vscodeExtName}-${version}";
         src = pkgs.fetchurl {
           url = "https://open-vsx.org/api/${vscodeExtPublisher}/${vscodeExtName}/${version}/file/${vscodeExtUniqueId}-${version}.vsix";
-          hash = "sha256-ETc/0NK2/yeOl7jKERv9XMp1Cph498onOXePLkcbyhQ=";
+          hash = "sha256-QzqQ/5H08nJPLGwXZKWdCUUqblAe0umYSQbUtEOZNyg=";
           name = "${vscodeExtPublisher}-${vscodeExtName}.zip";
         };
       })
@@ -99,6 +99,7 @@
       "window.autoDetectColorScheme" = true;
 
       "editor.inlayHints.enabled" = "on";
+      "editor.inlayHints.padding" = true;
 
       "editor.bracketPairColorization.enabled" = false;
       "editor.guides.bracketPairs" = "active";
@@ -131,7 +132,7 @@
       "docker.dockerPath" = "podman";
       "docker.environment".DOCKER_HOST = "unix://${config.home.homeDirectory}/.local/share/containers/podman/machine/${machine-name}/podman.sock";
 
-      "[typst]"."editor.wordSeparators" = "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?";
+      "[typst-code]"."editor.wordSeparators" = "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?";
     };
   };
 }

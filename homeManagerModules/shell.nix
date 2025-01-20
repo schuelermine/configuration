@@ -55,9 +55,9 @@
     direnv.enable = true;
     fish = {
       enable = true;
-      shellAliases = {
+      shellAbbrs = {
         c = "bat";
-        x = "eza";
+        x = "eza --group-directories-first";
       };
       prompt = builtins.readFile ../source/prompt.fish;
       interactiveShellInit = builtins.concatStringsSep "\n" (
@@ -65,6 +65,7 @@
           ../source/colors.fish
           ../source/features.fish
           ../source/commands.fish
+          ../source/abbr.fish
         ]
       );
     };
