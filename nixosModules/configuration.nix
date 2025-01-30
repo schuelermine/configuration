@@ -23,7 +23,7 @@ in
           editor = false;
         };
       };
-      # kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+      kernelPackages = pkgs.linuxPackages_latest;
       supportedFilesystems = lib.mkIf (!machine-weak) [
         "ntfs"
         "exfat"
@@ -66,27 +66,34 @@ in
       type = "ibus";
       ibus.engines = with pkgs.ibus-engines; [ libpinyin ];
     };
-    supportedLocales = [
-      "en_US.UTF-8/UTF-8"
+    supportedLocales = [      
+      "ar_EG.UTF-8/UTF-8"
       "de_DE.UTF-8/UTF-8"
+      "el_GR.UTF-8/UTF-8"
       "en_GB.UTF-8/UTF-8"
-      "zh_CN.UTF-8/UTF-8"
+      "en_US.UTF-8/UTF-8"
+      "es_ES.UTF-8/UTF-8"
+      "fr_FR.UTF-8/UTF-8"
+      "hi_IN/UTF-8" # I have no idea why
       "ja_JP.UTF-8/UTF-8"
       "ko_KR.UTF-8/UTF-8"
+      "ru_RU.UTF-8/UTF-8"
+      "zh_CN.UTF-8/UTF-8"
     ];
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
-      LC_TIME = "en_GB.UTF-8";
-      LC_NUMERIC = "en_US.UTF-8";
+      LC_ADDRESS = "de_DE.UTF-8";
       LC_COLLATE = "en_US.UTF-8";
+      LC_CTYPE = "en_US.UTF-8";
+      LC_IDENTIFICATION = "en_US.UTF-8";
       LC_MONETARY = "de_DE.UTF-8";
       LC_MESSAGES = "en_US.UTF-8";
+      LC_MEASUREMENT = "de_DE.UTF-8";
+      LC_NAME = "en_US.UTF-8";
+      LC_NUMERIC = "en_US.UTF-8";
       LC_PAPER = "de_DE.UTF-8";
-      LC_NAME = "de_DE.UTF-8";
-      LC_ADDRESS = "de_DE.UTF-8";
       LC_TELEPHONE = "de_DE.UTF-8";
-      LC_MEASUREMENT = "en_GB.UTF-8";
-      LC_IDENTIFICATION = "en_GB.UTF-8";
+      LC_TIME = "en_GB.UTF-8";
     };
   };
   console = {
@@ -353,6 +360,7 @@ in
         libertinus
         terminus_font_ttf
         newcomputermodern
+        inter
       ]
     )
   );
