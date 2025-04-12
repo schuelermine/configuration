@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   programs.vscode = {
-    extensions = with pkgs.vscode-extensions; [
+    profiles.default.extensions = with pkgs.vscode-extensions; [
       matangover.mypy
       ms-python.python
       ms-pyright.pyright
@@ -18,7 +18,7 @@
         };
       })
     ];
-    userSettings = {
+    profiles.default.userSettings = {
       "mypy.dmypyExecutable" = "${config.programs.python.mypy.package}/bin/dmypy";
       "python.defaultInterpreterPath" = "${config.programs.python.package}/bin/python";
       "python.formatting.provider" = "black";

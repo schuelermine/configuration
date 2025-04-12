@@ -1,14 +1,14 @@
 { pkgs, ... }:
 {
   programs.vscode = {
-    extensions = with pkgs.vscode-extensions; [
+    profiles.default.extensions = with pkgs.vscode-extensions; [
       redhat.java
       vscjava.vscode-java-debug
       vscjava.vscode-java-dependency
       vscjava.vscode-java-test
       vscjava.vscode-maven
     ];
-    userSettings = {
+    profiles.default.userSettings = {
       "java.configuration.runtimes" = [
         {
           "default" = true;

@@ -8,7 +8,7 @@
   programs.vscode = {
     enable = true;
     mutableExtensionsDir = false;
-    extensions = with pkgs.vscode-extensions; [
+    profiles.default.extensions = with pkgs.vscode-extensions; [
       bmalehorn.vscode-fish
       editorconfig.editorconfig
       firefox-devtools.vscode-firefox-debug
@@ -56,6 +56,7 @@
         };
       })
       (pkgs.vscode-utils.buildVscodeExtension rec {
+        pname = vscodeExtUniqueId;
         vscodeExtPublisher = "jeanp413";
         vscodeExtName = "open-remote-ssh";
         vscodeExtUniqueId = "${vscodeExtPublisher}.${vscodeExtName}";
@@ -68,6 +69,7 @@
         };
       })
       (pkgs.vscode-utils.buildVscodeExtension rec {
+        pname = vscodeExtUniqueId;
         vscodeExtPublisher = "slevesque";
         vscodeExtName = "shader";
         vscodeExtUniqueId = "${vscodeExtPublisher}.${vscodeExtName}";
@@ -81,7 +83,7 @@
       })
     ];
     package = pkgs.vscodium;
-    userSettings = {
+    profiles.default.userSettings = {
       "update.mode" = "none";
 
       "editor.fontFamily" = "'${config.gnome.monospaceFont.name}'";
@@ -91,8 +93,6 @@
 
       "sonarlint.ls.javaHome" = "${pkgs.openjdk}/lib/openjdk";
       "sonarlint.pathToNodeExecutable" = "${pkgs.nodejs}/bin/node";
-
-      "java.home" = "${pkgs.openjdk}/lib/openjdk";
 
       "workbench.preferredDarkColorTheme" = "Default Dark Modern";
       "workbench.preferredHighContrastLightColorTheme" = "Default Light Modern";
@@ -133,6 +133,7 @@
       "docker.environment".DOCKER_HOST = "unix://${config.home.homeDirectory}/.local/share/containers/podman/machine/${machine-name}/podman.sock";
 
       "[typst-code]"."editor.wordSeparators" = "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?";
+      "[typst]"."editor.wordSeparators" = "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?";
     };
   };
 }

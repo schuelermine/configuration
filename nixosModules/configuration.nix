@@ -102,6 +102,7 @@ in
     earlySetup = true;
   };
   services = {
+    usbmuxd.enable = true;
     spice-vdagentd.enable = lib.mkIf machine-vm true;
     nixseparatedebuginfod.enable = lib.mkIf (!machine-weak) true;
     flatpak.enable = lib.mkIf machine-gui true;
@@ -141,47 +142,45 @@ in
   virtualisation = lib.mkIf (!machine-vm) {
     incus = {
       enable = true;
-      /*
-        preseed = {
-             networks = [
-               {
-                 config = {
-                   "ipv4.address" = "auto";
-                   "ipv6.address" = "auto";
-                   "dns.mode" = "managed";
-                 };
-                 name = incus-interface;
-                 project = "default";
-               }
-             ];
-             storage_pools = [
-               {
-                 name = "default";
-                 config = {
-                   driver = "btrfs";
-                   size = "100G";
-                 };
-               }
-             ];
-             profiles = [
-               {
-                 devices = {
-                   eth0 = {
-                     name = "eth0";
-                     network = incus-interface;
-                     type = "nic";
-                   };
-                   root = {
-                     path = "/";
-                     pool = "default";
-                     type = "disk";
-                   };
-                 };
-                 name = "default";
-               }
-             ];
-           };
-      */
+      preseed = {
+        networks = [
+          {
+            config = {
+              "ipv4.nat" = true;
+              "ipv6.nat" = true;
+              "ipv4.address" = "auto";
+              "ipv6.address" = "auto";
+              "dns.mode" = "managed";
+            };
+            name = incus-interface;
+            project = "default";
+          }
+        ];
+        storage_pools = [
+          {
+            name = "default";
+            driver = "btrfs";
+            config.size = "100GiB";
+          }
+        ];
+        profiles = [
+          {
+            devices = {
+              eth0 = {
+                name = "eth0";
+                network = incus-interface;
+                type = "nic";
+              };
+              root = {
+                path = "/";
+                pool = "default";
+                type = "disk";
+              };
+            };
+            name = "default";
+          }
+        ];
+      };
     };
     libvirtd = {
       enable = true;
@@ -192,6 +191,7 @@ in
     };
     podman.enable = true;
   };
+  security.pam.services.systemd-run0 = {};
   systemd.services."incus-dns-${incus-interface}" = lib.mkIf (!machine-vm) rec {
     script =
       let
@@ -267,6 +267,7 @@ in
         whois
         dig
         lshw
+        unixtools.xxd
       ])
       ++ lib.optionals (!machine-weak) (
         with pkgs;
@@ -284,20 +285,19 @@ in
           libreoffice-fresh
           thunderbird
           inkscape
-          bottles
         ]
       )
       ++ lib.optionals machine-gui (
         with pkgs;
         [
-          clapper
+          vlc
           qalculate-gtk
           firefox
           wl-clipboard
           xsel
           xorg.xkill
-          breeze-qt5
-          breeze-icons
+          kdePackages.breeze
+          kdePackages.breeze-icons
           amberol
         ]
       )
@@ -337,7 +337,7 @@ in
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-    # package = pkgs.nixUnstable;
+    package = pkgs.lix;
     settings = {
       auto-optimise-store = true;
       substituters = [ "https://nix-community.cachix.org" ];

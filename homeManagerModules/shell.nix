@@ -76,5 +76,6 @@
     powershell
     nushell
     typst
+    hatch
   ];
 }
