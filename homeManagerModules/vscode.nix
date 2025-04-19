@@ -23,6 +23,7 @@
       tamasfe.even-better-toml
       ms-azuretools.vscode-docker
       myriad-dreamin.tinymist
+      maximedenes.vscoq
       (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "vscode-deno";
