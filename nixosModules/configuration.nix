@@ -15,6 +15,7 @@ in
   nixpkgs.config.allowUnfree = true;
   boot =
     {
+      kernel.sysctl."vm.swappiness" = 10;
       initrd.systemd.enable = true;
       loader = {
         timeout = lib.mkDefault 0;
@@ -42,6 +43,10 @@ in
       "149.112.112.112#dns.quad9.net"
       "2620:fe::fe#dns.quad9.net"
       "2620:fe::9#dns.quad9.net"
+      "1.1.1.1#one.one.one.one"
+      "1.0.0.1#one.one.one.one"
+      "2606:4700:4700::1111#one.one.one.one"
+      "2606:4700:4700::1001#one.one.one.one"
     ];
     networkmanager.enable = true;
     firewall.interfaces.${incus-interface} = lib.mkIf (!machine-vm) {
@@ -80,17 +85,17 @@ in
       "ru_RU.UTF-8/UTF-8"
       "zh_CN.UTF-8/UTF-8"
     ];
-    defaultLocale = "en_US.UTF-8";
+    defaultLocale = "en_GB.UTF-8";
     extraLocaleSettings = {
       LC_ADDRESS = "de_DE.UTF-8";
-      LC_COLLATE = "en_US.UTF-8";
-      LC_CTYPE = "en_US.UTF-8";
-      LC_IDENTIFICATION = "en_US.UTF-8";
+      LC_COLLATE = "en_GB.UTF-8";
+      LC_CTYPE = "en_GB.UTF-8";
+      LC_IDENTIFICATION = "en_GB.UTF-8";
       LC_MONETARY = "de_DE.UTF-8";
-      LC_MESSAGES = "en_US.UTF-8";
+      LC_MESSAGES = "en_GB.UTF-8";
       LC_MEASUREMENT = "de_DE.UTF-8";
-      LC_NAME = "en_US.UTF-8";
-      LC_NUMERIC = "en_US.UTF-8";
+      LC_NAME = "en_GB.UTF-8";
+      LC_NUMERIC = "en_GB.UTF-8";
       LC_PAPER = "de_DE.UTF-8";
       LC_TELEPHONE = "de_DE.UTF-8";
       LC_TIME = "en_GB.UTF-8";
@@ -102,6 +107,7 @@ in
     earlySetup = true;
   };
   services = {
+    pulseaudio.enable = false;
     usbmuxd.enable = true;
     spice-vdagentd.enable = lib.mkIf machine-vm true;
     nixseparatedebuginfod.enable = lib.mkIf (!machine-weak) true;
@@ -127,19 +133,16 @@ in
       '';
     };
     libinput.enable = true;
-    xserver = lib.mkIf machine-gui {
-      enable = true;
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
-      xkb = {
-        layout = "de";
-        options = "eurosign:e,compose:caps";
-        variant = "nodeadkeys";
-      };
-      excludePackages = [ pkgs.xterm ];
+    displayManager.gdm.enable = lib.mkIf machine-gui true;
+    desktopManager.gnome.enable = lib.mkIf machine-gui true;
+    xserver.xkb = {
+      layout = "de";
+      options = "eurosign:e,compose:caps";
+      variant = "nodeadkeys";
     };
   };
   virtualisation = lib.mkIf (!machine-vm) {
+    waydroid.enable = false;
     incus = {
       enable = true;
       preseed = {
@@ -189,31 +192,41 @@ in
         ovmf.packages = [ pkgs.OVMFFull.fd ];
       };
     };
-    podman.enable = true;
+    podman = {
+      enable = true;
+      dockerCompat = true;
+    };
   };
   security.pam.services.systemd-run0 = {};
-  systemd.services."incus-dns-${incus-interface}" = lib.mkIf (!machine-vm) rec {
-    script =
-      let
-        incus-client = "${config.virtualisation.incus.clientPackage}/bin/incus";
-        resolvectl = "${config.systemd.package}/bin/resolvectl";
-      in
-      ''
-        trap "${resolvectl} revert ${incus-interface}" EXIT
-        IPV4="$(${incus-client} network get ${incus-interface} ipv4.address 2>/dev/null)"
-        IPV6="$(${incus-client} network get ${incus-interface} ipv6.address 2>/dev/null)"
-        DOMAIN="$(${incus-client} network get ${incus-interface} dns.domain 2>/dev/null)"
-        ${resolvectl} dns ${incus-interface} "''${IPV4%/*}" "''${IPV6%/*}"
-        ${resolvectl} domain ${incus-interface} \~"''${DOMAIN:-incus}"
-        ${resolvectl} dnssec ${incus-interface} no
-        ${resolvectl} dnsovertls ${incus-interface} no
-        trap EXIT
-        printf %s "Successfully configured DNS for Incus (interface ${incus-interface})"
-      '';
-    wantedBy = [ "sys-subsystem-net-devices-${incus-interface}.device" ];
-    after = wantedBy;
-  };
-  hardware.pulseaudio.enable = false;
+  systemd.services."incus-dns-${incus-interface}" =
+    let device = "sys-subsystem-net-devices-${incus-interface}.device";
+    in lib.mkIf (!machine-vm) {
+      script =
+        let
+          incus-client = "${config.virtualisation.incus.clientPackage}/bin/incus";
+          resolvectl = "${config.systemd.package}/bin/resolvectl";
+        in
+        ''
+          set -x
+          trap "${resolvectl} revert ${incus-interface}" EXIT
+          IPV4="$(${incus-client} network get ${incus-interface} ipv4.address 2>/dev/null)"
+          IPV6="$(${incus-client} network get ${incus-interface} ipv6.address 2>/dev/null)"
+          DOMAIN="$(${incus-client} network get ${incus-interface} dns.domain 2>/dev/null)"
+          ${resolvectl} dns ${incus-interface} "''${IPV4%/*}" "''${IPV6%/*}"
+          ${resolvectl} domain ${incus-interface} \~"''${DOMAIN:-incus}"
+          ${resolvectl} dnssec ${incus-interface} no
+          ${resolvectl} dnsovertls ${incus-interface} no
+          trap EXIT
+          printf '%s\n' "Successfully configured DNS for Incus (interface ${incus-interface})"
+        '';
+      bindsTo = [ device ];
+      after = [ device ];
+      wantedBy = [ device ];
+      serviceConfig = {
+        RemainAfterExit = true;
+        Type = "oneshot";
+      };
+    };
   programs = {
     nano = {
       enable = true;
@@ -281,9 +294,9 @@ in
         [
           dconf-editor
           gnome-sound-recorder
-          gimp
+          gimp3
           libreoffice-fresh
-          thunderbird
+          thunderbird-latest-bin
           inkscape
         ]
       )
@@ -299,6 +312,7 @@ in
           kdePackages.breeze
           kdePackages.breeze-icons
           amberol
+          tangram
         ]
       )
       ++ (with pkgs.aspellDicts; [
@@ -317,7 +331,7 @@ in
         with pkgs;
         [
           virtiofsd
-          podman-compose
+          docker # connected to podman manually
         ]
       );
     gnome.excludePackages = lib.mkIf machine-gui (
@@ -337,11 +351,17 @@ in
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-    package = pkgs.lix;
+    # package = pkgs.lix;
     settings = {
       auto-optimise-store = true;
-      substituters = [ "https://nix-community.cachix.org" ];
-      trusted-public-keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
+      substituters = [
+        "https://nix-community.cachix.org"
+        "https://cache.iog.io"
+      ];
+      trusted-public-keys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=" # cache.iog.io
+      ];
     };
   };
   fonts.packages = lib.mkIf machine-gui (
@@ -361,6 +381,8 @@ in
         terminus_font_ttf
         newcomputermodern
         inter
+        source-sans
+        source-serif
       ]
     )
   );

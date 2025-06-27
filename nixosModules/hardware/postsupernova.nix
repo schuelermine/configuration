@@ -33,4 +33,8 @@
     xserver.synaptics.palmDetect = true;
   };
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  swapDevices = [{
+    size = 100000; # 100GB
+    device = "/var/swapfile";
+  }];
 }

@@ -19,9 +19,7 @@
       redhat.vscode-yaml
       streetsidesoftware.code-spell-checker
       thenuprojectcontributors.vscode-nushell-lang
-      sonarsource.sonarlint-vscode
       tamasfe.even-better-toml
-      ms-azuretools.vscode-docker
       myriad-dreamin.tinymist
       maximedenes.vscoq
       (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
@@ -56,16 +54,25 @@
           sha256 = "sha256-1zxgLPJo5U4xzJkzSlLtvAOSzW1PSya1n73Mk3GFEuo=";
         };
       })
+      (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "language-koka";
+          publisher = "koka";
+          version = "3.1.2";
+          sha256 = "sha256-S4nB80zGO0mYI6y+K3fyB/BHsYU6yZCH4baY7A1M4z8=";
+        };
+      })
       (pkgs.vscode-utils.buildVscodeExtension rec {
         pname = vscodeExtUniqueId;
         vscodeExtPublisher = "jeanp413";
         vscodeExtName = "open-remote-ssh";
         vscodeExtUniqueId = "${vscodeExtPublisher}.${vscodeExtName}";
-        version = "0.0.45";
+        version = "0.0.49";
         name = "${vscodeExtPublisher}-${vscodeExtName}-${version}";
         src = pkgs.fetchurl {
           url = "https://open-vsx.org/api/${vscodeExtPublisher}/${vscodeExtName}/${version}/file/${vscodeExtUniqueId}-${version}.vsix";
-          hash = "sha256-YoeUNvxLSmy3OftZp2AnqRU+TKe3KYLt3zZ0B5XGgeE=";
+          # hash = "sha256-YoeUNvxLSmy3OftZp2AnqRU+TKe3KYLt3zZ0B5XGgeE=";
+          hash = "sha256-QfJnAAx+kO2iJ1EzWoO5HLogJKg3RiC3hg1/u2Jm6t4=";
           name = "${vscodeExtPublisher}-${vscodeExtName}.zip";
         };
       })
@@ -82,6 +89,27 @@
           name = "${vscodeExtPublisher}-${vscodeExtName}.zip";
         };
       })
+      (pkgs.vscode-utils.buildVscodeExtension rec {
+        pname = vscodeExtUniqueId;
+        vscodeExtPublisher = "3timeslazy";
+        vscodeExtName = "vscodium-devpodcontainers";
+        vscodeExtUniqueId = "${vscodeExtPublisher}.${vscodeExtName}";
+        version = "0.0.18";
+        name = "${vscodeExtPublisher}-${vscodeExtName}-${version}";
+        src = pkgs.fetchurl {
+          url = "https://open-vsx.org/api/${vscodeExtPublisher}/${vscodeExtName}/${version}/file/${vscodeExtUniqueId}-${version}.vsix";
+          hash = "sha256-QkS6tCQELSp2vqcZ9cyIv5Aq73mXgibQIXjptnva1pQ=";
+          name = "${vscodeExtPublisher}-${vscodeExtName}.zip";
+        };
+      })
+      (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "vscode-containers";
+          publisher = "ms-azuretools";
+          version = "2.0.3";
+          sha256 = "sha256-MAeE99XmjIjYbr72UymnkrDKsNRSjNiB1jdffKTosHQ=";
+        };
+      })
     ];
     package = pkgs.vscodium;
     profiles.default.userSettings = {
@@ -91,9 +119,6 @@
       "editor.fontSize" = config.gnome.monospaceFont.size;
       "editor.fontLigatures" = true;
       "editor.minimap.renderCharacters" = false;
-
-      "sonarlint.ls.javaHome" = "${pkgs.openjdk}/lib/openjdk";
-      "sonarlint.pathToNodeExecutable" = "${pkgs.nodejs}/bin/node";
 
       "workbench.preferredDarkColorTheme" = "Default Dark Modern";
       "workbench.preferredHighContrastLightColorTheme" = "Default Light Modern";

@@ -20,5 +20,6 @@
   home.packages = with pkgs; [
     agda
     clang
+    koka
   ];
 }

@@ -5,9 +5,8 @@
   ...
 }:
 {
-  home.sessionVariables.EXA_COLORS = "xx=2";
   services.gpg-agent = {
-    pinentryPackage = lib.mkIf machine-gui pkgs.pinentry-gnome3;
+    pinentry.package = lib.mkIf machine-gui pkgs.pinentry-gnome3;
     enable = true;
   };
   programs = {
@@ -55,6 +54,9 @@
     direnv.enable = true;
     fish = {
       enable = true;
+      functions.man = ''
+        COLUMNS=(math "min($COLUMNS, 95)") command man $argv
+      '';
       shellAbbrs = {
         c = "bat";
         x = "eza --group-directories-first";
@@ -70,12 +72,20 @@
       );
     };
   };
-  home.packages = with pkgs; [
-    haskellPackages.ret
-    asciinema
-    powershell
-    nushell
-    typst
-    hatch
-  ];
+  home = {
+    packages = with pkgs; [
+      haskellPackages.ret
+      asciinema
+      powershell
+      nushell
+      typst
+      hatch
+      uv
+      devpod
+    ];
+    sessionVariables.EXA_COLORS = "xx=2";
+  };
+  xdg.configFile."uv/uv.toml".text = ''
+    python-preference = "only-system"
+  '';
 }

@@ -63,6 +63,7 @@
       "org/gnome/desktop/media-handling".autorun-never = true;
       "org/gnome/desktop/notifications".show-in-lock-screen = false;
       "org/gnome/system/location".enabled = true;
+      "org/gnome/Console".ignore-scrollback-limit = true;
     };
   };
   gnome = {
@@ -71,6 +72,7 @@
       blur-my-shell
       gsconnect
       appindicator
+      night-theme-switcher
     ];
     monospaceFont = {
       package = pkgs.source-code-pro;
