@@ -15,7 +15,6 @@ in
   nixpkgs.config.allowUnfree = true;
   boot =
     {
-      kernel.sysctl."vm.swappiness" = 10;
       initrd.systemd.enable = true;
       loader = {
         timeout = lib.mkDefault 0;

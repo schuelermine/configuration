@@ -12,6 +12,7 @@
   ];
   boot =
     {
+      kernel.sysctl."sys.swappiness" = 20;
       initrd = {
         availableKernelModules = [
           "nvme"
@@ -36,7 +37,7 @@
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   swapDevices = [
     {
-      size = 100000; # 100GB
+      size = 64000; # 64GB
       device = "/var/swapfile";
     }
   ];
