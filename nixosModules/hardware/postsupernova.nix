@@ -10,31 +10,34 @@
     (modulesPath + "/installer/scan/not-detected.nix")
     ./postsupernova-disk.nix
   ];
-  boot = {
-    initrd = {
-      availableKernelModules = [
-        "nvme"
-        "xhci_pci"
-        "thunderbolt"
-        "usbhid"
-        "usb_storage"
-        "sd_mod"
-      ];
-      kernelModules = [ ];
+  boot =
+    {
+      initrd = {
+        availableKernelModules = [
+          "nvme"
+          "xhci_pci"
+          "thunderbolt"
+          "usbhid"
+          "usb_storage"
+          "sd_mod"
+        ];
+        kernelModules = [ ];
+      };
+      kernelModules = [ "kvm-amd" ];
+      extraModulePackages = [ ];
+    }
+    // lib.optionalAttrs configuration-lanzaboote {
+      lanzaboote.pkiBundle = "/var/lib/sbctl";
     };
-    kernelModules = [ "kvm-amd" ];
-    extraModulePackages = [ ];
-  }
-  // lib.optionalAttrs configuration-lanzaboote {
-    lanzaboote.pkiBundle = "/var/lib/sbctl";
-  };
   services = {
     fwupd.enable = true;
     xserver.synaptics.palmDetect = true;
   };
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  swapDevices = [{
-    size = 100000; # 100GB
-    device = "/var/swapfile";
-  }];
+  swapDevices = [
+    {
+      size = 100000; # 100GB
+      device = "/var/swapfile";
+    }
+  ];
 }

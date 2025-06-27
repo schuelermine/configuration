@@ -1,7 +1,7 @@
 {
   lib,
   pkgs,
-  config,  # FIXME remove
+  config, # FIXME remove
   machine-model,
   ...
 }:

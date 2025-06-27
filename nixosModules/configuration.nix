@@ -71,7 +71,7 @@ in
       type = "ibus";
       ibus.engines = with pkgs.ibus-engines; [ libpinyin ];
     };
-    supportedLocales = [      
+    supportedLocales = [
       "ar_EG.UTF-8/UTF-8"
       "de_DE.UTF-8/UTF-8"
       "el_GR.UTF-8/UTF-8"
@@ -196,10 +196,12 @@ in
       enable = true;
     };
   };
-  security.pam.services.systemd-run0 = {};
+  security.pam.services.systemd-run0 = { };
   systemd.services."incus-dns-${incus-interface}" =
-    let device = "sys-subsystem-net-devices-${incus-interface}.device";
-    in lib.mkIf (!machine-vm) {
+    let
+      device = "sys-subsystem-net-devices-${incus-interface}.device";
+    in
+    lib.mkIf (!machine-vm) {
       script =
         let
           incus-client = "${config.virtualisation.incus.clientPackage}/bin/incus";
