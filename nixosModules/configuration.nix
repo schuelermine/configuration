@@ -350,7 +350,7 @@ in
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-    # package = pkgs.lix;
+    package = pkgs.lix;
     settings = {
       auto-optimise-store = true;
       substituters = [
