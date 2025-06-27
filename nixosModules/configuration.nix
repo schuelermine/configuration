@@ -194,7 +194,6 @@ in
     };
     podman = {
       enable = true;
-      dockerCompat = true;
     };
   };
   security.pam.services.systemd-run0 = {};
