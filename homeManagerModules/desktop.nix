@@ -92,7 +92,6 @@
     prismlauncher
     virt-manager
     dino
-    apostrophe
     fractal
     blender-hip
     # zulip
