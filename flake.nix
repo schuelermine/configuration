@@ -216,6 +216,7 @@
                 "vscode-python"
                 "vscode-rust"
                 "vscode"
+                "_vscode-containers"
               ]
               ++ nixpkgs.lib.optionals (!weak) [ "coding" ];
             useXhmm = true;
