@@ -332,6 +332,8 @@ in
         [
           virtiofsd
           docker # connected to podman manually
+          docker-buildx
+          docker-compose
         ]
       );
     gnome.excludePackages = lib.mkIf machine-gui (
