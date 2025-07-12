@@ -48,19 +48,22 @@ in
       "2606:4700:4700::1001#one.one.one.one"
     ];
     networkmanager.enable = true;
-    firewall.interfaces.${incus-interface} = lib.mkIf (!machine-vm) {
-      allowedTCPPortRanges = [
-        {
-          from = 0;
-          to = 65535;
-        }
-      ];
-      allowedUDPPortRanges = [
-        {
-          from = 0;
-          to = 65535;
-        }
-      ];
+    firewall = {
+      interfaces.${incus-interface} = lib.mkIf (!machine-vm) {
+        allowedTCPPortRanges = [
+          {
+            from = 0;
+            to = 65535;
+          }
+        ];
+        allowedUDPPortRanges = [
+          {
+            from = 0;
+            to = 65535;
+          }
+        ];
+      };
+      trustedInterfaces = config.virtualisation.libvirtd.allowedBridges;
     };
   };
   time.timeZone = "Europe/Berlin";
