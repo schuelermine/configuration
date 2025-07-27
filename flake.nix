@@ -36,9 +36,10 @@
       ...
     }:
     let
+      jdkFixOverlay = final: prev: { jdk8 = final.temurin-bin-8; };
       joinAttrs = builtins.foldl' (s1: s2: s1 // s2) { };
       guard = cond: name: if cond then name else null;
-      overlays = [ ];
+      overlays = [ jdkFixOverlay ];
       defaults = {
         model = null;
         gui = true;
