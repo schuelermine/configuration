@@ -15,6 +15,7 @@ in
   nixpkgs.config.allowUnfree = true;
   boot =
     {
+      binfmt.emulatedSystems = [ "aarch64-linux" ];
       initrd.systemd.enable = true;
       loader = {
         timeout = lib.mkDefault 0;
@@ -198,7 +199,10 @@ in
       enable = true;
     };
   };
-  security.pam.services.systemd-run0 = { };
+  security = {
+    pam.services.systemd-run0 = { };
+    rtkit.args = [ "--no-canary" "--rttime-usec-max=2000000" ]; # suggested by Discord user @goat7658
+  };
   systemd.services."incus-dns-${incus-interface}" =
     let
       device = "sys-subsystem-net-devices-${incus-interface}.device";
@@ -386,6 +390,7 @@ in
         inter
         source-sans
         source-serif
+        google-fonts
       ]
     )
   );
