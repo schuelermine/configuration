@@ -73,6 +73,7 @@
       gsconnect
       appindicator
       night-theme-switcher
+      advanced-alttab-window-switcher
     ];
     monospaceFont = {
       package = pkgs.source-code-pro;
