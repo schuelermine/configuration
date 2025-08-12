@@ -100,7 +100,7 @@
     shortwave
     denaro
     musescore
-    darktable
+    # darktable
     freecad
   ];
   fonts.fontconfig.enable = true;
