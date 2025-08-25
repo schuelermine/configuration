@@ -98,7 +98,6 @@
     # zulip
     losslesscut-bin
     shortwave
-    denaro
     musescore
     # darktable
     freecad

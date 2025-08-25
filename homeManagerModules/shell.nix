@@ -17,10 +17,12 @@
     gpg.enable = true;
     less = {
       enable = true;
-      options = [
-        "-SRm"
-        "--use-color"
-      ];
+      options = {
+        chop-long-lines = true;
+        RAW-CONTROL-CHARS = true;
+        LONG-PROMPT = true;
+        use-color = true;
+      };
     };
     nano = {
       enable = true;
