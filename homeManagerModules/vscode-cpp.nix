@@ -6,7 +6,7 @@
       ms-vscode.cmake-tools
       ms-vscode.makefile-tools
       twxs.cmake
-      # vadimcn.vscode-lldb
+      vadimcn.vscode-lldb
     ];
     profiles.default.userSettings = {
       "clangd.path" = "${pkgs.clang-tools}/bin/clangd";

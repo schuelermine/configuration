@@ -8,7 +8,7 @@
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    ./postsupernova-disk.nix
+    ./nailbox-disk.nix
   ];
   boot =
     {

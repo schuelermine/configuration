@@ -184,7 +184,7 @@
         )
       );
       machines = rec {
-        postsupernova = {
+        nailbox = {
           model = "framework-16-7040-amd";
           system = "x86_64-linux";
           usernames = [ "anselmschueler" ];
@@ -222,7 +222,7 @@
               ++ nixpkgs.lib.optionals (!weak) [ "coding" ];
             useXhmm = true;
           };
-        stateVersions.postsupernova = "24.11";
+        stateVersions.nailbox = "24.11";
       };
     in
     {
@@ -232,7 +232,7 @@
         default = import ./nixosModules/configuration.nix;
         user-anselmschueler = import ./nixosModules/users/anselmschueler.nix;
         hardware-vm-hulahoop = import ./nixosModules/hardware/vm-hulahoop.nix;
-        hardware-postsupernova = import ./nixosModules/hardware/postsupernova.nix;
+        hardware-nailbox = import ./nixosModules/hardware/nailbox.nix;
       };
       homeManagerModules = joinAttrs (
         map (path: {
