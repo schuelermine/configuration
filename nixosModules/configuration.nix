@@ -203,6 +203,7 @@ in
     pam.services.systemd-run0 = { };
     rtkit.args = [ "--no-canary" "--rttime-usec-max=2000000" ]; # suggested by Discord user @goat7658
   };
+  systemd.oomd.enableRootSlice = true;
   systemd.services."incus-dns-${incus-interface}" =
     let
       device = "sys-subsystem-net-devices-${incus-interface}.device";
