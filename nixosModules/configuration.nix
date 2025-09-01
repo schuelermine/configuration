@@ -310,7 +310,7 @@ in
       ++ lib.optionals machine-gui (
         with pkgs;
         [
-          vlc
+          showtime
           qalculate-gtk
           firefox
           wl-clipboard

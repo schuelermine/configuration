@@ -82,7 +82,6 @@
     };
   };
   home.packages = with pkgs; [
-    spotify
     discord
     element-desktop
     signal-desktop
