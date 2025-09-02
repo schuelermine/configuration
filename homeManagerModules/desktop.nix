@@ -83,6 +83,7 @@
   };
   home.packages = with pkgs; [
     discord
+    spotify
     element-desktop
     signal-desktop
     steam
