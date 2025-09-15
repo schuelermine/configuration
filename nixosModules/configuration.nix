@@ -203,7 +203,8 @@ in
     pam.services.systemd-run0 = { };
     rtkit.args = [ "--no-canary" "--rttime-usec-max=2000000" ]; # suggested by Discord user @goat7658
   };
-  systemd.oomd.enableRootSlice = true;
+  systemd.slices."-".sliceConfig.ManagedOOMSwap = "kill";
+  systemd.slices.user.sliceConfig.ManagedOOMMemoryPressure = "kill";
   systemd.services."incus-dns-${incus-interface}" =
     let
       device = "sys-subsystem-net-devices-${incus-interface}.device";
@@ -391,7 +392,6 @@ in
         inter
         source-sans
         source-serif
-        google-fonts
       ]
     )
   );

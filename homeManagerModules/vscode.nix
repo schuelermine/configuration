@@ -26,8 +26,8 @@
         mktplcRef = {
           name = "vscode-deno";
           publisher = "denoland";
-          version = "3.36.0";
-          sha256 = "sha256-xHf7cI+lCPoImdsnqBNJjT7+8UJs9tXXUm+TgiYmCdA=";
+          version = "3.45.2";
+          sha256 = "sha256-U83RWIIorJdFuhr0/l2bIo5JthTFIvedWq52dsSGOx8=";
         };
       })
       (pkgs.vscode-utils.buildVscodeMarketplaceExtension {

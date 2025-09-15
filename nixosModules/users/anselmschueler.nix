@@ -14,12 +14,16 @@
         from = 1714;
         to = 1764;
       };
+      warpinator = {
+        from = 42000;
+        to = 42001;
+      };
       ausweisapp = 24727;
     in
     lib.mkIf machine-gui {
       enable = true;
-      allowedTCPPortRanges = [ kdeconnect ];
-      allowedUDPPortRanges = [ kdeconnect ];
+      allowedTCPPortRanges = [ kdeconnect warpinator ];
+      allowedUDPPortRanges = [ kdeconnect warpinator ];
       allowedTCPPorts = [ ausweisapp ];
       allowedUDPPorts = [ ausweisapp ];
     };
