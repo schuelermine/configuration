@@ -197,6 +197,7 @@ in
     };
     podman = {
       enable = true;
+      dockerCompat = true;
     };
   };
   security = {
@@ -336,15 +337,7 @@ in
       ])
       ++ lib.optional (!machine-weak) pkgs.hunspellDicts.en-us-large
       ++ lib.optional configuration-lanzaboote pkgs.sbctl
-      ++ lib.optionals (!machine-vm) (
-        with pkgs;
-        [
-          virtiofsd
-          docker # connected to podman manually
-          docker-buildx
-          docker-compose
-        ]
-      );
+      ++ lib.optionals (!machine-vm) (with pkgs; [ virtiofsd podman-compose ]);
     gnome.excludePackages = lib.mkIf machine-gui (
       with pkgs;
       [
