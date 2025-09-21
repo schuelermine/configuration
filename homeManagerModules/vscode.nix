@@ -48,10 +48,10 @@
       })
       (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
         mktplcRef = {
-          name = "swift-lang";
-          publisher = "sswg";
-          version = "1.11.3";
-          sha256 = "sha256-1zxgLPJo5U4xzJkzSlLtvAOSzW1PSya1n73Mk3GFEuo=";
+          name = "swift-vscode";
+          publisher = "swiftlang";
+          version = "2.10.0";
+          sha256 = "sha256-Do4ZYe33/R9UdhFIhG/9hXgkY4SRcCJ6iaO5bTz2EU8=";
         };
       })
       (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
