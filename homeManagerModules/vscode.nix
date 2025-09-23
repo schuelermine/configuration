@@ -110,6 +110,14 @@
           sha256 = "sha256-MAeE99XmjIjYbr72UymnkrDKsNRSjNiB1jdffKTosHQ=";
         };
       })
+      (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "gitlab-workflow";
+          publisher = "GitLab";
+          version = "6.44.2";
+          sha256 = "sha256-Op62F/EwhRAx+IZTKWjsa0HKPjtf1kPm3VFlFBAHC3I=";
+        };
+      })
     ];
     package = pkgs.vscodium;
     profiles.default.userSettings = {
