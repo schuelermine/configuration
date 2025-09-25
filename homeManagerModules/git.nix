@@ -16,15 +16,13 @@
         signByDefault = true;
         key = null;
       };
-      extraConfig = {
-        init.defaultBranch = "b0";
-        diff.external = "${pkgs.difftastic}/bin/difft";
-      };
+      extraConfig.init.defaultBranch = "b0";
+      difftastic.enable = true;
     };
     gh = {
       enable = true;
       gitCredentialHelper.enable = true;
     };
   };
-  home.packages = with pkgs; [ gh difftastic ];
+  home.packages = with pkgs; [ gh ];
 }
