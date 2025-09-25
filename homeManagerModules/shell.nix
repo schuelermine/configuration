@@ -83,7 +83,6 @@
       typst
       hatch
       uv
-      devpod
     ];
     sessionVariables.EXA_COLORS = "xx=2";
   };

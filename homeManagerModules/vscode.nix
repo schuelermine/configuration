@@ -89,19 +89,6 @@
           name = "${vscodeExtPublisher}-${vscodeExtName}.zip";
         };
       })
-      (pkgs.vscode-utils.buildVscodeExtension rec {
-        pname = vscodeExtUniqueId;
-        vscodeExtPublisher = "3timeslazy";
-        vscodeExtName = "vscodium-devpodcontainers";
-        vscodeExtUniqueId = "${vscodeExtPublisher}.${vscodeExtName}";
-        version = "0.0.18";
-        name = "${vscodeExtPublisher}-${vscodeExtName}-${version}";
-        src = pkgs.fetchurl {
-          url = "https://open-vsx.org/api/${vscodeExtPublisher}/${vscodeExtName}/${version}/file/${vscodeExtUniqueId}-${version}.vsix";
-          hash = "sha256-QkS6tCQELSp2vqcZ9cyIv5Aq73mXgibQIXjptnva1pQ=";
-          name = "${vscodeExtPublisher}-${vscodeExtName}.zip";
-        };
-      })
       (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "vscode-containers";
