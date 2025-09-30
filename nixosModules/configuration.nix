@@ -36,6 +36,7 @@ in
       lanzaboote.enable = true;
     };
   networking = {
+    networkmanager.plugins = with pkgs; [ networkmanager-openconnect ];
     dhcpcd.denyInterfaces = lib.mkIf (!machine-vm) [ incus-interface ];
     nftables.enable = true;
     nameservers = [
