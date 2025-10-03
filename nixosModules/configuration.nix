@@ -15,6 +15,7 @@ in
   nixpkgs.config.allowUnfree = true;
   boot =
     {
+      kernel.sysctl."kernel.sysrq" = 1;
       binfmt.emulatedSystems = [ "aarch64-linux" ];
       initrd.systemd.enable = true;
       loader = {
