@@ -271,8 +271,6 @@ in
         curl
         fzf
         bat
-        # rich-cli
-        # frogmouth
         glow
         chafa
         jq
@@ -280,6 +278,7 @@ in
         procs
         git
         git-lfs
+        gdb
         unicode-paracode
         uni
         libqalculate
@@ -293,6 +292,8 @@ in
         dig
         lshw
         unixtools.xxd
+        unzip
+        powertop
       ])
       ++ lib.optionals (!machine-weak) (
         with pkgs;
@@ -310,6 +311,12 @@ in
           libreoffice-fresh
           thunderbird-latest-bin
           inkscape
+          amberol
+          krita
+          rawtherapee
+          foliate
+          qpwgraph
+          wev
         ]
       )
       ++ lib.optionals machine-gui (
@@ -323,8 +330,6 @@ in
           xorg.xkill
           kdePackages.breeze
           kdePackages.breeze-icons
-          amberol
-          tangram
         ]
       )
       ++ (with pkgs.aspellDicts; [
@@ -343,7 +348,6 @@ in
     gnome.excludePackages = lib.mkIf machine-gui (
       with pkgs;
       [
-        gnome-music
         gnome-tour
         gnome-calculator
         epiphany

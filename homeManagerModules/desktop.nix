@@ -94,13 +94,17 @@
     virt-manager
     dino
     fractal
-    blender-hip
-    # zulip
+    zulip
     losslesscut-bin
     shortwave
     musescore
-    # darktable
+    darktable
     freecad
+    amberol
+    krita
+    foliate
+    gnome-podcasts
+    audacity
   ];
   fonts.fontconfig.enable = true;
   services.easyeffects.enable = lib.mkIf (machine-model == "framework-16-7040-amd") true;

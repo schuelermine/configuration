@@ -83,6 +83,9 @@
       typst
       hatch
       uv
+      fastfetch
+      rich-cli
+      frogmouth
     ];
     sessionVariables.EXA_COLORS = "xx=2";
   };
