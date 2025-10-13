@@ -23,6 +23,7 @@
       url = "github:nix-community/lanzaboote/v0.4.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixpkgs-switcheroo-control-fix.url = "github:schuelermine/nixpkgs/switcheroo-control-fix";
   };
   outputs =
     inputs@{
@@ -33,13 +34,18 @@
       nixos-hardware,
       disko,
       lanzaboote,
+      nixpkgs-switcheroo-control-fix,
       ...
     }:
     let
       jdkFixOverlay = final: prev: { jdk8 = final.temurin-bin-8; };
+      switcheroo-control-fix-overlay = final: prev:
+      let pkgs = import nixpkgs-switcheroo-control-fix { inherit (prev) system; }; in {
+        switcheroo-control = pkgs.switcheroo-control;
+      };
       joinAttrs = builtins.foldl' (s1: s2: s1 // s2) { };
       guard = cond: name: if cond then name else null;
-      overlays = [ jdkFixOverlay ];
+      overlays = [ jdkFixOverlay switcheroo-control-fix-overlay ];
       defaults = {
         model = null;
         gui = true;
@@ -88,7 +94,6 @@
             })
             [
               "nixpkgs"
-              "nixpkgs-vscode-lldb"
             ]
         );
       nixosConfigurations = builtins.mapAttrs (

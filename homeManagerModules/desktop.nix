@@ -81,7 +81,7 @@
       size = 15;
     };
   };
-  home.packages = with pkgs; [
+  home.packages = (with pkgs; [
     discord
     spotify
     element-desktop
@@ -105,7 +105,11 @@
     foliate
     gnome-podcasts
     audacity
-  ];
+  ]) ++ [ (lib.hiPrio (pkgs.runCommand "steam-igpu-desktop-entry" { } ''
+    mkdir -p $out/share/applications
+    cp ${pkgs.steam}/share/applications/steam.desktop $out/share/applications/steam.desktop
+    patch $out/share/applications/steam.desktop ${../source/steam-igpu-desktop-entry.patch}
+  '')) ];
   fonts.fontconfig.enable = true;
   services.easyeffects.enable = lib.mkIf (machine-model == "framework-16-7040-amd") true;
   xdg.configFile = {
