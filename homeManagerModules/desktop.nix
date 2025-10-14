@@ -105,6 +105,7 @@
     foliate
     gnome-podcasts
     audacity
+    blender-hip
   ]) ++ [ (lib.hiPrio (pkgs.runCommand "steam-igpu-desktop-entry" { } ''
     mkdir -p $out/share/applications
     cp ${pkgs.steam}/share/applications/steam.desktop $out/share/applications/steam.desktop
