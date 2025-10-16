@@ -31,7 +31,7 @@ in
         "exfat"
         "ext4"
       ];
-      plymouth.enable = lib.mkIf machine-gui true;
+      plymouth.enable = false;
     }
     // lib.optionalAttrs configuration-lanzaboote {
       lanzaboote.enable = true;
