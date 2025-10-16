@@ -38,7 +38,7 @@ in
     };
   networking = {
     networkmanager.plugins = with pkgs; [ networkmanager-openconnect ];
-    dhcpcd.denyInterfaces = lib.mkIf (!machine-vm) [ /* incus-interface */ ];
+    dhcpcd.denyInterfaces = lib.mkIf (!machine-vm) [ incus-interface ];
     nftables.enable = true;
     nameservers = [
       "9.9.9.9#dns.quad9.net"
@@ -52,7 +52,7 @@ in
     ];
     networkmanager.enable = true;
     firewall = {
-      /* interfaces.${incus-interface} = lib.mkIf (!machine-vm) {
+      interfaces.${incus-interface} = lib.mkIf (!machine-vm) {
         allowedTCPPortRanges = [
           {
             from = 0;
@@ -65,7 +65,7 @@ in
             to = 65535;
           }
         ];
-      }; */
+      };
       trustedInterfaces = config.virtualisation.libvirtd.allowedBridges;
     };
   };
@@ -149,7 +149,7 @@ in
   virtualisation = lib.mkIf (!machine-vm) {
     waydroid.enable = false;
     incus = {
-      # enable = true;
+      enable = true;
       preseed = {
         networks = [
           {
@@ -205,7 +205,7 @@ in
   };
   systemd.slices."-".sliceConfig.ManagedOOMSwap = "kill";
   systemd.slices.user.sliceConfig.ManagedOOMMemoryPressure = "kill";
-  /* systemd.services."incus-dns-${incus-interface}" =
+  systemd.services."incus-dns-${incus-interface}" =
     let
       device = "sys-subsystem-net-devices-${incus-interface}.device";
     in
@@ -235,7 +235,7 @@ in
         RemainAfterExit = true;
         Type = "oneshot";
       };
-    }; */
+    };
   programs = {
     nano = {
       enable = true;
