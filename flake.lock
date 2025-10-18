@@ -135,6 +135,22 @@
         "type": "github"
       }
     },
+    "infuse-nix": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1738726976,
+        "narHash": "sha256-N+u3vnK3zyXLUuDj/vr62r9tM7uarhKVCaLHWxjo/YY=",
+        "ref": "refs/heads/trunk",
+        "rev": "c8fb7397039215e1444c835e36a0da7dc3c743f8",
+        "revCount": 48,
+        "type": "git",
+        "url": "https://codeberg.org/amjoseph/infuse.nix.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/amjoseph/infuse.nix.git"
+      }
+    },
     "lanzaboote": {
       "inputs": {
         "crane": "crane",
@@ -173,22 +189,6 @@
       "original": {
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "type": "github"
-      }
-    },
-    "nixos-repl-setup": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1690983242,
-        "narHash": "sha256-67sobltlzVr4Fj/T+I9/vwbXR5hgquVScMzw1W4yk3A=",
-        "owner": "schuelermine",
-        "repo": "nixos-repl-setup",
-        "rev": "f4f6bf0491dbe7cd9f30c06947fcd31e19a0a66f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "schuelermine",
-        "repo": "nixos-repl-setup",
         "type": "github"
       }
     },
@@ -272,9 +272,9 @@
         "disko": "disko",
         "fenix": "fenix",
         "home-manager": "home-manager",
+        "infuse-nix": "infuse-nix",
         "lanzaboote": "lanzaboote",
         "nixos-hardware": "nixos-hardware",
-        "nixos-repl-setup": "nixos-repl-setup",
         "nixpkgs": "nixpkgs",
         "nixpkgs-switcheroo-control-fix": "nixpkgs-switcheroo-control-fix",
         "xhmm": "xhmm"

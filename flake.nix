@@ -2,247 +2,92 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nixos-repl-setup = {
-      flake = false;
-      url = "github:schuelermine/nixos-repl-setup";
-    };
+    home-manager.url = "github:nix-community/home-manager";
     xhmm.url = "github:schuelermine/xhmm/b0";
-    fenix = {
-      url = "github:nix-community/fenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    fenix.url = "github:nix-community/fenix";
+    disko.url = "github:nix-community/disko";
+    lanzaboote.url = "github:nix-community/lanzaboote/v0.4.2";
     nixpkgs-switcheroo-control-fix.url = "github:schuelermine/nixpkgs/switcheroo-control-fix";
+
+    infuse-nix.url = "git+https://codeberg.org/amjoseph/infuse.nix.git";
+    infuse-nix.flake = false;
+
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    fenix.inputs.nixpkgs.follows = "nixpkgs";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
+    lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
   };
+
   outputs =
     inputs@{
       self,
       nixpkgs,
+      nixos-hardware,
       home-manager,
       xhmm,
-      nixos-hardware,
+      fenix,
       disko,
       lanzaboote,
       nixpkgs-switcheroo-control-fix,
-      ...
+      infuse-nix,
     }:
     let
-      jdkFixOverlay = final: prev: { jdk8 = final.temurin-bin-8; };
-      switcheroo-control-fix-overlay = final: prev:
-      let pkgs = import nixpkgs-switcheroo-control-fix { inherit (prev) system; }; in {
-        switcheroo-control = pkgs.switcheroo-control;
+      inherit ((import infuse-nix { inherit (nixpkgs) lib; }).v1) infuse;
+      passInputsModule = {
+        _module.args = { inherit inputs; };
       };
-      joinAttrs = builtins.foldl' (s1: s2: s1 // s2) { };
-      guard = cond: name: if cond then name else null;
-      overlays = [ jdkFixOverlay switcheroo-control-fix-overlay ];
-      defaults = {
-        model = null;
-        gui = true;
-        weak = false;
-        useNixosHardware = false;
-        useDisko = false;
-        trusted = false;
-        vm = false;
-        useLanzaboote = false;
-        useXhmm = false;
-      };
-      getSpecialArgs =
-        {
-          system,
-          model ? defaults.model,
-          gui ? defaults.gui,
-          weak ? defaults.weak,
-          name,
-          trusted ? defaults.trusted,
-          useNixosHardware ? defaults.useNixosHardware,
-          vm ? defaults.vm,
-          useDisko ? defaults.useDisko,
-          useLanzaboote ? defaults.useLanzaboote,
-          ...
-        }:
-        {
-          machine-model = model;
-          machine-name = name;
-          machine-gui = gui;
-          machine-weak = weak;
-          machine-vm = vm;
-          source-flake = self;
-          configuration-trusted = trusted;
-          configuration-nixos-hardware = useNixosHardware;
-          configuration-disko = useDisko;
-          configuration-lanzaboote = useLanzaboote;
-          inherit system;
-        }
-        // joinAttrs (
-          map (inputName: { "input-${inputName}" = inputs.${inputName}; }) (builtins.attrNames inputs)
-        )
-        // joinAttrs (
-          map
-            (nixpkgsVersionName: {
-              "${nixpkgsVersionName}" = import inputs.${nixpkgsVersionName} { inherit system; };
-            })
-            [
-              "nixpkgs"
-            ]
-        );
-      nixosConfigurations = builtins.mapAttrs (
-        hostname:
-        {
-          system,
-          usernames ? [ ],
-          model ? defaults.model,
-          moduleNames ? [ "default" ],
-          useNixosHardware ? defaults.useNixosHardware,
-          useDisko ? defaults.useDisko,
-          weak ? defaults.weak,
-          gui ? defaults.gui,
-          trusted ? defaults.trusted,
-          vm ? defaults.vm,
-          useLanzaboote ? defaults.useLanzaboote,
-          styleModule ? null,
-          stateVersion,
-        }:
+      commonSystemModules = [
+        ./nixpkgs.nix
+        ./machine-module-staging.nix
+        passInputsModule
+        disko.nixosModules.default
+        lanzaboote.nixosModules.lanzaboote
+      ];
+      commonHomeManagerModules = [
+        ./nixpkgs.nix
+        passInputsModule
+        xhmm.homeManagerModules.all
+      ];
+      nixosSystem_ =
+        originalSystemArgs:
         let
-          modules =
-            [ self.nixosModules."hardware-${hostname}" ]
-            ++ map (moduleName: self.nixosModules.${moduleName}) moduleNames
-            ++ map (username: self.nixosModules."user-${username}") usernames
-            ++ (if useNixosHardware then [ nixos-hardware.nixosModules.${model} ] else [ ])
-            ++ (if useDisko then [ disko.nixosModules.default ] else [ ])
-            ++ (if useLanzaboote then [ lanzaboote.nixosModules.lanzaboote ] else [ ])
-            ++ [
+          systemArgs = infuse originalSystemArgs {
+            system.__init = null;
+            modules.__append = [
               {
-                networking.hostName = hostname;
-                nixpkgs.hostPlatform = system;
+                _module.args = {
+                  inherit systemArgs;
+                };
               }
             ]
-            ++ [
-              { nixpkgs.overlays = overlays; }
-              { system.stateVersion = stateVersion; }
-            ];
+            ++ commonSystemModules;
+          };
         in
-        nixpkgs.lib.nixosSystem {
-          inherit system modules;
-          specialArgs = getSpecialArgs {
-            inherit
-              model
-              weak
-              system
-              gui
-              stateVersion
-              useNixosHardware
-              useDisko
-              trusted
-              vm
-              useLanzaboote
-              ;
-            name = hostname;
+        (nixpkgs.lib.nixosSystem systemArgs).config.schuelermine.machine.nextStage;
+      homeManagerConfiguration_ =
+        originalHomeArgs:
+        let
+          homeArgs = infuse originalHomeArgs {
+            modules.__append = commonHomeManagerModules;
           };
-        }
-      ) machines;
-      homeConfigurations = joinAttrs (
-        builtins.attrValues (
-          builtins.mapAttrs (
-            username:
-            {
-              machineNames ? builtins.attrNames machines,
-              user,
-              stateVersions ? { },
-            }:
-            joinAttrs (
-              map (
-                machineName:
-                let
-                  user' = if builtins.isFunction user then user (machine // { name = machineName; }) else user;
-                  userPresent = builtins.elem username machines.${machineName}.usernames;
-                  machine = machines.${machineName};
-                  modules =
-                    [ self.homeManagerModules."home-${username}" ]
-                    ++ map (module: self.homeManagerModules.${module}) user'.moduleNames
-                    ++ (if user'.useXhmm or defaults.useXhmm then [ xhmm.homeManagerModules.all ] else [ ])
-                    ++ [
-                      { nixpkgs.overlays = overlays; }
-                      { home.stateVersion = stateVersions.${machineName} or machines.${machineName}.stateVersion; }
-                    ];
-                in
-                {
-                  ${guard userPresent "${username}@${machineName}"} = home-manager.lib.homeManagerConfiguration {
-                    inherit modules;
-                    extraSpecialArgs = getSpecialArgs (machines.${machineName} // { name = machineName; });
-                    pkgs = import nixpkgs { system = machines.${machineName}.system; };
-                  };
-                }
-              ) machineNames
-            )
-          ) users
-        )
-      );
-      machines = rec {
-        nailbox = {
-          model = "framework-16-7040-amd";
-          system = "x86_64-linux";
-          usernames = [ "anselmschueler" ];
-          useNixosHardware = true;
-          useDisko = true;
-          stateVersion = "23.11";
-          trusted = true;
-          useLanzaboote = true;
-        };
-      };
-      users.anselmschueler = {
-        user =
-          {
-            gui ? defaults.gui,
-            weak ? defaults.weak,
-            ...
-          }:
-          {
-            moduleNames =
-              [
-                "git"
-                "shell"
-              ]
-              ++ nixpkgs.lib.optionals gui [
-                "desktop"
-                "vscode-cpp"
-                "vscode-haskell"
-                "vscode-java"
-                "vscode-nix"
-                "vscode-python"
-                "vscode-rust"
-                "vscode"
-                "_vscode-containers"
-              ]
-              ++ nixpkgs.lib.optionals (!weak) [ "coding" ];
-            useXhmm = true;
-          };
-        stateVersions.nailbox = "24.11";
-      };
+        in
+        home-manager.lib.homeManagerConfiguration homeArgs;
     in
     {
-      inherit nixosConfigurations;
-      inherit homeConfigurations;
-      nixosModules = {
-        default = import ./nixosModules/configuration.nix;
-        user-anselmschueler = import ./nixosModules/users/anselmschueler.nix;
-        hardware-vm-hulahoop = import ./nixosModules/hardware/vm-hulahoop.nix;
-        hardware-nailbox = import ./nixosModules/hardware/nailbox.nix;
+      nixosConfigurations.nailbox = nixosSystem_ {
+        modules = [
+          ./system/configuration.nix
+          ./system/nailbox.nix
+        ];
       };
-      homeManagerModules = joinAttrs (
-        map (path: {
-          ${builtins.head (builtins.match "(.*).nix" path)} = import (./homeManagerModules + "/${path}");
-        }) (builtins.attrNames (builtins.readDir ./homeManagerModules))
-      );
+      homeConfigurations."anselmschueler@nailbox" = homeManagerConfiguration_ {
+        modules = [
+          ./home/configuration.nix
+          ./home/anselmschueler.nix
+          ./home/nailbox.nix
+          ./home/anselmschueler${"@"}nailbox.nix
+        ];
+        pkgs = self.nixosConfigurations.nailbox.pkgs;
+      };
     };
 }
