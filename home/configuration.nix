@@ -142,6 +142,7 @@ lib.mkMerge [
         gnome-podcasts
         audacity
         blender-hip
+        qbittorrent
       ])
       ++ [
         
@@ -263,6 +264,7 @@ lib.mkMerge [
         fastfetch
         rich-cli
         frogmouth
+        yt-dlp
       ];
       sessionVariables.EXA_COLORS = "xx=2";
     };
