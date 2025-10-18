@@ -123,7 +123,6 @@ lib.mkMerge [
         spotify
         element-desktop
         signal-desktop
-        steam
         lutris
         heroic
         wineWow64Packages.full
@@ -145,13 +144,7 @@ lib.mkMerge [
         blender-hip
       ])
       ++ [
-        (lib.hiPrio (
-          pkgs.runCommand "steam-igpu-desktop-entry" { } ''
-            mkdir -p $out/share/applications
-            cp ${pkgs.steam}/share/applications/steam.desktop $out/share/applications/steam.desktop
-            patch $out/share/applications/steam.desktop ${../supplementary/steam-igpu-desktop-entry.patch}
-          ''
-        ))
+        
       ];
     fonts.fontconfig.enable = true;
     xdg.configFile = {
