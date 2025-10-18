@@ -420,7 +420,7 @@ lib.mkMerge [
         ms-vscode.hexeditor
         redhat.vscode-xml
         redhat.vscode-yaml
-        streetsidesoftware.code-spell-checker
+        # streetsidesoftware.code-spell-checker
         thenuprojectcontributors.vscode-nushell-lang
         tamasfe.even-better-toml
         myriad-dreamin.tinymist
@@ -441,14 +441,14 @@ lib.mkMerge [
             sha256 = "sha256-gNa3n16lP3ooBRvGaugTua4IXcIzpMk7jBYMJDQsY00=";
           };
         })
-        (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+        /* (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
           mktplcRef = {
             name = "code-spell-checker-german";
             publisher = "streetsidesoftware";
             version = "2.3.1";
             sha256 = "sha256-LxgftSpGk7+SIUdZcNpL7UZoAx8IMIcwPYIGqSfVuDc=";
           };
-        })
+        }) */
         (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
           mktplcRef = {
             name = "swift-vscode";
