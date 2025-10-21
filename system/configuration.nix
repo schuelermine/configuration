@@ -274,7 +274,8 @@ lib.mkMerge [
     # qt
     qt = {
       enable = true;
-      platformTheme = "kde";
+      platformTheme = "gnome";
+      style = "adwaita";
     };
   }
   {

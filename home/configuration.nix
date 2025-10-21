@@ -157,7 +157,8 @@ lib.mkMerge [
     };
     qt = {
       enable = true;
-      platformTheme.name = "qtct";
+      platformTheme.name = "adwaita";
+      style.name = "adwaita";
     };
   }
   {
