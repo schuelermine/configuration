@@ -6,7 +6,6 @@
 }:
 let
   incus-interface = "incusbr0";
-  username = "anselmschueler";
 in
 lib.mkMerge [
   {
@@ -478,9 +477,6 @@ lib.mkMerge [
         dockerCompat = true;
       };
     };
-    users.users.${username}.extraGroups = [
-      "libvirtd"
-    ];
     environment.systemPackages = with pkgs; [
       virtiofsd
     ];
@@ -502,7 +498,6 @@ lib.mkMerge [
         syntaxHighlight = true;
       };
     };
-    users.users.${username}.shell = pkgs.fish;
     environment.systemPackages = with pkgs; [
       bat
       btop
@@ -549,19 +544,5 @@ lib.mkMerge [
       wget
       whois
     ];
-  }
-  {
-    # user anselmschueler
-    users = {
-      mutableUsers = false;
-      users.${username} = {
-        isNormalUser = true;
-        description = "Anselm Schüler";
-        extraGroups = [
-          "wheel"
-        ];
-        hashedPasswordFile = "/etc/anselmschueler.password";
-      };
-    };
   }
 ]

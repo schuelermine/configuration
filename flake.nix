@@ -77,6 +77,7 @@
       nixosConfigurations.nailbox = nixosSystem_ {
         modules = [
           ./system/configuration.nix
+          ./system/anselmschueler.nix
           ./system/nailbox.nix
         ];
       };
