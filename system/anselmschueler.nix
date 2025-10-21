@@ -11,12 +11,10 @@ in
       description = "Anselm Schüler";
       extraGroups = [
         "wheel"
+        "libvirtd"
       ];
       hashedPasswordFile = "/etc/${username}.password";
+      shell = pkgs.fish;
     };
   };
-  users.users.${username}.extraGroups = [
-    "libvirtd"
-  ];
-  users.users.${username}.shell = pkgs.fish;
 }
