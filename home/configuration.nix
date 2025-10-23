@@ -265,6 +265,7 @@ lib.mkMerge [
         fastfetch
         rich-cli
         frogmouth
+        pipx
       ];
       sessionVariables.EXA_COLORS = "xx=2";
     };
