@@ -133,7 +133,7 @@ lib.mkMerge [
         zulip
         losslesscut-bin
         shortwave
-        musescore
+        # musescore
         darktable
         freecad
         amberol
