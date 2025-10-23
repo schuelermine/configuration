@@ -265,10 +265,8 @@ lib.mkMerge [
         fastfetch
         rich-cli
         frogmouth
-        pipx
       ];
       sessionVariables.EXA_COLORS = "xx=2";
-      sessionPath = [ "$HOME/.local/bin" ];
     };
     xdg.configFile."uv/uv.toml".text = ''
       python-preference = "only-system"
