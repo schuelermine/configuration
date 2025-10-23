@@ -265,7 +265,6 @@ lib.mkMerge [
         fastfetch
         rich-cli
         frogmouth
-        yt-dlp
       ];
       sessionVariables.EXA_COLORS = "xx=2";
     };
