@@ -260,7 +260,7 @@ lib.mkMerge [
         powershell
         nushell
         typst
-        hatch
+        # hatch
         uv
         fastfetch
         rich-cli
