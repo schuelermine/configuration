@@ -164,8 +164,11 @@ lib.mkMerge [
   {
     programs = {
       git = {
-        userEmail = "mail@anselmschueler.com";
-        userName = "Anselm Schüler";
+        settings = {
+          user.email = "mail@anselmschueler.com";
+          user.name = "Anselm Schüler";
+          init.defaultBranch = "b0";
+        };
         enable = true;
         lfs.enable = true;
         signing = {
@@ -173,13 +176,12 @@ lib.mkMerge [
           signByDefault = true;
           key = null;
         };
-        extraConfig.init.defaultBranch = "b0";
-        difftastic.enable = true;
       };
       gh = {
         enable = true;
         gitCredentialHelper.enable = true;
       };
+      difftastic.git.enable = true;
     };
     home.packages = with pkgs; [ gh ];
   }
