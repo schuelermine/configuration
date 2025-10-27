@@ -483,7 +483,7 @@ lib.mkMerge [
   }
   {
     # programming
-    services.nixseparatedebuginfod.enable = true;
+    services.nixseparatedebuginfod2.enable = true;
     environment.systemPackages = with pkgs; [
       gdb
       clang
