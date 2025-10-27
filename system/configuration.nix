@@ -382,10 +382,6 @@ lib.mkMerge [
     };
   }
   {
-    # android dev compat
-    services.udev.packages = with pkgs; [ android-udev-rules ];
-  }
-  {
     # incus
     networking.dhcpcd.denyInterfaces = [ incus-interface ];
     virtualisation = {
