@@ -14,7 +14,7 @@ lib.mkMerge [
       extraOptions = ''
         experimental-features = nix-command flakes
       '';
-      package = pkgs.lix;
+      package = pkgs.nix;
       settings = {
         auto-optimise-store = true;
         substituters = [

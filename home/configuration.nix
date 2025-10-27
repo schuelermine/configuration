@@ -10,7 +10,7 @@ lib.mkMerge [
   {
     programs.home-manager.enable = true;
     news.display = "silent";
-    nix.package = pkgs.lix;
+    nix.package = pkgs.nix;
   }
   {
     programs.vscode.profiles.default.extensions = with pkgs.vscode-extensions; [
