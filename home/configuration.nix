@@ -143,6 +143,7 @@ lib.mkMerge [
         audacity
         blender-hip
         qbittorrent
+        ausweisapp
       ])
       ++ [
         
