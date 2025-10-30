@@ -287,6 +287,8 @@ lib.mkMerge [
       ++ (with pkgs; [
         ubuntu_font_family
         atkinson-hyperlegible
+        atkinson-hyperlegible-next
+        atkinson-hyperlegible-mono
         fira
         fira-code
         go-font
