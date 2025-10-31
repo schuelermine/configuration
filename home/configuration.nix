@@ -182,7 +182,10 @@ lib.mkMerge [
         enable = true;
         gitCredentialHelper.enable = true;
       };
-      difftastic.git.enable = true;
+      difftastic = {
+        git.enable = true;
+        enable = true;
+      };
     };
     home.packages = with pkgs; [ gh ];
   }
