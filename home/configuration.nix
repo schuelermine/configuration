@@ -133,7 +133,7 @@ lib.mkMerge [
         zulip
         losslesscut-bin
         shortwave
-        # musescore
+        musescore
         darktable
         freecad
         amberol
@@ -156,11 +156,11 @@ lib.mkMerge [
         }
       '';
     };
-    /* qt = {
+    qt = {
       enable = true;
       platformTheme.name = "adwaita";
       style.name = "adwaita";
-    }; */
+    };
   }
   {
     programs = {

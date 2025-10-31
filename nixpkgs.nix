@@ -9,12 +9,6 @@ in
       (
         final: prev:
         infuse prev {
-          jdk8.__assign = final.temurin-bin-8;
-        }
-      )
-      (
-        final: prev:
-        infuse prev {
           switcheroo-control.__output.nativeBuildInputs.__append = [ prev.wrapGAppsNoGuiHook ];
         }
       )
