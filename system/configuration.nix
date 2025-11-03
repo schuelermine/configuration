@@ -504,7 +504,7 @@ lib.mkMerge [
       curl
       curl
       dig
-      du-dust
+      dust
       duf
       eza
       fd
