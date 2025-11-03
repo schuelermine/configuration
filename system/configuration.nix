@@ -157,13 +157,6 @@ lib.mkMerge [
     };
   }
   {
-    # specialisation to disable dns security
-    specialisation.NoDnsOverTlsOrDnssec.configuration.services.resolved = {
-      dnssec = lib.mkForce "false";
-      extraConfig = lib.mkForce "";
-    };
-  }
-  {
     # i18n
     time.timeZone = "Europe/Berlin";
     i18n = {
