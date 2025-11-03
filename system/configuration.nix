@@ -285,7 +285,9 @@ lib.mkMerge [
         noto-fonts-cjk-sans
       ])
       ++ (with pkgs; [
-        ubuntu_font_family
+        ubuntu-classic
+        ubuntu-sans
+        ubuntu-sans-mono
         atkinson-hyperlegible
         atkinson-hyperlegible-next
         atkinson-hyperlegible-mono
