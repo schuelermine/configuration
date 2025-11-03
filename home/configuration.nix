@@ -528,6 +528,8 @@ lib.mkMerge [
         "workbench.preferredHighContrastLightColorTheme" = "Default Light Modern";
         "window.autoDetectColorScheme" = true;
 
+        "workbench.secondarySideBar.defaultVisibility" = "hidden";
+
         "editor.inlayHints.enabled" = "on";
         "editor.inlayHints.padding" = true;
 
