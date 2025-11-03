@@ -33,6 +33,7 @@
       disko,
       lanzaboote,
       infuse-nix,
+      ...
     }:
     let
       inherit ((import infuse-nix { inherit (nixpkgs) lib; }).v1) infuse;
