@@ -7,7 +7,6 @@
     fenix.url = "github:nix-community/fenix";
     disko.url = "github:nix-community/disko";
     lanzaboote.url = "github:nix-community/lanzaboote/v0.4.2";
-    nixpkgs-switcheroo-control-fix.url = "github:schuelermine/nixpkgs/switcheroo-control-fix";
 
     infuse-nix.url = "git+https://codeberg.org/amjoseph/infuse.nix.git";
     infuse-nix.flake = false;
@@ -28,7 +27,6 @@
       fenix,
       disko,
       lanzaboote,
-      nixpkgs-switcheroo-control-fix,
       infuse-nix,
     }:
     let
