@@ -224,22 +224,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-switcheroo-control-fix": {
-      "locked": {
-        "lastModified": 1760120940,
-        "narHash": "sha256-MdNcg5wWx54GHsPoAgxEt23I++JEzgULC/Hg9D5Jmuk=",
-        "owner": "schuelermine",
-        "repo": "nixpkgs",
-        "rev": "9626fb2977223eef0135cc8079adafff39f46f39",
-        "type": "github"
-      },
-      "original": {
-        "owner": "schuelermine",
-        "ref": "switcheroo-control-fix",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "pre-commit-hooks-nix": {
       "inputs": {
         "flake-compat": [
@@ -276,7 +260,6 @@
         "lanzaboote": "lanzaboote",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-switcheroo-control-fix": "nixpkgs-switcheroo-control-fix",
         "xhmm": "xhmm"
       }
     },
