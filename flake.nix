@@ -15,6 +15,11 @@
     fenix.inputs.nixpkgs.follows = "nixpkgs";
     disko.inputs.nixpkgs.follows = "nixpkgs";
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
+
+    # temporary lanzaboote workaround
+    rust-overlay.url = "github:oxalica/rust-overlay";
+    rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
+    lanzaboote.inputs.rust-overlay.follows = "rust-overlay";
   };
 
   outputs =
