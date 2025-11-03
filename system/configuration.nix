@@ -151,7 +151,6 @@ lib.mkMerge [
     ];
     services.resolved = {
       enable = true;
-      dnssec = "true";
       extraConfig = ''
         DNSOverTLS=true
       '';
