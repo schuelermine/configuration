@@ -231,7 +231,7 @@ lib.mkMerge [
       systemPackages = with pkgs; [
         amberol
         dconf-editor
-        firefox
+        firefox-bin
         foliate
         gimp3
         gnome-sound-recorder
