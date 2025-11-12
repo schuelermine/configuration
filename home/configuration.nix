@@ -121,7 +121,7 @@ lib.mkMerge [
       (with pkgs; [
         discord
         spotify
-        element-desktop
+        # element-desktop
         signal-desktop
         lutris
         heroic
