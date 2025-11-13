@@ -54,7 +54,7 @@
         passInputsModule
         xhmm.homeManagerModules.all
       ];
-      nixosSystem_ =
+      nixosSystem' =
         originalSystemArgs:
         let
           systemArgs = infuse originalSystemArgs {
@@ -70,7 +70,7 @@
           };
         in
         (nixpkgs.lib.nixosSystem systemArgs).config.schuelermine.machine.nextStage;
-      homeManagerConfiguration_ =
+      homeManagerConfiguration' =
         originalHomeArgs:
         let
           homeArgs = infuse originalHomeArgs {
@@ -80,14 +80,14 @@
         home-manager.lib.homeManagerConfiguration homeArgs;
     in
     {
-      nixosConfigurations.nailbox = nixosSystem_ {
+      nixosConfigurations.nailbox = nixosSystem' {
         modules = [
           ./system/configuration.nix
           ./system/anselmschueler.nix
           ./system/nailbox.nix
         ];
       };
-      homeConfigurations."anselmschueler@nailbox" = homeManagerConfiguration_ {
+      homeConfigurations."anselmschueler@nailbox" = homeManagerConfiguration' {
         modules = [
           ./home/configuration.nix
           ./home/anselmschueler.nix
