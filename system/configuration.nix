@@ -219,7 +219,7 @@ import ../mkMerge${"'"}.nix lib [
     # flatpak for gui apps
     services.flatpak.enable = true;
   }
-  {
+  /* {
     # gnome desktop environment
     services = {
       dbus.packages = [ pkgs.gcr ];
@@ -229,26 +229,6 @@ import ../mkMerge${"'"}.nix lib [
       desktopManager.gnome.enable = true;
     };
     environment = {
-      systemPackages = with pkgs; [
-        amberol
-        dconf-editor
-        firefox-bin
-        foliate
-        gimp3
-        gnome-sound-recorder
-        inkscape
-        kdePackages.breeze
-        kdePackages.breeze-icons
-        krita
-        libreoffice-fresh
-        qalculate-gtk
-        qpwgraph
-        rawtherapee
-        showtime
-        thunderbird-latest-bin
-        wev
-        wl-clipboard
-      ];
       gnome.excludePackages = (
         with pkgs;
         [
@@ -261,15 +241,53 @@ import ../mkMerge${"'"}.nix lib [
         ]
       );
     };
+  } */
+  {
+    # generic desktop config
+    environment.systemPackages = with pkgs; [
+      amberol
+      dconf-editor
+      firefox-bin
+      foliate
+      gimp3
+      gnome-sound-recorder
+      inkscape
+      kdePackages.breeze
+      kdePackages.breeze-icons
+      krita
+      libreoffice-fresh
+      qalculate-gtk
+      qpwgraph
+      rawtherapee
+      showtime
+      thunderbird-latest-bin
+      wev
+      wl-clipboard
+      wezterm
+    ];
+  }
+  {
+    # unsorted stuff gnome enabled
+    hardware.bluetooth.enable = true;
+    security.polkit.enable = true;
+    security.rtkit.enable = true;
+    xdg.mime.enable = true;
+    xdg.icons.enable = true;
+    services.hardware.bolt.enable = true;
+    services.libinput.enable = true;
+    services.udisks2.enable = true;
+    services.upower.enable = true;
   }
   {
     # niri
     imports = [ inputs.niri-flake.nixosModules.niri ];
+    services.displayManager.gdm.enable = true;
     niri-flake.cache.enable = false;
     programs.niri = {
       package = pkgs.niri;
       enable = true;
     };
+    environment.systemPackages = with pkgs; [ fuzzel ];
   }
   /* {
     # qt

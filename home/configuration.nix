@@ -6,7 +6,7 @@
   ...
 }:
 # TODO: clean up
-lib.mkMerge [
+import ../mkMerge${"'"}.nix lib [
   {
     programs.home-manager.enable = true;
     news.display = "silent";
@@ -573,6 +573,17 @@ lib.mkMerge [
     programs.niri = {
       enable = true;
       package = pkgs.niri;
+    };
+  }
+  {
+    programs.wezterm = {
+      enable = true;
+      extraConfig = ''
+        local config = wezterm.config_builder()
+        config.font = wezterm.font '${config.gnome.monospaceFont.name}'
+        config.font_size = ${builtins.toString config.gnome.monospaceFont.size}
+        return config
+      '';
     };
   }
 ]

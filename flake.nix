@@ -71,7 +71,7 @@
         let
           homeArgs = infuse originalHomeArgs {
             modules.__append = commonHomeManagerModules;
-            specialArgs.inputs.__init = inputs;
+            extraSpecialArgs.inputs.__init = inputs;
           };
         in
         home-manager.lib.homeManagerConfiguration homeArgs;
