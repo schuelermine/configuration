@@ -266,7 +266,10 @@ import ../mkMerge${"'"}.nix lib [
     # niri
     imports = [ inputs.niri-flake.nixosModules.niri ];
     niri-flake.cache.enable = false;
-    programs.niri.package = pkgs.niri;
+    programs.niri = {
+      package = pkgs.niri;
+      enable = true;
+    };
   }
   /* {
     # qt
