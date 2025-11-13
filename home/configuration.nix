@@ -569,13 +569,6 @@ import ../mkMerge${"'"}.nix lib [
     };
   }
   {
-    imports = [ inputs.niri-flake.homeModules.config ];
-    programs.niri = {
-      enable = true;
-      package = pkgs.niri;
-    };
-  }
-  {
     programs.wezterm = {
       enable = true;
       extraConfig = ''
