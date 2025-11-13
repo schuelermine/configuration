@@ -568,15 +568,4 @@ import ../mkMerge${"'"}.nix lib [
       };
     };
   }
-  {
-    programs.wezterm = {
-      enable = true;
-      extraConfig = ''
-        local config = wezterm.config_builder()
-        config.font = wezterm.font '${config.gnome.monospaceFont.name}'
-        config.font_size = ${builtins.toString config.gnome.monospaceFont.size}
-        return config
-      '';
-    };
-  }
 ]
