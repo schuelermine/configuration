@@ -39,19 +39,14 @@
     }:
     let
       inherit ((import infuse-nix { inherit (nixpkgs) lib; }).v1) infuse;
-      passInputsModule = {
-        _module.args = { inherit inputs; };
-      };
       commonSystemModules = [
         ./nixpkgs.nix
         ./machine-module-staging.nix
-        passInputsModule
         disko.nixosModules.default
         lanzaboote.nixosModules.lanzaboote
       ];
       commonHomeManagerModules = [
         ./nixpkgs.nix
-        passInputsModule
         xhmm.homeManagerModules.all
       ];
       nixosSystem' =
@@ -67,6 +62,7 @@
               }
             ]
             ++ commonSystemModules;
+            specialArgs.inputs.__init = inputs;
           };
         in
         (nixpkgs.lib.nixosSystem systemArgs).config.schuelermine.machine.nextStage;
@@ -75,6 +71,7 @@
         let
           homeArgs = infuse originalHomeArgs {
             modules.__append = commonHomeManagerModules;
+            specialArgs.inputs.__init = inputs;
           };
         in
         home-manager.lib.homeManagerConfiguration homeArgs;

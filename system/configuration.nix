@@ -8,7 +8,7 @@
 let
   incus-interface = "incusbr0";
 in
-lib.mkMerge [
+import ../mkMerge${"'"}.nix lib [
   {
     # nix config
     nix = {
