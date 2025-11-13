@@ -568,4 +568,11 @@ lib.mkMerge [
       };
     };
   }
+  {
+    imports = [ inputs.niri-flake.homeModules.config ];
+    programs.niri = {
+      enable = true;
+      package = pkgs.niri;
+    };
+  }
 ]

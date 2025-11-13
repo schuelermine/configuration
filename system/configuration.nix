@@ -2,6 +2,7 @@
   lib,
   pkgs,
   config,
+  inputs,
   ...
 }:
 let
@@ -219,7 +220,7 @@ lib.mkMerge [
     services.flatpak.enable = true;
   }
   {
-    # desktop environment
+    # gnome desktop environment
     services = {
       dbus.packages = [ pkgs.gcr ];
       printing.enable = true;
@@ -260,6 +261,12 @@ lib.mkMerge [
         ]
       );
     };
+  }
+  {
+    # niri
+    imports = [ inputs.niri-flake.nixosModules.niri ];
+    niri-flake.cache.enable = false;
+    programs.niri.package = pkgs.niri;
   }
   /* {
     # qt
