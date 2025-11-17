@@ -263,6 +263,7 @@ import ../mkMerge${"'"}.nix lib [
       thunderbird-latest-bin
       wev
       wl-clipboard
+      exiftool
     ];
   }
   /* {

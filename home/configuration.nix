@@ -145,9 +145,6 @@ import ../mkMerge${"'"}.nix lib [
         qbittorrent
         ausweisapp
       ])
-      ++ [
-        
-      ];
     fonts.fontconfig.enable = true;
     xdg.configFile = {
       "discord/settings.json".text = ''
