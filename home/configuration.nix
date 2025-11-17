@@ -144,7 +144,7 @@ import ../mkMerge${"'"}.nix lib [
         blender-hip
         qbittorrent
         ausweisapp
-      ])
+      ]);
     fonts.fontconfig.enable = true;
     xdg.configFile = {
       "discord/settings.json".text = ''
