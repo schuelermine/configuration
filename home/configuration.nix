@@ -459,8 +459,8 @@ import ../mkMerge${"'"}.nix lib [
           mktplcRef = {
             name = "swift-vscode";
             publisher = "swiftlang";
-            version = "2.10.0";
-            sha256 = "sha256-Do4ZYe33/R9UdhFIhG/9hXgkY4SRcCJ6iaO5bTz2EU8=";
+            version = "2.14.0";
+            sha256 = "sha256-PvD+5z0FQzw0vdX2Jr42ZvBogNpm0nafuCulOav6P8o=";
           };
         })
         (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
