@@ -2,7 +2,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:hauskens/home-manager/fix/easy-effects";
     xhmm.url = "github:schuelermine/xhmm/b0";
     fenix.url = "github:nix-community/fenix";
     disko.url = "github:nix-community/disko";
