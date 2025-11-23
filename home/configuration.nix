@@ -24,7 +24,8 @@ import ../mkMerge${"'"}.nix lib [
         cabal.enable = true;
         stack.enable = true;
       };
-      rust.customToolchain.toolchainPackage = inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.complete.toolchain;
+      rust.customToolchain.toolchainPackage =
+        inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.complete.toolchain;
       python = {
         enable = true;
         mypy.enable = true;
@@ -112,8 +113,9 @@ import ../mkMerge${"'"}.nix lib [
         size = 15;
       };
     };
-    home.packages =
-      (with pkgs; [
+    home.packages = (
+      with pkgs;
+      [
         discord
         spotify
         # element-desktop
@@ -139,7 +141,8 @@ import ../mkMerge${"'"}.nix lib [
         blender-hip
         qbittorrent
         ausweisapp
-      ]);
+      ]
+    );
     fonts.fontconfig.enable = true;
     xdg.configFile = {
       "discord/settings.json".text = ''
@@ -148,11 +151,13 @@ import ../mkMerge${"'"}.nix lib [
         }
       '';
     };
-    /* qt = {
-      enable = true;
-      platformTheme.name = "adwaita";
-      style.name = "adwaita";
-    }; */
+    /*
+      qt = {
+        enable = true;
+        platformTheme.name = "adwaita";
+        style.name = "adwaita";
+      };
+    */
   }
   {
     programs = {
@@ -361,7 +366,8 @@ import ../mkMerge${"'"}.nix lib [
           "rust-analyzer.server.path" = "${config.programs.rust.rust-analyzer.package}/bin/rust-analyzer";
         };
       };
-      rust.exposeRustSrcLocation = "${inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.latest.rust-src}";
+      rust.exposeRustSrcLocation = "${inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.latest.rust-src
+      }";
     };
   }
   {
@@ -370,20 +376,22 @@ import ../mkMerge${"'"}.nix lib [
       mutableExtensionsDir = false;
       profiles.default.extensions = with pkgs.vscode-extensions; [
         myriad-dreamin.tinymist
-        /* (pkgs.vscode-utils.buildVscodeExtension rec {
-          pname = vscodeExtUniqueId;
-          vscodeExtPublisher = "jeanp413";
-          vscodeExtName = "open-remote-ssh";
-          vscodeExtUniqueId = "${vscodeExtPublisher}.${vscodeExtName}";
-          version = "0.0.49";
-          name = "${vscodeExtPublisher}-${vscodeExtName}-${version}";
-          src = pkgs.fetchurl {
-            url = "https://open-vsx.org/api/${vscodeExtPublisher}/${vscodeExtName}/${version}/file/${vscodeExtUniqueId}-${version}.vsix";
-            # hash = "sha256-YoeUNvxLSmy3OftZp2AnqRU+TKe3KYLt3zZ0B5XGgeE=";
-            hash = "sha256-QfJnAAx+kO2iJ1EzWoO5HLogJKg3RiC3hg1/u2Jm6t4=";
-            name = "${vscodeExtPublisher}-${vscodeExtName}.zip";
-          };
-        }) */
+        /*
+          (pkgs.vscode-utils.buildVscodeExtension rec {
+            pname = vscodeExtUniqueId;
+            vscodeExtPublisher = "jeanp413";
+            vscodeExtName = "open-remote-ssh";
+            vscodeExtUniqueId = "${vscodeExtPublisher}.${vscodeExtName}";
+            version = "0.0.49";
+            name = "${vscodeExtPublisher}-${vscodeExtName}-${version}";
+            src = pkgs.fetchurl {
+              url = "https://open-vsx.org/api/${vscodeExtPublisher}/${vscodeExtName}/${version}/file/${vscodeExtUniqueId}-${version}.vsix";
+              # hash = "sha256-YoeUNvxLSmy3OftZp2AnqRU+TKe3KYLt3zZ0B5XGgeE=";
+              hash = "sha256-QfJnAAx+kO2iJ1EzWoO5HLogJKg3RiC3hg1/u2Jm6t4=";
+              name = "${vscodeExtPublisher}-${vscodeExtName}.zip";
+            };
+          })
+        */
       ];
       package = pkgs.vscodium;
       profiles.default.userSettings = {
@@ -440,15 +448,22 @@ import ../mkMerge${"'"}.nix lib [
   }
   {
     programs.vscode.profiles.default.extensions =
-      let ignored = [{
-        name = "tinymist";
-        publisher = "myriad-dreamin";
-      } {
-        name = "vscode-lldb";
-        publisher = "vadimcn";
-      }]; in
-       lib.map (ext: pkgs.vscode-utils.buildVscodeMarketplaceExtension { mktplcRef = ext; })
-       (lib.filter ({ name, publisher, ... }: !lib.elem { inherit name publisher; } ignored)
-        (import ./extensions.nix).extensions);
+      let
+        ignored = [
+          {
+            name = "tinymist";
+            publisher = "myriad-dreamin";
+          }
+          {
+            name = "vscode-lldb";
+            publisher = "vadimcn";
+          }
+        ];
+      in
+      lib.map (ext: pkgs.vscode-utils.buildVscodeMarketplaceExtension { mktplcRef = ext; }) (
+        lib.filter (
+          { name, publisher, ... }: !lib.elem { inherit name publisher; } ignored
+        ) (import ./extensions.nix).extensions
+      );
   }
 ]

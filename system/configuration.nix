@@ -266,14 +266,16 @@ import ../mkMerge${"'"}.nix lib [
       exiftool
     ];
   }
-  /* {
-    # qt
-    qt = {
-      enable = true;
-      platformTheme = "gnome";
-      style = "adwaita";
-    };
-  } */
+  /*
+    {
+      # qt
+      qt = {
+        enable = true;
+        platformTheme = "gnome";
+        style = "adwaita";
+      };
+    }
+  */
   {
     # fonts
     fonts.packages = (
