@@ -376,22 +376,19 @@ import ../mkMerge${"'"}.nix lib [
       mutableExtensionsDir = false;
       profiles.default.extensions = with pkgs.vscode-extensions; [
         myriad-dreamin.tinymist
-        /*
-          (pkgs.vscode-utils.buildVscodeExtension rec {
-            pname = vscodeExtUniqueId;
-            vscodeExtPublisher = "jeanp413";
-            vscodeExtName = "open-remote-ssh";
-            vscodeExtUniqueId = "${vscodeExtPublisher}.${vscodeExtName}";
-            version = "0.0.49";
-            name = "${vscodeExtPublisher}-${vscodeExtName}-${version}";
-            src = pkgs.fetchurl {
-              url = "https://open-vsx.org/api/${vscodeExtPublisher}/${vscodeExtName}/${version}/file/${vscodeExtUniqueId}-${version}.vsix";
-              # hash = "sha256-YoeUNvxLSmy3OftZp2AnqRU+TKe3KYLt3zZ0B5XGgeE=";
-              hash = "sha256-QfJnAAx+kO2iJ1EzWoO5HLogJKg3RiC3hg1/u2Jm6t4=";
-              name = "${vscodeExtPublisher}-${vscodeExtName}.zip";
-            };
-          })
-        */
+        (pkgs.vscode-utils.buildVscodeExtension rec {
+          pname = vscodeExtUniqueId;
+          vscodeExtPublisher = "jeanp413";
+          vscodeExtName = "open-remote-ssh";
+          vscodeExtUniqueId = "${vscodeExtPublisher}.${vscodeExtName}";
+          version = "0.0.49";
+          name = "${vscodeExtPublisher}-${vscodeExtName}-${version}";
+          src = pkgs.fetchurl {
+            url = "https://open-vsx.org/api/${vscodeExtPublisher}/${vscodeExtName}/${version}/file/${vscodeExtUniqueId}-${version}.vsix";
+            hash = "sha256-QfJnAAx+kO2iJ1EzWoO5HLogJKg3RiC3hg1/u2Jm6t4=";
+            name = "${vscodeExtPublisher}-${vscodeExtName}.zip";
+          };
+        })
       ];
       package = pkgs.vscodium;
       profiles.default.userSettings = {
