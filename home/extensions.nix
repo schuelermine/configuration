@@ -1,12 +1,6 @@
 {
   extensions = [
     {
-      name = "armls";
-      publisher = "Arm";
-      version = "0.14.1";
-      hash = "sha256-hx96gstyi62UA2LxrpkVlcqIJsUtKgNISJslArXRF1M=";
-    }
-    {
       name = "agda-mode";
       publisher = "banacorn";
       version = "0.7.9";
