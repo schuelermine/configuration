@@ -76,9 +76,6 @@
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   services.fwupd.enable = true;
 
-  # hardware quirks
-  services.xserver.synaptics.palmDetect = true;
-
   # switcherooctl
   services.switcherooControl.enable = true;
 }
