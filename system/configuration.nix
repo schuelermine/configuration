@@ -72,7 +72,10 @@ import ../mkMerge${"'"}.nix lib [
   }
   {
     # vt console
-    console.earlySetup = true;
+    console = {
+      earlySetup = true;
+      useXkbConfig = true;
+    };
     services.kmscon = {
       enable = true;
       fonts = [ {
