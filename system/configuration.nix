@@ -78,6 +78,12 @@ import ../mkMerge${"'"}.nix lib [
       fonts = [ {
         name = "Source Code Pro";
         package = pkgs.source-code-pro;
+      } {
+        name = "Noto Sans Mono";
+        package = pkgs.noto-fonts;
+      } {
+        name = "Noto Sans CJK SC";
+        package = pkgs.noto-fonts-cjk-sans;
       } ];
       useXkbConfig = true;
       hwRender = true;
