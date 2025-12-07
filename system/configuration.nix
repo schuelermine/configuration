@@ -76,21 +76,6 @@ import ../mkMerge${"'"}.nix lib [
       earlySetup = true;
       useXkbConfig = true;
     };
-    services.kmscon = {
-      enable = true;
-      fonts = [ {
-        name = "Source Code Pro";
-        package = pkgs.source-code-pro;
-      } {
-        name = "Noto Sans Mono";
-        package = pkgs.noto-fonts;
-      } {
-        name = "Noto Sans CJK SC";
-        package = pkgs.noto-fonts-cjk-sans;
-      } ];
-      useXkbConfig = true;
-      hwRender = true;
-    };
   }
   {
     # oom killer
