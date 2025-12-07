@@ -72,16 +72,15 @@ import ../mkMerge${"'"}.nix lib [
   }
   {
     # vt console
-    console = {
-      useXkbConfig = true;
-      earlySetup = true;
-    };
+    console.earlySetup = true;
     services.kmscon = {
       enable = true;
       fonts = [ {
         name = "Source Code Pro";
         package = pkgs.source-code-pro;
       } ];
+      useXkbConfig = true;
+      hwRender = true;
     };
   }
   {
