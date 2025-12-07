@@ -76,6 +76,13 @@ import ../mkMerge${"'"}.nix lib [
       useXkbConfig = true;
       earlySetup = true;
     };
+    services.kmscon = {
+      enable = true;
+      fonts = [ {
+        name = "Source Code Pro";
+        package = pkgs.source-code-pro;
+      } ];
+    };
   }
   {
     # oom killer
