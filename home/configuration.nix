@@ -110,7 +110,7 @@ import ../mkMerge${"'"}.nix lib [
       monospaceFont = {
         package = pkgs.source-code-pro;
         name = "Source Code Pro";
-        size = 15;
+        size = 14;
       };
     };
     home.packages = (
