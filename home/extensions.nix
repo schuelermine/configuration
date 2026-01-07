@@ -111,7 +111,7 @@
     name = "python";
     publisher = "ms-python";
     version = "2025.19.2025120401";
-    hash = "sha256-9dqC8t9udQ2JW73Ygp7vSb/2g3dbrkEuNNpaEFLFFXA=";
+    hash = "sha256-7jYHVFJyXUiZoEf99WliCPXZoRY6MEa+hDLUQ0T0jvc=";
   }
   {
     name = "jupyter";

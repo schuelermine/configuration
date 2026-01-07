@@ -277,9 +277,9 @@ import ../mkMerge${"'"}.nix lib [
   }
   {
     programs.vscode = {
-      profiles.default.extensions = with pkgs.vscode-extensions; [
+      /* profiles.default.extensions = with pkgs.vscode-extensions; [
         vadimcn.vscode-lldb
-      ];
+      ]; */
       profiles.default.userSettings = {
         "clangd.path" = "${pkgs.clang-tools}/bin/clangd";
         "cmake.cmakePath" = "${pkgs.cmake}/bin/cmake";
@@ -373,8 +373,8 @@ import ../mkMerge${"'"}.nix lib [
   {
     programs.vscode = {
       enable = true;
-      mutableExtensionsDir = false;
-      profiles.default.extensions = with pkgs.vscode-extensions; [
+      mutableExtensionsDir = true;
+      /* profiles.default.extensions = with pkgs.vscode-extensions; [
         myriad-dreamin.tinymist
         (pkgs.vscode-utils.buildVscodeExtension rec {
           pname = vscodeExtUniqueId;
@@ -386,10 +386,10 @@ import ../mkMerge${"'"}.nix lib [
           src = pkgs.fetchurl {
             url = "https://open-vsx.org/api/${vscodeExtPublisher}/${vscodeExtName}/${version}/file/${vscodeExtUniqueId}-${version}.vsix";
             hash = "sha256-QfJnAAx+kO2iJ1EzWoO5HLogJKg3RiC3hg1/u2Jm6t4=";
-            name = "${vscodeExtPublisher}-${vscodeExtName}.zip";
+            name = "${vscodeExtPublisher}-${vscodeExtName}.vsix";
           };
         })
-      ];
+      ]; */
       package = pkgs.vscodium;
       profiles.default.userSettings = {
         "update.mode" = "none";
@@ -443,7 +443,7 @@ import ../mkMerge${"'"}.nix lib [
       };
     };
   }
-  {
+  /* {
     programs.vscode.profiles.default.extensions =
       let
         ignored = [
@@ -462,5 +462,5 @@ import ../mkMerge${"'"}.nix lib [
           { name, publisher, ... }: !lib.elem { inherit name publisher; } ignored
         ) (import ./extensions.nix).extensions
       );
-  }
+  } */
 ]
