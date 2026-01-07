@@ -118,7 +118,7 @@
       name = "jupyter";
       publisher = "ms-toolsai";
       version = "2025.10.2025101002";
-      hash = "sha256-As5sEhkxW6nkHsfzMSUc7C+oP1zMVoduk+E6euhmSYU=";
+      hash = "sha256-PaOzMP+4pi6Fppq1VbT3/3nsCt4lmJISidNK8uQutQ4=";
     }
     {
       name = "jupyter-renderers";
@@ -166,7 +166,7 @@
       name = "tinymist";
       publisher = "myriad-dreamin";
       version = "0.14.4";
-      hash = "sha256-ucH/vc9mMvD98zjPSVUCPQcAEkCJWTzAKmwANDrbujc=";
+      hash = "sha256-Y8yIAIT0TrrM8ZQSZl4QnVG6uE0F+AwWFvmhLe0ZPto=";
     }
     {
       name = "java";
@@ -190,7 +190,7 @@
       name = "rust-analyzer";
       publisher = "rust-lang";
       version = "0.4.2710";
-      hash = "sha256-H3d1OiDW4mVIGowlWB+ShjJ+zbaWCtWFRzc41o8YYU8=";
+      hash = "sha256-6wcBC56a788GoCASj3F9b+hNfjQxAoahQpOcLPy0p7E=";
     }
     {
       name = "shader";

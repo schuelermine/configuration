@@ -138,7 +138,7 @@ import ../mkMerge${"'"}.nix lib [
         foliate
         gnome-podcasts
         audacity
-        blender-hip
+        pkgsRocm.blender
         qbittorrent
         ausweisapp
       ]
@@ -277,9 +277,9 @@ import ../mkMerge${"'"}.nix lib [
   }
   {
     programs.vscode = {
-      /* profiles.default.extensions = with pkgs.vscode-extensions; [
+      profiles.default.extensions = with pkgs.vscode-extensions; [
         vadimcn.vscode-lldb
-      ]; */
+      ];
       profiles.default.userSettings = {
         "clangd.path" = "${pkgs.clang-tools}/bin/clangd";
         "cmake.cmakePath" = "${pkgs.cmake}/bin/cmake";
@@ -374,7 +374,7 @@ import ../mkMerge${"'"}.nix lib [
     programs.vscode = {
       enable = true;
       mutableExtensionsDir = true;
-      /* profiles.default.extensions = with pkgs.vscode-extensions; [
+      profiles.default.extensions = with pkgs.vscode-extensions; [
         myriad-dreamin.tinymist
         (pkgs.vscode-utils.buildVscodeExtension rec {
           pname = vscodeExtUniqueId;
@@ -389,7 +389,7 @@ import ../mkMerge${"'"}.nix lib [
             name = "${vscodeExtPublisher}-${vscodeExtName}.vsix";
           };
         })
-      ]; */
+      ];
       package = pkgs.vscodium;
       profiles.default.userSettings = {
         "update.mode" = "none";
@@ -443,7 +443,7 @@ import ../mkMerge${"'"}.nix lib [
       };
     };
   }
-  /* {
+  {
     programs.vscode.profiles.default.extensions =
       let
         ignored = [
@@ -462,5 +462,5 @@ import ../mkMerge${"'"}.nix lib [
           { name, publisher, ... }: !lib.elem { inherit name publisher; } ignored
         ) (import ./extensions.nix).extensions
       );
-  } */
+  }
 ]
