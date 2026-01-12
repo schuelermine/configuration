@@ -264,6 +264,7 @@ import ../mkMerge${"'"}.nix lib [
       wev
       wl-clipboard
       exiftool
+      kdePackages.ark
     ];
   }
   /*
