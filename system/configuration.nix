@@ -7,6 +7,7 @@
 }:
 let
   incus-interface = "incusbr0";
+  inherit ((import inputs.infuse-nix { inherit (inputs.nixpkgs) lib; }).v1) infuse;
 in
 import ../mkMerge${"'"}.nix lib [
   {
@@ -244,10 +245,12 @@ import ../mkMerge${"'"}.nix lib [
   }
   {
     # generic desktop config
-    environment.systemPackages = with pkgs; [
+    environment.systemPackages = let firefox = infuse pkgs.firefox-bin {
+      __input.extraPolicies.__assign = builtins.fromJSON (builtins.readFile "${inputs.just-the-browser}/firefox/policies.json");
+    }; in with pkgs; [
       amberol
       dconf-editor
-      firefox-bin
+      firefox
       foliate
       gimp3
       gnome-sound-recorder

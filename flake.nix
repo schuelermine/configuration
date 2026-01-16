@@ -11,6 +11,9 @@
     infuse-nix.url = "git+https://codeberg.org/amjoseph/infuse.nix.git";
     infuse-nix.flake = false;
 
+    just-the-browser.url = "github:corbindavenport/just-the-browser";
+    just-the-browser.flake = false;
+
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     fenix.inputs.nixpkgs.follows = "nixpkgs";
     disko.inputs.nixpkgs.follows = "nixpkgs";
