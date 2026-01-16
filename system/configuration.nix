@@ -246,7 +246,8 @@ import ../mkMerge${"'"}.nix lib [
   {
     # generic desktop config
     environment.systemPackages = let firefox = infuse pkgs.firefox-bin {
-      __input.extraPolicies.__assign = builtins.fromJSON (builtins.readFile "${inputs.just-the-browser}/firefox/policies.json");
+      __input.extraPolicies.__assign =
+        (builtins.fromJSON (builtins.readFile "${inputs.just-the-browser}/firefox/policies.json")).policies;
     }; in with pkgs; [
       amberol
       dconf-editor
