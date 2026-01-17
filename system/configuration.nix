@@ -351,6 +351,7 @@ import ../mkMerge${"'"}.nix lib [
               ]; # enable all supported roles
             };
             "10-bluetooth-policy"."bluetooth.autoswitch-to-headset-profile" = false;
+            "10-lower-quantum"."default.clock.quantum" = 256;
           };
         };
       };
