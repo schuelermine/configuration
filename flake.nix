@@ -8,7 +8,7 @@
     disko.url = "github:nix-community/disko";
     lanzaboote.url = "github:nix-community/lanzaboote/v0.4.2";
 
-    infuse-nix.url = "git+https://codeberg.org/amjoseph/infuse.nix.git";
+    infuse-nix.url = "git+https://codeberg.org/amjoseph/infuse.nix.git?rev=73c5111fdb7c0faab55bd9a19b26821639a4258e";
     infuse-nix.flake = false;
 
     just-the-browser.url = "github:corbindavenport/just-the-browser/8ae206e0a4145e77d488c8e2b740db795ebdf7af";

@@ -147,6 +147,7 @@
         "url": "https://codeberg.org/amjoseph/infuse.nix.git"
       },
       "original": {
+        "rev": "73c5111fdb7c0faab55bd9a19b26821639a4258e",
         "type": "git",
         "url": "https://codeberg.org/amjoseph/infuse.nix.git"
       }
