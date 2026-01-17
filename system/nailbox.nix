@@ -87,5 +87,6 @@
     MatchProduct=0xB034
     ModelLogitechMXMaster3=0
     ModelInvertHorizontalScrolling=0
+    AttrEventCode=-REL_WHEEL_HI_RES;-REL_HWHEEL_HI_RES;
   '';
 }
