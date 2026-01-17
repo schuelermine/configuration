@@ -6,7 +6,7 @@
     xhmm.url = "github:schuelermine/xhmm/b0";
     fenix.url = "github:nix-community/fenix";
     disko.url = "github:nix-community/disko";
-    lanzaboote.url = "github:nix-community/lanzaboote/v0.4.2";
+    lanzaboote.url = "github:nix-community/lanzaboote/v1.0.0";
 
     infuse-nix.url = "git+https://codeberg.org/amjoseph/infuse.nix.git?rev=73c5111fdb7c0faab55bd9a19b26821639a4258e";
     infuse-nix.flake = false;
@@ -18,11 +18,6 @@
     fenix.inputs.nixpkgs.follows = "nixpkgs";
     disko.inputs.nixpkgs.follows = "nixpkgs";
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
-
-    # temporary lanzaboote workaround
-    rust-overlay.url = "github:oxalica/rust-overlay";
-    rust-overlay.inputs.nixpkgs.follows = "nixpkgs";
-    lanzaboote.inputs.rust-overlay.follows = "rust-overlay";
   };
 
   outputs =
