@@ -350,8 +350,7 @@ import ../mkMerge${"'"}.nix lib [
                 "bap_source"
               ]; # enable all supported roles
             };
-            "10-bluetooth-policy"."bluetooth.autoswitch-to-headset-profile" = false;
-            "10-lower-quantum"."default.clock.quantum" = 256;
+            "20-bluetooth-policy"."bluetooth.autoswitch-to-headset-profile" = false;
           };
         };
       };
@@ -386,6 +385,7 @@ import ../mkMerge${"'"}.nix lib [
               }
             ];
           };
+          "10-higher-quantum"."context.properties"."default.clock.min-quantum" = 4096;
         };
       };
     };
