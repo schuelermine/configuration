@@ -1,6 +1,6 @@
-{ inputs, ... }:
+{ inputs, lib, ... }:
 let
-  inherit ((import inputs.infuse-nix { inherit (inputs.nixpkgs) lib; }).v1) infuse;
+  inherit ((import inputs.infuse-nix { inherit lib; }).v1) infuse;
 in
 {
   nixpkgs = {
