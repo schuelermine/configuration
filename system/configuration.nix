@@ -548,6 +548,7 @@ import ../mkMerge${"'"}.nix lib [
       usbutils
       wget
       whois
+      rdap
     ];
   }
 ]
