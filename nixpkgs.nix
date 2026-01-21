@@ -13,6 +13,8 @@ in
         }
       )
       (
+        # https://github.com/NixOS/nixpkgs/issues/475202
+        # TODO: remove
         final: prev: let version = "0.5.12"; in
         infuse prev {
           wireplumber.__output = {
