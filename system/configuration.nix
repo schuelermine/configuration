@@ -108,6 +108,7 @@ import ../mkMerge${"'"}.nix lib [
           to = 42001;
         };
         ausweisapp = 24727;
+        minecraft = 44923;
       in
       {
         enable = true;
@@ -135,8 +136,8 @@ import ../mkMerge${"'"}.nix lib [
           kdeconnect
           warpinator
         ];
-        allowedTCPPorts = [ ausweisapp ];
-        allowedUDPPorts = [ ausweisapp ];
+        allowedTCPPorts = [ ausweisapp minecraft ];
+        allowedUDPPorts = [ ausweisapp minecraft ];
       };
   }
   {
@@ -287,6 +288,7 @@ import ../mkMerge${"'"}.nix lib [
       (with pkgs; [
         noto-fonts
         noto-fonts-cjk-sans
+        google-fonts
       ])
       ++ (with pkgs; [
         ubuntu-classic
