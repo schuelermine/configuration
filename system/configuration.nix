@@ -154,7 +154,7 @@ import ../mkMerge${"'"}.nix lib [
     ];
     services.resolved = {
       enable = true;
-      settings.DNSOverTLS = true;
+      dnsovertls = true;
     };
   }
   {
