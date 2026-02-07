@@ -108,10 +108,10 @@ import ../mkMerge${"'"}.nix lib [
           to = 42001;
         };
         ausweisapp = 24727;
-        minecraft = 44923;
       in
       {
         enable = true;
+        # logRefusedPackets = true;
         interfaces.${incus-interface} = {
           allowedTCPPortRanges = [
             {
@@ -136,8 +136,8 @@ import ../mkMerge${"'"}.nix lib [
           kdeconnect
           warpinator
         ];
-        allowedTCPPorts = [ ausweisapp minecraft ];
-        allowedUDPPorts = [ ausweisapp minecraft ];
+        allowedTCPPorts = [ ausweisapp ];
+        allowedUDPPorts = [ ausweisapp ];
       };
   }
   {
