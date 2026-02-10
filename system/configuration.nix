@@ -313,15 +313,6 @@ import ../mkMerge${"'"}.nix lib [
       gamemode.enable = true;
       steam.enable = true;
     };
-    environment.systemPackages = [
-      (lib.hiPrio (
-        pkgs.runCommand "steam-igpu-desktop-entry" { } ''
-          mkdir -p $out/share/applications
-          cp ${pkgs.steam}/share/applications/steam.desktop $out/share/applications/steam.desktop
-          patch $out/share/applications/steam.desktop ${../supplementary/steam-igpu-desktop-entry.patch}
-        ''
-      ))
-    ];
   }
   {
     # audio

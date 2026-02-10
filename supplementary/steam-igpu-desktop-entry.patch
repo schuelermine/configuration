@@ -1,6 +1,0 @@
-37,38c37,38
-< PrefersNonDefaultGPU=true
-< X-KDE-RunOnDiscreteGpu=true
----
-> PrefersNonDefaultGPU=false
-> X-KDE-RunOnDiscreteGpu=false
