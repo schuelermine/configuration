@@ -245,6 +245,7 @@ import ../mkMerge${"'"}.nix lib [
         shellAbbrs = {
           c = "bat";
           x = "eza --group-directories-first";
+          mv = "mv -i";
         };
         prompt = builtins.readFile ../supplementary/prompt.fish;
         interactiveShellInit = builtins.concatStringsSep "\n" (
