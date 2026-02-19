@@ -117,6 +117,7 @@ import ../mkMerge${"'"}.nix lib [
       with pkgs;
       [
         discord
+        deltachat-desktop
         spotify
         # element-desktop
         signal-desktop
