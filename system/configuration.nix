@@ -257,7 +257,7 @@ import ../mkMerge${"'"}.nix lib [
       inkscape
       kdePackages.breeze
       kdePackages.breeze-icons
-      krita
+      # krita
       libreoffice-fresh
       qalculate-gtk
       qpwgraph
