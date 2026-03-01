@@ -193,6 +193,7 @@ import ../mkMerge${"'"}.nix lib [
       enable = true;
     };
     programs = {
+      fzf.enable = true;
       bat = {
         enable = true;
         config.style = "numbers,changes,rule,snip";
