@@ -491,7 +491,6 @@ import ../mkMerge${"'"}.nix lib [
         enable = true;
         syntaxHighlight = true;
       };
-      fzf.enable = true;
     };
     environment.systemPackages = with pkgs; [
       bat
@@ -507,6 +506,7 @@ import ../mkMerge${"'"}.nix lib [
       fd
       ffmpeg-full
       file
+      fzf
       gdb
       git
       git-lfs
