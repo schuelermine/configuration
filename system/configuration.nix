@@ -326,6 +326,7 @@ import ../mkMerge${"'"}.nix lib [
           enable = true;
           support32Bit = true;
         };
+        extraConfig.pipewire."10-higher-quantum"."context.properties"."default.clock.min-quantum" = 4096;
         wireplumber = {
           enable = true;
           extraConfig = {
@@ -366,18 +367,13 @@ import ../mkMerge${"'"}.nix lib [
       avahi.enable = true;
       pipewire = {
         raopOpenFirewall = true;
-        extraConfig.pipewire = {
-          "10-airplay" = {
-            "context.modules" = [
-              {
-                name = "libpipewire-module-raop-discover";
-                # increase the buffer size against dropouts/glitches:
-                # args."raop.latency.ms" = 500;
-              }
-            ];
-          };
-          "10-higher-quantum"."context.properties"."default.clock.min-quantum" = 4096;
-        };
+        extraConfig.pipewire."10-airplay"."context.modules" = [
+          {
+            name = "libpipewire-module-raop-discover";
+            # increase the buffer size against dropouts/glitches:
+            # args."raop.latency.ms" = 500;
+          }
+        ];
       };
     };
   }
