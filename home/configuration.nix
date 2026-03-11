@@ -101,7 +101,7 @@ import ../mkMerge${"'"}.nix lib [
     };
     gnome = {
       extensions.enabledExtensions = with pkgs.gnomeExtensions; [
-        pano
+        copyous
         blur-my-shell
         gsconnect
         appindicator
