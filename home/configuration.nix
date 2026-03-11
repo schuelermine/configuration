@@ -25,7 +25,7 @@ import ../mkMerge${"'"}.nix lib [
         stack.enable = true;
       };
       rust.customToolchain.toolchainPackage =
-        inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.latest.toolchain;
+        inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.stable.toolchain;
       python = {
         enable = true;
         mypy.enable = true;
@@ -371,7 +371,7 @@ import ../mkMerge${"'"}.nix lib [
           "rust-analyzer.server.path" = "${config.programs.rust.rust-analyzer.package}/bin/rust-analyzer";
         };
       };
-      rust.exposeRustSrcLocation = "${inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.latest.rust-src
+      rust.exposeRustSrcLocation = "${inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.stable.rust-src
       }";
     };
   }
