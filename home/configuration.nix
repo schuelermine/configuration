@@ -84,6 +84,7 @@ import ../mkMerge${"'"}.nix lib [
         "org/gnome/shell".favorite-apps = [
           "firefox.desktop"
           "thunderbird.desktop"
+          "org.gnome.Nautilus.desktop"
         ];
         "org/gnome/mutter" = {
           edge-tiling = true;
