@@ -119,8 +119,9 @@ import ../mkMerge${"'"}.nix lib [
       [
         discord
         deltachat-desktop
+        telegram-desktop
         spotify
-        # element-desktop
+        element-desktop
         signal-desktop
         lutris
         heroic
