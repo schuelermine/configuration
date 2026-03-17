@@ -259,6 +259,7 @@ import ../mkMerge${"'"}.nix lib [
             ../supplementary/features.fish
             ../supplementary/commands.fish
             ../supplementary/abbr.fish
+            ../supplementary/fixups.fish
           ]
         );
       };
