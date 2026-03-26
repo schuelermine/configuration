@@ -55,7 +55,7 @@
 
   swapDevices = [
     {
-      size = 131072; # 128 GiB -> MiB
+      size = 10240; # 10 GiB
       device = "/var/swapfile";
     }
   ];
