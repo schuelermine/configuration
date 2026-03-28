@@ -287,7 +287,7 @@ import ../mkMerge${"'"}.nix lib [
       (with pkgs; [
         noto-fonts
         noto-fonts-cjk-sans
-        google-fonts
+        # google-fonts
       ])
       ++ (with pkgs; [
         ubuntu-classic
