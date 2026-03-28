@@ -86,6 +86,7 @@ import ../mkMerge${"'"}.nix lib [
         "-".sliceConfig.ManagedOOMSwap = "kill";
         user.sliceConfig.ManagedOOMMemoryPressure = "kill";
       };
+      settings.Manager.DefaultMemoryAccounting = true;
     };
   }
   {
