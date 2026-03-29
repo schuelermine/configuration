@@ -174,6 +174,7 @@ import ../mkMerge${"'"}.nix lib [
         lfs.enable = true;
         signing = {
           # TODO: extract
+          format = "openpgp";
           signByDefault = true;
           key = null;
         };
