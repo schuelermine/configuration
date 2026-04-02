@@ -38,6 +38,16 @@ import ../mkMerge${"'"}.nix lib [
     ];
   }
   {
+    programs.kitty = {
+      enable = true;
+      package = null;
+      font = {
+        name = "Source Code Pro";
+        size = 16;
+      };
+    };
+  }
+  {
     /*
       TODO let
         patch-commit-mono-script = pkgs.writeText "patch-commit-mono-script.py" ''
@@ -75,7 +85,7 @@ import ../mkMerge${"'"}.nix lib [
         ];
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
           binding = "<Super>t";
-          command = "${pkgs.gnome-console}/bin/kgx";
+          command = "${pkgs.kitty}/bin/kitty";
           name = "Terminal";
         };
         "org/gnome/settings-daemon/plugins/media-keys".email = [ "<Super>e" ];
