@@ -539,6 +539,7 @@ import ../mkMerge${"'"}.nix lib [
       wget
       whois
       rdap
+      pstree
     ];
   }
 ]
