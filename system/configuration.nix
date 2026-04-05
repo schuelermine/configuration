@@ -38,7 +38,7 @@ import ../mkMerge${"'"}.nix lib [
     boot = {
       kernel.sysctl."kernel.sysrq" = 1;
       binfmt.emulatedSystems = [ "aarch64-linux" ];
-      kernelPackages = pkgs.linuxPackages_latest;
+      kernelPackages = pkgs.linuxPackages-rt_latest;
       supportedFilesystems = [
         "ntfs"
         "exfat"
