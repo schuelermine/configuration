@@ -47,11 +47,12 @@ import ../mkMerge${"'"}.nix lib [
       };
       shellIntegration.enableFishIntegration = true;
       settings = {
-        cursor_trail = 10;
+        cursor_trail = 100;
+        custor_trail_start_threshold = 4;
         scrollback_lines = 100000;
         scrollback_pager_history_size = 2000; # 2 GB
         scrollback_fill_enlarged_window = true;
-        touch_scroll_multiplier = 2.0;
+        touch_scroll_multiplier = 5.0;
         underline_hyperlinks = "always"; # only applies to OSC 8 hyperlinks, not detected URLs
         repaint_delay = 5; # half default, ~200fps
         input_delay = 2; # default: 3
