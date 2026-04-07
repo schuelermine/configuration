@@ -47,7 +47,7 @@ import ../mkMerge${"'"}.nix lib [
       };
       shellIntegration.enableFishIntegration = true;
       settings = {
-        cursor_trail = 40;
+        cursor_trail = 60;
         scrollback_lines = 100000;
         scrollback_pager_history_size = 2000; # 2 GB
         scrollback_fill_enlarged_window = true;
