@@ -525,4 +525,11 @@ import ../mkMerge${"'"}.nix lib [
         ) (import ./extensions.nix).extensions
       );
   }
+  {
+    programs.ssh = {
+      enable = true;
+      enableDefaultConfig = false;
+      matchBlocks."*".setEnv.TERM = "xterm-256color";
+    };
+  }
 ]
