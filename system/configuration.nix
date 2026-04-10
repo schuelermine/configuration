@@ -16,7 +16,7 @@ import ../mkMerge${"'"}.nix lib [
       extraOptions = ''
         experimental-features = nix-command flakes
       '';
-      package = pkgs.nix;
+      package = pkgs.lixPackageSets.stable.lix;
       settings = {
         auto-optimise-store = true;
         substituters = [
