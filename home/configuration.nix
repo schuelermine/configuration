@@ -148,7 +148,7 @@ import ../mkMerge${"'"}.nix lib [
         "org/gnome/desktop/interface".text-scaling-factor = 1.25;
         "org/gnome/shell/extensions/appindicator".icon-size = 20;
         "org/gnome/desktop/media-handling".autorun-never = true;
-        "org/gnome/desktop/notifications".show-in-lock-screen = false;
+        "org/gnome/desktop/notifications".show-in-lock-screen = true;
         "org/gnome/system/location".enabled = true;
         "org/gnome/Console".ignore-scrollback-limit = true;
       };
