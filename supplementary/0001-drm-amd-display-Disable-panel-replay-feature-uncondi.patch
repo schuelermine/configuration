@@ -1,0 +1,44 @@
+From 6521f476418a21d1bf83c7aec61f440199584773 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Anselm=20Sch=C3=BCler?= <mail@anselmschueler.com>
+Date: Sat, 11 Apr 2026 12:00:44 +0200
+Subject: [PATCH] drm/amd/display: Disable panel replay feature unconditionally
+
+https://gitlab.freedesktop.org/drm/amd/-/work_items/5163
+Intended to fix be64336307a6c3ee71fe1337c1b9f0495aa83c50
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 19 ++-----------------
+ 1 file changed, 2 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 6c5a1ba4cb00..87c0710a3b29 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -5555,23 +5555,8 @@ static int amdgpu_dm_initialize_drm_device(struct amdgpu_device *adev)
+ 		}
+ 	}
+ 
+-	/* Determine whether to enable Replay support by default. */
+-	if (!(amdgpu_dc_debug_mask & DC_DISABLE_REPLAY)) {
+-		switch (amdgpu_ip_version(adev, DCE_HWIP, 0)) {
+-		case IP_VERSION(3, 1, 4):
+-		case IP_VERSION(3, 2, 0):
+-		case IP_VERSION(3, 2, 1):
+-		case IP_VERSION(3, 5, 0):
+-		case IP_VERSION(3, 5, 1):
+-		case IP_VERSION(3, 6, 0):
+-			replay_feature_enabled = true;
+-			break;
+-
+-		default:
+-			replay_feature_enabled = amdgpu_dc_feature_mask & DC_REPLAY_MASK;
+-			break;
+-		}
+-	}
++	// Disabled due to https://gitlab.freedesktop.org/drm/amd/-/work_items/5163
++	replay_feature_enabled = false;
+ 
+ 	if (link_cnt > MAX_LINKS) {
+ 		drm_err(adev_to_drm(adev),
+-- 
+2.53.0
+

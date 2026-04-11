@@ -89,4 +89,12 @@
     ModelInvertHorizontalScrolling=0
     AttrEventCode=-REL_WHEEL_HI_RES;-REL_HWHEEL_HI_RES;
   '';
+
+  # kernel patch to work around https://gitlab.freedesktop.org/drm/amd/-/work_items/5163
+  boot.kernelPatches = [
+    {
+      name = "drm/amd/display: Disable panel replay feature unconditionally to work around https://gitlab.freedesktop.org/drm/amd/-/work_items/5163";
+      patch = ../supplementary/0001-drm-amd-display-Disable-panel-replay-feature-uncondi.patch;
+    }
+  ];
 }
