@@ -267,24 +267,7 @@ import ../mkMerge${"'"}.nix lib [
       };
       nano = {
         enable = true;
-        config = ''
-          set smarthome
-          set boldtext
-          set tabstospaces
-          set historylog
-          set positionlog
-          set softwrap
-          set zap
-          set atblanks
-          set autoindent
-          set linenumbers
-          set cutfromcursor
-          set mouse
-          set indicator
-          set afterends
-          set stateflags
-          set tabsize 4
-        '';
+        config = builtins.readFile ../supplementary/nanorc;
       };
       zoxide = {
         enable = true;
