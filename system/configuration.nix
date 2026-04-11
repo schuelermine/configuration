@@ -165,7 +165,7 @@ import ../mkMerge${"'"}.nix lib [
       inputMethod = {
         enable = true;
         type = "ibus";
-        ibus.engines = with pkgs.ibus-engines; [ libpinyin ];
+        ibus.engines = with pkgs.ibus-engines; [ libpinyin anthy ];
       };
       supportedLocales = [
         "ar_EG.UTF-8/UTF-8"
