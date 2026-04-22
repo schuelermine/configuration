@@ -219,14 +219,14 @@ import ../mkMerge${"'"}.nix lib [
   {
     programs = {
       git = {
+        maintenance = {
+          enable = true;
+          repositories = [
+            "/home/anselmschueler/Documents/git/github.com/NixOS/nixpkgs"
+            "/home/anselmschueler/Documents/git/git.kernel.org/pub/scm/linux/kernel/git/stable/linux"
+          ];
+        };
         settings = {
-          maintenance = {
-            enable = true;
-            repositories = [
-              "/home/anselmschueler/Documents/git/github.com/NixOS/nixpkgs"
-              "/home/anselmschueler/Documents/git/git.kernel.org/pub/scm/linux/kernel/git/stable/linux"
-            ];
-          };
           user.email = "mail@anselmschueler.com";
           user.name = "Anselm Schüler";
           init.defaultBranch = "b0";
