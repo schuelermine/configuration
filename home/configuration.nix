@@ -445,8 +445,8 @@ import ../mkMerge${"'"}.nix lib [
         "editor.fontLigatures" = true;
         "editor.minimap.renderCharacters" = false;
 
-        "workbench.preferredDarkColorTheme" = "Default Dark Modern";
-        "workbench.preferredHighContrastLightColorTheme" = "Default Light Modern";
+        "workbench.preferredDarkColorTheme" = "Experimental Dark";
+        "workbench.preferredLightColorTheme" = "Experimental Light";
         "window.autoDetectColorScheme" = true;
 
         "workbench.secondarySideBar.defaultVisibility" = "hidden";
