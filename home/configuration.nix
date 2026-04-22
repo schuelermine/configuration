@@ -224,6 +224,7 @@ import ../mkMerge${"'"}.nix lib [
           repositories = [
             "/home/anselmschueler/Documents/git/github.com/NixOS/nixpkgs"
             "/home/anselmschueler/Documents/git/git.kernel.org/pub/scm/linux/kernel/git/stable/linux"
+            "/home/anselmschueler/Documents/git/git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux"
           ];
         };
         settings = {
