@@ -28,7 +28,7 @@ import ../mkMerge${"'"}.nix lib [
       };
     };
     environment.systemPackages = with pkgs; [
-      nix-index
+      inputs.nix-index.packages.${config.nixpkgs.system}.default
       nix-tree
       nix-diff
     ];
@@ -273,6 +273,12 @@ import ../mkMerge${"'"}.nix lib [
       kdePackages.ark
     ];
   }
+  {
+    # wireshark
+    programs.wireshark.enable = true;
+    users.users.anselmschueler.extraGroups = [ "wireshark" ];
+    environment.systemPackages = with pkgs; [ wireshark ]; # programs.wireshark.enable only installs CLI
+  }
   /*
     {
       # qt
@@ -475,6 +481,7 @@ import ../mkMerge${"'"}.nix lib [
     environment.systemPackages = with pkgs; [
       virtiofsd
     ];
+    users.users.anselmschueler.extraGroups = [ "libvirtd" ];
   }
   {
     # programming

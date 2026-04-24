@@ -7,6 +7,7 @@
     fenix.url = "github:nix-community/fenix";
     disko.url = "github:nix-community/disko";
     lanzaboote.url = "github:nix-community/lanzaboote/v1.0.0";
+    nix-index.url = "github:nix-community/nix-index";
 
     infuse-nix.url = "git+https://codeberg.org/amjoseph/infuse.nix.git?rev=73c5111fdb7c0faab55bd9a19b26821639a4258e";
     infuse-nix.flake = false;
@@ -18,6 +19,7 @@
     fenix.inputs.nixpkgs.follows = "nixpkgs";
     disko.inputs.nixpkgs.follows = "nixpkgs";
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
+    nix-index.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =

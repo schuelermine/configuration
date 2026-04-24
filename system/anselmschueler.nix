@@ -9,10 +9,7 @@ in
     users.${username} = {
       isNormalUser = true;
       description = "Anselm Schüler";
-      extraGroups = [
-        "wheel"
-        "libvirtd"
-      ];
+      extraGroups = [ "wheel" ];
       hashedPasswordFile = "/etc/${username}.password";
       shell = pkgs.fish;
     };
