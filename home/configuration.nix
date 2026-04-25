@@ -177,7 +177,7 @@ import ../mkMerge${"'"}.nix lib [
         spotify
         element-desktop
         signal-desktop
-        lutris
+        # lutris
         heroic
         wineWow64Packages.full
         prismlauncher
