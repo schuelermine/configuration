@@ -392,6 +392,7 @@ import ../mkMerge${"'"}.nix lib [
     virtualisation = {
       incus = {
         enable = true;
+        bucketSupport = false; # requires explicit disable for old stateVersion, bucket support requires unmaintained & insecure dependency
         preseed = {
           networks = [
             {
