@@ -394,6 +394,7 @@ import ../mkMerge${"'"}.nix lib [
       incus = {
         enable = true;
         bucketSupport = false; # requires explicit disable for old stateVersion, bucket support requires unmaintained & insecure dependency
+        # TODO: re-enable once 7.0 upstream
         preseed = {
           networks = [
             {
