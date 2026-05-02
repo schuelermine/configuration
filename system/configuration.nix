@@ -275,9 +275,10 @@ import ../mkMerge${"'"}.nix lib [
   }
   {
     # wireshark
-    programs.wireshark.enable = true;
+    /* programs.wireshark.enable = true;
     users.users.anselmschueler.extraGroups = [ "wireshark" ];
-    environment.systemPackages = with pkgs; [ wireshark ]; # programs.wireshark.enable only installs CLI
+    environment.systemPackages = with pkgs; [ wireshark ]; # programs.wireshark.enable only installs CLI */
+    # TODO: re-enable when hash fixed upstream
   }
   /*
     {
