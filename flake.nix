@@ -80,6 +80,7 @@
           ./system/configuration.nix
           ./system/anselmschueler.nix
           ./system/nailbox.nix
+          ./system/emergency-fixes.nix
         ];
       };
       homeConfigurations."anselmschueler@nailbox" = homeManagerConfiguration' {
