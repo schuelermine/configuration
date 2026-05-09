@@ -330,7 +330,7 @@ import ../mkMerge${"'"}.nix lib [
     '';
   }
   {
-    programs.vscode = {
+    programs.vscodium = {
       profiles.default.extensions = with pkgs.vscode-extensions; [
         vadimcn.vscode-lldb
       ];
@@ -343,7 +343,7 @@ import ../mkMerge${"'"}.nix lib [
   }
   {
     programs = {
-      vscode = {
+      vscodium = {
         profiles.default.userSettings = {
           "haskell.serverExecutablePath" =
             "${config.programs.haskell.hls.package}/bin/haskell-language-server-wrapper";
@@ -353,7 +353,7 @@ import ../mkMerge${"'"}.nix lib [
     };
   }
   {
-    programs.vscode = {
+    programs.vscodium = {
       profiles.default.userSettings = {
         "java.configuration.runtimes" = [
           {
@@ -373,7 +373,7 @@ import ../mkMerge${"'"}.nix lib [
     };
   }
   {
-    programs.vscode = {
+    programs.vscodium = {
       profiles.default.userSettings = {
         "java.configuration.runtimes" = [
           {
@@ -393,7 +393,7 @@ import ../mkMerge${"'"}.nix lib [
     };
   }
   {
-    programs.vscode = {
+    programs.vscodium = {
       profiles.default.userSettings = {
         "[nix]"."editor.tabSize" = 2;
         "nix.enableLanguageServer" = true;
@@ -403,7 +403,7 @@ import ../mkMerge${"'"}.nix lib [
     };
   }
   {
-    programs.vscode = {
+    programs.vscodium = {
       profiles.default.userSettings = {
         "mypy.dmypyExecutable" = "${config.programs.python.mypy.package}/bin/dmypy";
         "python.defaultInterpreterPath" = "${config.programs.python.package}/bin/python";
@@ -414,7 +414,7 @@ import ../mkMerge${"'"}.nix lib [
   }
   {
     programs = {
-      vscode = {
+      vscodium = {
         profiles.default.userSettings = {
           "[rust]"."editor.formatOnSave" = true;
           "rust-analyzer.server.path" = "${config.programs.rust.rust-analyzer.package}/bin/rust-analyzer";
@@ -425,7 +425,7 @@ import ../mkMerge${"'"}.nix lib [
     };
   }
   {
-    programs.vscode = {
+    programs.vscodium = {
       enable = true;
       mutableExtensionsDir = true;
       profiles.default.extensions = with pkgs.vscode-extensions; [
@@ -444,7 +444,6 @@ import ../mkMerge${"'"}.nix lib [
           };
         })
       ];
-      package = pkgs.vscodium;
       profiles.default.userSettings = {
         "update.mode" = "none";
 
@@ -498,7 +497,7 @@ import ../mkMerge${"'"}.nix lib [
     };
   }
   {
-    programs.vscode.profiles.default.extensions =
+    programs.vscodium.profiles.default.extensions =
       let
         ignored = [
           {
