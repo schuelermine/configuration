@@ -42,8 +42,8 @@ import ../mkMerge${"'"}.nix lib [
       enable = true;
       package = null;
       font = {
-        name = "Source Code Pro";
-        size = 16;
+        name = "${config.gnome.monospaceFont.name}";
+        size = config.gnome.monospaceFont.size + 2;
       };
       shellIntegration.enableFishIntegration = true;
       settings = {
@@ -163,9 +163,9 @@ import ../mkMerge${"'"}.nix lib [
         advanced-alttab-window-switcher
       ];
       monospaceFont = {
-        package = pkgs.source-code-pro;
-        name = "Source Code Pro";
-        size = 14;
+        package = pkgs.libertinus;
+        name = "Libertinus Mono";
+        size = 15;
       };
     };
     home.packages = (
