@@ -119,7 +119,7 @@ import ../mkMerge${"'"}.nix lib [
     */
     programs.obs-studio = {
       enable = true;
-      plugins = with pkgs.obs-studio-plugins; [ obs-vaapi ];
+      plugins = with pkgs.obs-studio-plugins; [ obs-vaapi obs-vkcapture ];
     };
     dconf = {
       enable = true;
