@@ -184,7 +184,7 @@ import ../mkMerge${"'"}.nix lib [
         virt-manager
         dino
         fractal
-        zulip
+        # zulip
         losslesscut-bin
         shortwave
         musescore
