@@ -246,9 +246,11 @@ import ../mkMerge${"'"}.nix lib [
   }
   {
     # generic desktop config
-    environment.systemPackages = let firefox = infuse pkgs.firefox-bin {
-      __input.extraPolicies.__assign =
-        (builtins.fromJSON (builtins.readFile "${inputs.just-the-browser}/firefox/policies.json")).policies;
+    environment.systemPackages = let
+      nixpkgs-master = inputs.nixpkgs-master.legacyPackages.${config.nixpkgs.system};
+      firefox = infuse nixpkgs-master.firefox {
+        __input.extraPolicies.__assign =
+          (builtins.fromJSON (builtins.readFile "${inputs.just-the-browser}/firefox/policies.json")).policies;
     }; in with pkgs; [
       kitty
       amberol
