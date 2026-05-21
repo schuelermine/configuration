@@ -191,13 +191,14 @@ import ../mkMerge${"'"}.nix lib [
         darktable
         freecad
         amberol
-        krita
         foliate
         gnome-podcasts
         audacity
         pkgsRocm.blender
         qbittorrent
         ausweisapp
+        xpano
+        keypunch
       ]
     );
     fonts.fontconfig.enable = true;

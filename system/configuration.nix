@@ -261,12 +261,11 @@ import ../mkMerge${"'"}.nix lib [
       inkscape
       kdePackages.breeze
       kdePackages.breeze-icons
-      # krita
+      krita
       libreoffice-fresh
       qalculate-gtk
       qpwgraph
       rawtherapee
-      showtime
       thunderbird-latest-bin
       wev
       wl-clipboard
@@ -276,6 +275,13 @@ import ../mkMerge${"'"}.nix lib [
       gnome-firmware
       gnome-power-manager
       gnome-tweaks
+      gnome-feeds
+      gnome-boxes
+      apostrophe
+      eyedropper
+      handbrake
+      constrict
+      cine
     ];
   }
   {
