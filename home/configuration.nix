@@ -43,7 +43,7 @@ import ../mkMerge${"'"}.nix lib [
       package = null;
       font = {
         name = "${config.gnome.monospaceFont.name}";
-        size = config.gnome.monospaceFont.size + 2;
+        size = config.gnome.monospaceFont.size;
       };
       shellIntegration.enableFishIntegration = true;
       settings = {
@@ -144,8 +144,6 @@ import ../mkMerge${"'"}.nix lib [
           edge-tiling = true;
           attach-modal-dialogs = true;
         };
-        "org/gnome/desktop/interface".cursor-size = 32;
-        "org/gnome/desktop/interface".text-scaling-factor = 1.25;
         "org/gnome/shell/extensions/appindicator".icon-size = 20;
         "org/gnome/desktop/media-handling".autorun-never = true;
         "org/gnome/desktop/notifications".show-in-lock-screen = true;
@@ -165,7 +163,7 @@ import ../mkMerge${"'"}.nix lib [
       monospaceFont = {
         package = pkgs.libertinus;
         name = "Libertinus Mono";
-        size = 15;
+        size = 14;
       };
     };
     home.packages = (
