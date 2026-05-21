@@ -273,6 +273,9 @@ import ../mkMerge${"'"}.nix lib [
       wayland-utils
       exiftool
       kdePackages.ark
+      gnome-firmware
+      gnome-power-manager
+      gnome-tweaks
     ];
   }
   {
