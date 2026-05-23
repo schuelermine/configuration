@@ -124,6 +124,7 @@ import ../mkMerge${"'"}.nix lib [
     dconf = {
       enable = true;
       settings = {
+        "org/gnome/shell".always-show-log-out = true;
         "org/gnome/settings-daemon/plugins/media-keys".custom-keybindings = [
           "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
         ];
@@ -151,11 +152,11 @@ import ../mkMerge${"'"}.nix lib [
         "org/gnome/Console".ignore-scrollback-limit = true;
       };
     };
+    services.kdeconnect.enable = true;
     gnome = {
       extensions.enabledExtensions = with pkgs.gnomeExtensions; [
         copyous
         blur-my-shell
-        gsconnect
         appindicator
         night-theme-switcher
         advanced-alttab-window-switcher
@@ -521,5 +522,8 @@ import ../mkMerge${"'"}.nix lib [
       enableDefaultConfig = false;
       matchBlocks."*".setEnv.TERM = "xterm-256color";
     };
+  }
+  {
+    home.packages = with pkgs; [ hyperrogue ];
   }
 ]
