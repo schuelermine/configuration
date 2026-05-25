@@ -559,6 +559,7 @@ import ../mkMerge${"'"}.nix lib [
       whois
       rdap
       pstree
+      libfyaml
     ];
   }
 ]
