@@ -162,7 +162,8 @@ import ../mkMerge${"'"}.nix lib [
         advanced-alttab-window-switcher
       ];
       monospaceFont = {
-        package = pkgs.libertinus;
+        package = null /*pkgs.libertinus*/;
+        # null because otherwise it messes up Typst's view of Libertinus Math I think
         name = "Libertinus Mono";
         size = 14;
       };
