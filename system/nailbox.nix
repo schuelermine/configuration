@@ -12,7 +12,7 @@
   # basic system facts
   schuelermine.machine = {
     name = "nailbox";
-    model = "framework-16-7040-amd";
+    model = "framework-16-amd-ai-300-series";
   };
   nixpkgs.system = "x86_64-linux";
   system.stateVersion = "24.11";
