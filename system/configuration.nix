@@ -380,6 +380,11 @@ import ../mkMerge${"'"}.nix lib [
     };
   }
   {
+    # use run0 instead of sudo
+    security.sudo.enable = false;
+    security.run0.enableSudoAlias = true;
+  }
+  {
     # apple compat
     services = {
       usbmuxd.enable = true;
