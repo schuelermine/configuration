@@ -77,6 +77,9 @@
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   services.fwupd.enable = true;
 
+  # switcherooctl
+  services.switcherooControl.enable = true;
+
   # mouse quirks
   environment.etc."libinput/local-overrides.quirks".text = ''
     [Logitech MX Master 3S]
