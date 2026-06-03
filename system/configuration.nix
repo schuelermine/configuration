@@ -276,7 +276,6 @@ import ../mkMerge${"'"}.nix lib [
       gnome-power-manager
       gnome-tweaks
       gnome-feeds
-      gnome-boxes
       apostrophe
       eyedropper
       handbrake
