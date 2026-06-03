@@ -481,7 +481,7 @@ import ../mkMerge${"'"}.nix lib [
     # other virtualisation
     virtualisation = {
       libvirtd = {
-        enable = false;
+        enable = true;
         qemu.swtpm.enable = true;
       };
       podman = {
