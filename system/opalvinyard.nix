@@ -11,7 +11,7 @@
 
   # basic system facts
   schuelermine.machine = {
-    name = "nailbox";
+    name = "opalvinyard";
     model = "framework-16-amd-ai-300-series";
   };
   nixpkgs.system = "x86_64-linux";
@@ -41,7 +41,7 @@
             type = "luks";
             name = "root";
             settings.allowDiscards = true;
-            passwordFile = "/tmp/nixos-install-nailbox-disko-nvme0n1-luks-password";
+            passwordFile = "/tmp/nixos-install-opalvinyard-disko-nvme0n1-luks-password";
             content = {
               type = "filesystem";
               format = "ext4";

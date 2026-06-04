@@ -76,22 +76,22 @@
         home-manager.lib.homeManagerConfiguration homeArgs;
     in
     {
-      nixosConfigurations.nailbox = nixosSystem' {
+      nixosConfigurations.opalvinyard = nixosSystem' {
         modules = [
           ./system/configuration.nix
           ./system/anselmschueler.nix
-          ./system/nailbox.nix
+          ./system/opalvinyard.nix
           ./system/emergency-fixes.nix
         ];
       };
-      homeConfigurations."anselmschueler@nailbox" = homeManagerConfiguration' {
+      homeConfigurations."anselmschueler@opalvinyard" = homeManagerConfiguration' {
         modules = [
           ./home/configuration.nix
           ./home/anselmschueler.nix
-          ./home/nailbox.nix
-          ./home/anselmschueler${"@"}nailbox.nix
+          ./home/opalvinyard.nix
+          ./home/anselmschueler${"@"}opalvinyard.nix
         ];
-        pkgs = self.nixosConfigurations.nailbox.pkgs;
+        pkgs = self.nixosConfigurations.opalvinyard.pkgs;
       };
     };
 }
