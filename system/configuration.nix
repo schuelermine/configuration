@@ -382,7 +382,7 @@ import ../mkMerge${"'"}.nix lib [
   {
     # use run0 instead of sudo
     security.sudo.enable = false;
-    security.run0.enableSudoAlias = true;
+    security.run0.enableSudoAlias = false;
   }
   {
     # apple compat
