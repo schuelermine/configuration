@@ -57,6 +57,7 @@ import ../mkMerge${"'"}.nix lib [
         repaint_delay = 5; # half default, ~200fps
         input_delay = 2; # default: 3
         paste_actions = "quote-urls-at-prompt,confirm,confirm-if-large";
+        auto_reload_config = -1;
       };
       # using raw config text for this because the home-manager module's bindings option looks awful
       extraConfig = ''
