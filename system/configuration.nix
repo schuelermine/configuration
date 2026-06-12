@@ -323,6 +323,7 @@ import ../mkMerge${"'"}.nix lib [
         inter
         source-sans
         source-serif
+        source-code-pro
       ])
     );
   }

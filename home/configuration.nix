@@ -202,7 +202,7 @@ import ../mkMerge${"'"}.nix lib [
         keypunch
       ]
     );
-    fonts.fontconfig.enable = true;
+    fonts.fontconfig.enable = false;
     xdg.configFile = {
       "discord/settings.json".text = ''
         {
