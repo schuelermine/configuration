@@ -7,7 +7,8 @@
     xhmm.url = "github:schuelermine/xhmm/b0";
     fenix.url = "github:nix-community/fenix";
     disko.url = "github:nix-community/disko";
-    lanzaboote.url = "github:nix-community/lanzaboote/v1.0.0";
+    lanzaboote.url = "git+file:///home/anselmschueler/Documents/git/github.com/nix-community/lanzaboote?ref=v1.0.0+pr617";
+    # TODO: ^ revert this once it's in a release
     nix-index.url = "github:nix-community/nix-index";
 
     infuse-nix.url = "git+https://codeberg.org/amjoseph/infuse.nix.git?rev=73c5111fdb7c0faab55bd9a19b26821639a4258e";
