@@ -2,7 +2,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
 
-    nixos-hardware.url = "github:schuelermine/nixos-hardware/framework-16-remove-quirks";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
     home-manager.url = "github:nix-community/home-manager";
     xhmm.url = "github:schuelermine/xhmm/b0";
     fenix.url = "github:nix-community/fenix";

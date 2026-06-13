@@ -213,16 +213,15 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1780483962,
-        "narHash": "sha256-0LF17xAcgiA1JjtCApV1f85LMz7xBbAss1r6Bli4i5E=",
-        "owner": "schuelermine",
+        "lastModified": 1781168557,
+        "narHash": "sha256-LOnLQ2tpYF9gqIDDr3+j3DbpJJr/QCH6zPRT2GzEUOE=",
+        "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "c5402c84b9a426486c3451674b87acf887520a2d",
+        "rev": "6358ff76821101c178e3ab4919a62799bfe3652e",
         "type": "github"
       },
       "original": {
-        "owner": "schuelermine",
-        "ref": "framework-16-remove-quirks",
+        "owner": "NixOS",
         "repo": "nixos-hardware",
         "type": "github"
       }
