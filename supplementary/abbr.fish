@@ -24,3 +24,5 @@ function expand-dots-dollar
 end
 
 abbr --add dots-dollar --position anywhere --regex '\$\.{2,}' --function expand-dots-dollar
+
+abbr --add --position=anywhere \$+ --set-cursor="%" "\$(mktemp --suffix=% | tee /dev/stderr)"

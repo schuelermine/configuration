@@ -299,6 +299,8 @@ import ../mkMerge${"'"}.nix lib [
           mv = "mv -i";
           cp = "cp -i";
           yh = "cdh";
+          strace = "strace --follow-forks --abbrev=none --verbose=all --decode-fds=all --decode-pids=all";
+          objdump = "objdump --disassemble --demangle --show-raw-insn --visualize-jumps=extended-color --disassembler-color=extended";
         };
         prompt = builtins.readFile ../supplementary/prompt.fish;
         interactiveShellInit = builtins.concatStringsSep "\n" (
