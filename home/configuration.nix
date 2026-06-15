@@ -163,9 +163,8 @@ import ../mkMerge${"'"}.nix lib [
         advanced-alttab-window-switcher
       ];
       monospaceFont = {
-        package = null /*pkgs.libertinus*/;
-        # null because otherwise it messes up Typst's view of Libertinus Math I think
-        name = "Libertinus Mono";
+        package = pkgs.source-code-pro;
+        name = "Source Code Pro";
         size = 14;
       };
     };
@@ -202,7 +201,7 @@ import ../mkMerge${"'"}.nix lib [
         keypunch
       ]
     );
-    fonts.fontconfig.enable = false;
+    fonts.fontconfig.enable = true;
     xdg.configFile = {
       "discord/settings.json".text = ''
         {
