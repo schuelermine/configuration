@@ -7,12 +7,13 @@
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
+    ./framework-16-amd-ai-300-series.nix
   ];
 
   # basic system facts
   schuelermine.machine = {
     name = "opalvinyard";
-    model = "framework-16-amd-ai-300-series";
+    model = null; # was "framework-16-amd-ai-300-series"
   };
   nixpkgs.system = "x86_64-linux";
   system.stateVersion = "24.11";
