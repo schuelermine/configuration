@@ -4,9 +4,9 @@
   services.fwupd.enable = true;
   boot.kernelParams = [
     # See https://gist.github.com/lbrame/f9034b1a9fe4fc2d2835c5542acb170a#user-content-quick-version-apply-the-mitigations-i-am-personally-using
-    # "amdgpu.dcdebugmask=0x410"
-    # "amdgpu.sg_display=0"
-    # "amdgpu.abmlevel=0"
+    "amdgpu.dcdebugmask=0x410"
+    "amdgpu.sg_display=0"
+    "amdgpu.abmlevel=0"
     # power mgmt
     "amd_pstate=active"
   ];
