@@ -91,8 +91,6 @@
     AttrEventCode=-REL_WHEEL_HI_RES;-REL_HWHEEL_HI_RES;
   '';
 
-  boot.kernelParams = [ "amdgpu.dcdebugmask=0x410" ];
-
   # kernel patch to work around https://gitlab.freedesktop.org/drm/amd/-/work_items/5163
   boot.kernelPatches = lib.mkIf false [
     {
