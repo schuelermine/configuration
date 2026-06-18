@@ -1,10 +1,13 @@
 {
   lib,
+  pkgs,
   config,
+  inputs,
   modulesPath,
   ...
 }:
-{
+let inherit ((import inputs.infuse-nix { inherit (inputs.nixpkgs) lib; }).v1) infuse;
+in {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     ./framework-16-amd-ai-300-series.nix
@@ -80,6 +83,18 @@
 
   # switcherooctl
   services.switcherooControl.enable = true;
+  services.switcherooControl.package = infuse pkgs.switcheroo-control {
+    __output = {
+      src.__assign = pkgs.fetchFromGitLab {
+        owner = "Jan200101";
+        repo = "switcheroo-control";
+        rev = "e1fc740ebd01d59b199a309202edbacf23257907";
+        domain = "gitlab.freedesktop.org";
+        hash = "sha256-+1Ot1qmApn7tp5qKnDSdxM8/h0vc+owuXyXAd15fsms=";
+      };
+      buildInputs.__append = with pkgs; [ vulkan-loader ];
+    };
+  };
 
   # mouse quirks
   environment.etc."libinput/local-overrides.quirks".text = ''
