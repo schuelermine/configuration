@@ -94,7 +94,7 @@
   boot.kernelParams = [ "amdgpu.dcdebugmask=0x410" ];
 
   # kernel patch to work around https://gitlab.freedesktop.org/drm/amd/-/work_items/5163
-  boot.kernelPatches = lib.mkIf false [
+  boot.kernelPatches = [
     {
       name = "drm/amd/display: Disable panel replay feature unconditionally to work around https://gitlab.freedesktop.org/drm/amd/-/work_items/5163";
       patch = ../supplementary/0001-drm-amd-display-Disable-panel-replay-feature-uncondi.patch;
