@@ -155,7 +155,6 @@ import ../mkMerge${"'"}.nix lib [
     };
     gnome = {
       extensions.enabledExtensions = with pkgs.gnomeExtensions; [
-        valent
         copyous
         blur-my-shell
         appindicator
@@ -171,6 +170,7 @@ import ../mkMerge${"'"}.nix lib [
     home.packages = (
       with pkgs;
       [
+        valent
         discord
         deltachat-desktop
         telegram-desktop
