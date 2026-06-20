@@ -194,7 +194,6 @@ import ../mkMerge${"'"}.nix lib [
         foliate
         gnome-podcasts
         audacity
-        pkgsRocm.blender
         qbittorrent
         ausweisapp
         xpano
