@@ -9,7 +9,7 @@ in
     users.${username} = {
       isNormalUser = true;
       description = "Anselm Schüler";
-      extraGroups = [ "wheel" "gamemode" ];
+      extraGroups = [ "wheel" ];
       hashedPasswordFile = "/etc/${username}.password";
       shell = pkgs.fish;
     };

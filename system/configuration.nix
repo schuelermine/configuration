@@ -329,10 +329,7 @@ import ../mkMerge${"'"}.nix lib [
   }
   {
     # gaming
-    programs = {
-      gamemode.enable = true;
-      steam.enable = true;
-    };
+    programs.steam.enable = true;
   }
   {
     # audio
