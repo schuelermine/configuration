@@ -90,6 +90,4 @@
     ModelInvertHorizontalScrolling=0
     AttrEventCode=-REL_WHEEL_HI_RES;-REL_HWHEEL_HI_RES;
   '';
-
-  boot.kernelParams = [ "amdgpu.dcdebugmask=0x410" ];
 }
