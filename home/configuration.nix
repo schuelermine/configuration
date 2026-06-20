@@ -153,9 +153,9 @@ import ../mkMerge${"'"}.nix lib [
         "org/gnome/Console".ignore-scrollback-limit = true;
       };
     };
-    services.kdeconnect.enable = true;
     gnome = {
       extensions.enabledExtensions = with pkgs.gnomeExtensions; [
+        valent
         copyous
         blur-my-shell
         appindicator
