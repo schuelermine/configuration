@@ -251,7 +251,7 @@ import ../mkMerge${"'"}.nix lib [
         __input.extraPolicies.__assign =
           (builtins.fromJSON (builtins.readFile "${inputs.just-the-browser}/firefox/policies.json")).policies;
     }; in with pkgs; [
-      kitty
+      foot
       amberol
       dconf-editor
       firefox

@@ -38,58 +38,9 @@ import ../mkMerge${"'"}.nix lib [
     ];
   }
   {
-    programs.kitty = {
+    programs.foot = {
       enable = true;
-      package = null;
-      font = {
-        name = "${config.gnome.monospaceFont.name}";
-        size = config.gnome.monospaceFont.size;
-      };
-      shellIntegration.enableFishIntegration = true;
-      settings = {
-        cursor_trail = 100;
-        cursor_trail_start_threshold = 4;
-        scrollback_lines = 100000;
-        scrollback_pager_history_size = 2000; # 2 GB
-        scrollback_fill_enlarged_window = true;
-        touch_scroll_multiplier = 5.0;
-        underline_hyperlinks = "always"; # only applies to OSC 8 hyperlinks, not detected URLs
-        repaint_delay = 5; # half default, ~200fps
-        input_delay = 2; # default: 3
-        paste_actions = "quote-urls-at-prompt,confirm,confirm-if-large";
-        auto_reload_config = -1;
-      };
-      # using raw config text for this because the home-manager module's bindings option looks awful
-      extraConfig = ''
-        # do not use ctrl+shift+arrows for tab switching
-        map ctrl+shift+right
-        map ctrl+shift+left
-
-        # reuse cwd for new tabs
-        map ctrl+shift+t new_tab_with_cwd
-
-        # do not open links on left click
-        mouse_map left       click ungrabbed         mouse_handle_click selection prompt
-        mouse_map shift+left click ungrabbed,grabbed mouse_handle_click selection prompt
-
-        # open link on ctrl+click
-        mouse_map ctrl+left release grabbed,ungrabbed mouse_handle_click link
-        mouse_map ctrl+left press   grabbed           discard_event
-
-        # unmap unused link bindings
-        mouse_map ctrl+shift+left release grabbed,ungrabbed
-
-        # use alt+click for rectangle select
-        mouse_map alt+left       press       ungrabbed         mouse_selection rectangle
-        mouse_map alt+shift+left press       ungrabbed,grabbed mouse_selection rectangle
-        mouse_map alt+left       triplepress ungrabbed         mouse_selection line_from_point
-        mouse_map alt+shift+left press       ungrabbed,grabbed mouse_selection line_from_point
-
-        # unmap unused rectangle select bindings
-        mouse_map ctrl+alt+left       press       ungrabbed
-        mouse_map ctrl+shift+alt+left press       ungrabbed,grabbed
-        mouse_map ctrl+alt+left       triplepress ungrabbed
-      '';
+      settings.main.font = "${config.gnome.monospaceFont.name}:size=${config.gnome.monospaceFont.size}";
     };
   }
   {
