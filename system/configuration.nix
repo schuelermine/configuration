@@ -251,6 +251,7 @@ import ../mkMerge${"'"}.nix lib [
         __input.extraPolicies.__assign =
           (builtins.fromJSON (builtins.readFile "${inputs.just-the-browser}/firefox/policies.json")).policies;
     }; in with pkgs; [
+      libnotify # required for foot notification support
       foot
       amberol
       dconf-editor

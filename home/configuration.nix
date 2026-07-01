@@ -40,7 +40,24 @@ import ../mkMerge${"'"}.nix lib [
   {
     programs.foot = {
       enable = true;
-      settings.main.font = "${config.gnome.monospaceFont.name}:size=${config.gnome.monospaceFont.size}";
+      settings = {
+        main = {
+          font = "${config.gnome.monospaceFont.name}:size=${builtins.toString config.gnome.monospaceFont.size}";
+          initial-window-size-chars = "90x25";
+          gamma-correct-blending = true;
+          pad = "5x5 center";
+        };
+        csd.color = "888888";
+        security.osc52 = "disabled";
+        bell.urgent = true;
+        desktop-notifications.inhibit-when-focused = true;
+        scrollback = {
+          lines = 10000;
+          multiplier = 4;
+        };
+        url.osc8-underline = "always";
+        csd.font = "Adwaita Sans:weight=bold";
+      };
     };
   }
   {
@@ -82,7 +99,7 @@ import ../mkMerge${"'"}.nix lib [
         ];
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
           binding = "<Super>t";
-          command = "${pkgs.kitty}/bin/kitty";
+          command = "${config.programs.foot.package}/bin/foot";
           name = "Terminal";
         };
         "org/gnome/settings-daemon/plugins/media-keys".email = [ "<Super>e" ];
