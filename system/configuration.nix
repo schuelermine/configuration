@@ -564,7 +564,4 @@ import ../mkMerge${"'"}.nix lib [
       libfyaml
     ];
   }
-  {
-    services.cpupower-gui.enable = true;
-  }
 ]
