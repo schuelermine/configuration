@@ -279,7 +279,7 @@ import ../mkMerge${"'"}.nix lib [
       gnome-feeds
       apostrophe
       eyedropper
-      handbrake
+      # handbrake
       constrict
       cine
     ];
