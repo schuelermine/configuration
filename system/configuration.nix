@@ -330,7 +330,10 @@ import ../mkMerge${"'"}.nix lib [
   }
   {
     # gaming
-    programs.steam.enable = true;
+    programs = {
+      gamemode.enable = true;
+      steam.enable = true;
+    };
   }
   {
     # audio
