@@ -155,7 +155,7 @@ import ../mkMerge${"'"}.nix lib [
         # zulip
         losslesscut-bin
         shortwave
-        musescore
+        # musescore
         darktable
         freecad
         amberol
