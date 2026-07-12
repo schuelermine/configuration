@@ -157,7 +157,7 @@ import ../mkMerge${"'"}.nix lib [
         shortwave
         # musescore
         darktable
-        freecad
+        # freecad
         amberol
         foliate
         gnome-podcasts
