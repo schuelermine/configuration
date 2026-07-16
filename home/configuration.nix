@@ -119,6 +119,7 @@ import ../mkMerge${"'"}.nix lib [
         "org/gnome/desktop/notifications".show-in-lock-screen = true;
         "org/gnome/system/location".enabled = true;
         "org/gnome/Console".ignore-scrollback-limit = true;
+        "org/gnome/desktop/wm/preferences".disable-workarounds = true;
       };
     };
     gnome = {

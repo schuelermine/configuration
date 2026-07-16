@@ -1,0 +1,41 @@
+#!/usr/bin/env fish
+
+set vars LD_PRELOAD LD_LIBRARY_PATH
+
+for var in $vars
+    if set --query --export $var
+        set _x_dynamic_"$var"_unset ""
+        set _x_dynamic_"$var"_copy $$var
+    end
+end
+
+function splat_var_variants
+    for var in $vars
+        set var_variant_name _x_dynamic_"$var"_$argv[1]
+        if set -q $var_variant_name
+            echo $var=$$var_variant_name
+        end
+    end
+end
+
+set gamescope_args
+set game_args
+set current_args_var gamescope_args
+
+for arg in $argv
+    set --append $current_args_var $arg
+    if test $arg = "--"
+        set current_args_var game_args
+    end
+end
+
+if not test (count $game_args) -gt 0
+    echo "No game command specified. Game command must follow \"--\"." >&2
+    return 1
+end
+
+set --erase gamescope_args[-1]
+
+set game_command env (splat_var_variants copy) $game_args
+
+exec env (splat_var_variants unset) gamescope $gamescope_args -- $game_command

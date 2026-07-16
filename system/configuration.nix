@@ -332,8 +332,27 @@ import ../mkMerge${"'"}.nix lib [
     # gaming
     programs = {
       gamemode.enable = true;
+      gamescope = {
+        enable = true;
+        # currently impossible to use in Steam
+        # see: https://github.com/NixOS/nixpkgs/issues/351516#issuecomment-2439718686
+        # capSysNice = true;
+      };
       steam.enable = true;
     };
+    environment.systemPackages =
+      let mkFishScript = src: pkgs.concatTextFile rec {
+        name = builtins.baseNameOf src;
+        files = [
+          (pkgs.writeText "fish-shebang" "#!${pkgs.fish}/bin/fish\n")
+          src
+        ];
+        executable = true;
+        destination = "/bin/${name}";
+      }; in map mkFishScript [
+        ../supplementary/gamescope_
+        ../supplementary/gamescope-opalvinyard-default
+      ];
   }
   {
     # audio
@@ -566,5 +585,18 @@ import ../mkMerge${"'"}.nix lib [
       pstree
       libfyaml
     ];
+  }
+  {
+    # block AI websites
+    networking.extraHosts =
+      let block = host: ''
+        ::1 ${host}
+        127.0.0.1 ${host}
+      '';
+      in block "chatgpt.com"
+        + block "gemini.google.com"
+        + block "claude.ai"
+        + block "chat.deepseek.com"
+        + block "perplexity.ai";
   }
 ]
