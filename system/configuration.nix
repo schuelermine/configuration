@@ -351,7 +351,8 @@ import ../mkMerge${"'"}.nix lib [
         destination = "/bin/${name}";
       }; in map mkFishScript [
         ../supplementary/gamescope_
-        ../supplementary/gamescope-opalvinyard-default
+        ../supplementary/gamewrapper-opalvinyard
+        # TODO: Hardware-agnostic
       ];
   }
   {

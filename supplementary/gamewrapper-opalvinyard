@@ -1,0 +1,3 @@
+#!/usr/bin/env fish
+
+exec gamemoderun gamescope_ --expose-wayland --adaptive-sync --force-windows-fullscreen --fullscreen -w 2560 -h 1600 -W 2560 -H 1600 $argv
