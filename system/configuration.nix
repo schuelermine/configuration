@@ -282,6 +282,7 @@ import ../mkMerge${"'"}.nix lib [
       # handbrake
       constrict
       cine
+      mpv
     ];
   }
   {
