@@ -28,7 +28,7 @@ import ../mkMerge${"'"}.nix lib [
       };
     };
     environment.systemPackages = with pkgs; [
-      inputs.nix-index.packages.${config.nixpkgs.system}.default
+      nix-index
       nix-tree
       nix-diff
     ];

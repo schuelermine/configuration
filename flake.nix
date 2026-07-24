@@ -1,16 +1,13 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-26.05";
 
     # nixos-hardware.url = "github:NixOS/nixos-hardware";
     home-manager.url = "github:nix-community/home-manager";
     xhmm.url = "github:schuelermine/xhmm/b0";
     fenix.url = "github:nix-community/fenix";
     disko.url = "github:nix-community/disko";
-    lanzaboote.url = "git+file:///home/anselmschueler/Documents/git/github.com/nix-community/lanzaboote?ref=v1.0.0+pr617";
-    # TODO: ^ revert this once it's in a release
-    nix-index.url = "github:nix-community/nix-index";
+    lanzaboote.url = "github:nix-community/lanzaboote/v1.0.0";
 
     infuse-nix.url = "git+https://codeberg.org/amjoseph/infuse.nix.git?rev=73c5111fdb7c0faab55bd9a19b26821639a4258e";
     infuse-nix.flake = false;
@@ -22,7 +19,6 @@
     fenix.inputs.nixpkgs.follows = "nixpkgs";
     disko.inputs.nixpkgs.follows = "nixpkgs";
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
-    nix-index.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
