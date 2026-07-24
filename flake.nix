@@ -7,7 +7,7 @@
     xhmm.url = "github:schuelermine/xhmm/b0";
     fenix.url = "github:nix-community/fenix";
     disko.url = "github:nix-community/disko";
-    lanzaboote.url = "github:nix-community/lanzaboote/v1.0.0";
+    lanzaboote.url = "github:nix-community/lanzaboote/v1.1.0";
 
     infuse-nix.url = "git+https://codeberg.org/amjoseph/infuse.nix.git?rev=73c5111fdb7c0faab55bd9a19b26821639a4258e";
     infuse-nix.flake = false;
