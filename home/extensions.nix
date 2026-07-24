@@ -252,5 +252,11 @@
       version = "0.45.2025120808";
       hash = "sha256-6ge5ggD+81NWN0e9To2IKPVoh5LewrdSl2mnJkn/Txs=";
     }
+    {
+      name = "metals";
+      publisher = "scalameta";
+      version = "1.68.0";
+      hash = "sha256-ZTNnss7WL9vHfebRKQu5NZ4JOtbQzUXveKGUM5OAYMQ=";
+    }
   ];
 }
