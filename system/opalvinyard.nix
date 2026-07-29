@@ -91,5 +91,8 @@
     AttrEventCode=-REL_WHEEL_HI_RES;-REL_HWHEEL_HI_RES;
   '';
 
-  boot.kernelParams = [ "split_lock_detect=ratelimit:1000" ];
+  boot.kernelParams = [
+    "split_lock_detect=ratelimit:1000"
+    "amd_pstate=guided"
+  ];
 }
