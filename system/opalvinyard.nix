@@ -93,6 +93,5 @@
 
   boot.kernelParams = [
     "split_lock_detect=ratelimit:1000"
-    "amd_pstate=guided"
   ];
 }
