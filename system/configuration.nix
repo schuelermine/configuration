@@ -247,15 +247,21 @@ import ../mkMerge${"'"}.nix lib [
   {
     # generic desktop config
     environment.systemPackages = let
-      firefox = infuse pkgs.firefox {
+      firefox' = infuse pkgs.firefox {
         __input.extraPolicies.__assign =
           (builtins.fromJSON (builtins.readFile "${inputs.just-the-browser}/firefox/policies.json")).policies;
-    }; in with pkgs; [
+      };
+      mpv' = infuse pkgs.mpv {
+        __input.scripts.__append = with pkgs.mpvScripts; [
+          mpris
+        ];
+      };
+    in with pkgs; [
       libnotify # required for foot notification support
       foot
       amberol
       dconf-editor
-      firefox
+      firefox'
       foliate
       gimp3
       gnome-sound-recorder
@@ -282,7 +288,7 @@ import ../mkMerge${"'"}.nix lib [
       # handbrake
       constrict
       cine
-      mpv
+      mpv'
     ];
   }
   {
