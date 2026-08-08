@@ -230,7 +230,7 @@ import ../mkMerge${"'"}.nix lib [
       fzf.enable = true;
       bat = {
         enable = true;
-        config.style = "numbers,changes,rule,snip";
+        config.style = "numbers,changes,rule,snip,header-filename";
       };
       gpg.enable = true;
       less = {
