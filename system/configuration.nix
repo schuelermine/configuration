@@ -240,6 +240,7 @@ import ../mkMerge${"'"}.nix lib [
           geary
           gnome-calendar
           gnome-console
+          gnome-software
         ]
       );
     };
@@ -283,6 +284,7 @@ import ../mkMerge${"'"}.nix lib [
       gnome-power-manager
       gnome-tweaks
       gnome-feeds
+      bazaar
       apostrophe
       eyedropper
       # handbrake
