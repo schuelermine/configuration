@@ -167,6 +167,7 @@ import ../mkMerge${"'"}.nix lib [
         ausweisapp
         xpano
         keypunch
+        gpu-screen-recorder
       ]
     );
     fonts.fontconfig.enable = true;
