@@ -131,8 +131,8 @@ import ../mkMerge${"'"}.nix lib [
         advanced-alttab-window-switcher
       ];
       monospaceFont = {
-        package = pkgs.fira-mono;
-        name = "Fira Mono";
+        package = pkgs.source-code-pro;
+        name = "Source Code Pro";
         size = 14;
       };
     };
