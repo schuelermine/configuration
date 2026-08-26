@@ -270,7 +270,7 @@ import ../mkMerge${"'"}.nix lib [
       kdePackages.breeze
       kdePackages.breeze-icons
       krita
-      libreoffice-fresh
+      libreoffice-stable
       qalculate-gtk
       qpwgraph
       rawtherapee
