@@ -168,6 +168,7 @@ import ../mkMerge${"'"}.nix lib [
         xpano
         keypunch
         gpu-screen-recorder-gtk
+        tangram
       ]
     );
     fonts.fontconfig.enable = true;
