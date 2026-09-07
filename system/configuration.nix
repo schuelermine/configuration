@@ -223,7 +223,6 @@ import ../mkMerge${"'"}.nix lib [
   {
     # gnome desktop environment
     services = {
-      dbus.packages = [ pkgs.gcr ];
       printing.enable = true;
       libinput.enable = true;
       displayManager.gdm.enable = true;
