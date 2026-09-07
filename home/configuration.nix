@@ -25,7 +25,7 @@ import ../mkMerge${"'"}.nix lib [
         stack.enable = true;
       };
       rust.customToolchain.toolchainPackage =
-        inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.stable.toolchain;
+        inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.latest.toolchain;
       python = {
         enable = true;
         mypy.enable = true;
@@ -35,6 +35,11 @@ import ../mkMerge${"'"}.nix lib [
       agda
       clang
       koka
+    ];
+  }
+  {
+    home.packages = with pkgs; [
+      zed-editor
     ];
   }
   {
