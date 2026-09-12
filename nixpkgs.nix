@@ -6,6 +6,12 @@ in
 {
   nixpkgs = {
     config.allowUnfree = true;
-    overlays = [];
+    overlays = [
+      (final: prev: {
+        libertinus = infuse prev.libertinus {
+          __output.postInstall.__append = "\n" + "rm $out/share/fonts/truetype/LibertinusMath-Regular.ttf";
+        };
+      })
+    ];
   };
 }
