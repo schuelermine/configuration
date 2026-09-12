@@ -505,4 +505,7 @@ import ../mkMerge${"'"}.nix lib [
   {
     home.packages = with pkgs; [ hyperrogue ];
   }
+  {
+    home.packages = with pkgs; [ tinymist ];
+  }
 ]
