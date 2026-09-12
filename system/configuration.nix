@@ -606,6 +606,7 @@ import ../mkMerge${"'"}.nix lib [
         + block "gemini.google.com"
         + block "claude.ai"
         + block "chat.deepseek.com"
-        + block "perplexity.ai";
+        + block "perplexity.ai"
+        + block "assistant.kagi.com";
   }
 ]
