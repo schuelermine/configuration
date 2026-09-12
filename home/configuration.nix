@@ -290,6 +290,7 @@ import ../mkMerge${"'"}.nix lib [
     };
     home = {
       packages = with pkgs; [
+        exiv2
         haskellPackages.ret
         asciinema
         powershell
