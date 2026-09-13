@@ -125,6 +125,8 @@ import ../mkMerge${"'"}.nix lib [
         "org/gnome/system/location".enabled = true;
         "org/gnome/Console".ignore-scrollback-limit = true;
         "org/gnome/desktop/wm/preferences".disable-workarounds = true;
+        "org/gnome/desktop/interface".text-scaling-factor = 1.25;
+        "org/gnome/desktop/interface".cursor-size = 32;
       };
     };
     gnome = {
@@ -138,7 +140,7 @@ import ../mkMerge${"'"}.nix lib [
       monospaceFont = {
         package = pkgs.source-code-pro;
         name = "Source Code Pro";
-        size = 14;
+        size = 16;
       };
     };
     home.packages = (
