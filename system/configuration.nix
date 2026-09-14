@@ -333,6 +333,7 @@ import ../mkMerge${"'"}.nix lib [
         source-sans
         source-serif
         source-code-pro
+        ibm-plex
       ])
     );
   }
