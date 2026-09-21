@@ -176,6 +176,7 @@ import ../mkMerge${"'"}.nix lib [
         keypunch
         gpu-screen-recorder-gtk
         tangram
+        pkgsRocm.blender
       ]
     );
     fonts.fontconfig.enable = true;
