@@ -60,6 +60,7 @@
       device = "/var/swapfile";
     }
   ];
+  boot.kernel.sysctl."vm.swappiness" = 100;
 
   # kernel modules
   boot = {

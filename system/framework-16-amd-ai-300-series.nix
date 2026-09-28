@@ -4,11 +4,11 @@
   services.fwupd.enable = true;
   boot.kernelParams = [
     # See https://gist.github.com/lbrame/f9034b1a9fe4fc2d2835c5542acb170a#user-content-quick-version-apply-the-mitigations-i-am-personally-using
-    "amdgpu.dcdebugmask=0x410"
-    "amdgpu.sg_display=0"
-    "amdgpu.abmlevel=0"
+#    "amdgpu.dcdebugmask=0x410"
+#    "amdgpu.sg_display=0"
+#    "amdgpu.abmlevel=0"
     # power mgmt
-    "amd_pstate=active"
+#    "amd_pstate=active"
   ];
   services.fprintd.enable = lib.mkDefault true;
   services.udev.extraRules = ''
@@ -21,7 +21,7 @@
     KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="32ac", ATTRS{idProduct}=="0012", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
   '';
   hardware.sensor.iio.enable = lib.mkDefault true;
-  hardware.keyboard.qmk.enable = lib.mkDefault true;
+#  hardware.keyboard.qmk.enable = lib.mkDefault true;
   services.tlp.enable = lib.mkDefault (!config.services.power-profiles-daemon.enable); #?
   services.fstrim.enable = lib.mkDefault true;
   boot = {
