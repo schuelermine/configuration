@@ -205,8 +205,6 @@ import ../mkMerge${"'"}.nix lib [
     environment.systemPackages = with pkgs; [
       aspellDicts.de
       aspellDicts.en
-      aspellDicts.en-computers
-      aspellDicts.en-science
       hunspellDicts.de-de
       hunspellDicts.en-us
       hunspellDicts.en-us-large
